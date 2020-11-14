@@ -1,0 +1,37 @@
+site_name: "Termynal"
+site_url: "https://pypi.org/project/termynal"
+site_description: ""
+
+repo_name: "termynal"
+repo_url: "https://github.com/daxartio/termynal"
+edit_uri: "edit/main/docs/"
+
+copyright: "Copyright &copy; 2020 Danil Akhtarov <daxartio@gmail.com>"
+
+nav:
+  - "Home": README.md
+
+theme:
+  name: material
+  language: ru
+  palette:
+    primary: black
+    accent: yellow
+
+plugins:
+  - termynal
+  - search:
+      lang: ru
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          rendering:
+            show_source: true
+      watch:
+        - "termynal"
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.superfences
