@@ -33,6 +33,8 @@ class Termynal:
 
 class TermynalPreprocessor(Preprocessor):
     rexep = re.compile('(<code.*>)((.|\n)*?)(</code>)')
+    comment = '<!-- termynal -->'
+    language_class = 'class="language-console"'
 
     def run(self, lines):  # noqa:C901
         content_by_placeholder = {}
@@ -59,14 +61,23 @@ class TermynalPreprocessor(Preprocessor):
         for line in lines:
             if line in content_by_placeholder:
                 (content, i) = content_by_placeholder[line]
-                if content.startswith('<!-- termynal -->'):
+                if content.startswith(self.comment):
                     is_termynal_code = True
                     continue
+
+                matches = self.rexep.search(content)
+                if not matches:
+                    continue
+
+                if self.language_class in matches.group(1):
+                    is_termynal_code = True
+
                 if not is_termynal_code:
                     continue
+
                 is_termynal_code = False
                 self.md.htmlStash.rawHtmlBlocks[i] = ''
-                content = self.rexep.search(content).group(2)
+                content = matches.group(2)
                 code_lines = Termynal(content).convert()
                 if code_lines:
                     lines_by_placeholder[line] = code_lines
