@@ -8,6 +8,8 @@ $ pip install termynal
 Installed
 ```
 
+[Example](https://daxartio.github.io/termynal/)
+
 ## Usage
 
 Use `<!-- termynal -->` before code block
@@ -27,5 +29,40 @@ or `console` in code block
 // code
 ```
 ````
+
+progress, prompt `---> 100%`
+
+````
+```console
+$ show progress
+---> 100%
+Done!
+```
+````
+
+command, start with `$`
+
+````
+```console
+$ command
+```
+````
+
+comment, start with `#`
+
+````
+```console
+# comment
+```
+````
+
+`mkdocs` plugin
+
+```yaml
+...
+plugins:
+  - termynal
+...
+```
 
 Thanks [ines](https://github.com/ines/termynal)

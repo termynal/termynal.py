@@ -6,7 +6,7 @@ repo_name: "termynal"
 repo_url: "https://github.com/daxartio/termynal"
 edit_uri: "edit/main/docs/"
 
-copyright: "Copyright &copy; 2020 Danil Akhtarov <daxartio@gmail.com>"
+copyright: "Copyright &copy; 2021 Danil Akhtarov <daxartio@gmail.com>"
 
 nav:
   - "Home": README.md
