@@ -1,5 +1,10 @@
 # Termynal
 
+A lightweight and modern animated terminal window.
+Built for [mkdocs](https://www.mkdocs.org/).
+
+## Installation
+
 <!-- termynal -->
 
 ```
