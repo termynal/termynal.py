@@ -71,6 +71,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#termynal" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -216,10 +221,50 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Home
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="." class="md-nav__link md-nav__link--active">
         Home
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание раздела">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание раздела
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -242,6 +287,30 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание раздела
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -261,9 +330,57 @@
   </a>
 
 
-  <h1>Home</h1>
+<h1 id="termynal">Termynal</h1>
+<p>A lightweight and modern animated terminal window.
+Built for <a href="https://www.mkdocs.org/">mkdocs</a>.</p>
+<h2 id="installation">Installation</h2>
+<!-- termynal -->
 
+<p>
+<div class="termy" data-termynal>
+<span data-ty="input">pip install termynal</span>
+<span data-ty="progress"></span>
+<span data-ty>Installed</span>
+<span data-ty></span>
+</div></p>
+<p><a href="https://daxartio.github.io/termynal/">Example</a></p>
+<h2 id="usage">Usage</h2>
+<p>Use <code>&lt;!-- termynal --&gt;</code> before code block</p>
+<div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
 
+```
+// code
+```
+</code></pre></div>
+<p>or <code>console</code> in code block</p>
+<div class="highlight"><pre><span></span><code>```console
+// code
+```
+</code></pre></div>
+<p>progress, prompt <code>---&gt; 100%</code></p>
+<div class="highlight"><pre><span></span><code>```console
+$ show progress
+---&gt; 100%
+Done!
+```
+</code></pre></div>
+<p>command, start with <code>$</code></p>
+<div class="highlight"><pre><span></span><code>```console
+$ command
+```
+</code></pre></div>
+<p>comment, start with <code>#</code></p>
+<div class="highlight"><pre><span></span><code>```console
+# comment
+```
+</code></pre></div>
+<p><code>mkdocs</code> plugin</p>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span><span class="w"></span>
+<span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">termynal</span><span class="w"></span>
+<span class="nn">...</span><span class="w"></span>
+</code></pre></div>
+<p>Thanks <a href="https://github.com/ines/termynal">ines</a></p>
 
 
 
