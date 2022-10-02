@@ -17,6 +17,9 @@ jobs:
       - name: Install python dependencies
         run: make install
 
+      - name: Move README
+        run: cp README.md docs/
+
       - name: Generate docs
         run: make docs
 
