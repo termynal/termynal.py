@@ -91,5 +91,5 @@ class TermynalExtension(Extension):
         md.preprocessors.register(TermynalPreprocessor(md), 'termynal', 20)
 
 
-def makeExtension(**kwargs):  # noqa:N802
+def makeExtension(**kwargs):  # noqa:N802  # pylint:disable=invalid-name
     return TermynalExtension(**kwargs)

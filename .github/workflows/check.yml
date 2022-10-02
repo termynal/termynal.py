@@ -1,0 +1,26 @@
+name: CI Tests/Lints
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install poetry
+        run: pip install poetry==1.1.15
+
+      - name: Install python dependencies
+        run: make install
+
+      - name: Run linters
+        run: make lint
+
+      - name: Run test
+        run: make test

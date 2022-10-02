@@ -1,4 +1,5 @@
 # pylint:disable=redefined-outer-name
+# pylint:disable=invalid-name
 import pytest
 from markdown import markdown
 

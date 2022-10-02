@@ -16,7 +16,7 @@ keywords = []
 "termynal" = "termynal.markdown:TermynalExtension"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.7.2"
 markdown = "*"
 mkdocs = {version = "*", optional = true}
 
@@ -46,7 +46,7 @@ mkdocstrings = "*"
 mutmut = "*"
 mypy = "*"
 pep8-naming = "*"
-pylint = "*"
+pylint = "^2.15.3"
 pytest = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
@@ -55,10 +55,62 @@ pytest-mock = "*"
 safety = "*"
 toml = "*"
 unify = "*"
+types-Markdown = "^3.4.2"
 
 [tool.poetry.extras]
 mkdocs = ["mkdocs"]
 
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+ignore_missing_imports = true
+no_implicit_optional = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+
+[tool.isort]
+profile = "black"
+
+[tool.coverage.run]
+omit = ["tests/*", "**/__main__.py", "**/.venv/*", "**/site-packages/*"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 93.8
+
+[tool.pylint]
+good-names = ["i","j","k","e","x","_","pk","id"]
+max-args = 5
+max-attributes = 10
+max-bool-expr = 5
+max-module-lines = 300
+max-nested-blocks = 2
+max-public-methods = 30
+max-returns = 5
+max-statements = 30
+output-format = "colorized"
+ignored-classes = ["contextlib.closing"]
+disable = [
+    "C0111", # Missing module docstring (missing-docstring)
+    "R0901", # Too many ancestors (m/n) (too-many-ancestors)
+    "R0903", # Too few public methods (m/n) (too-few-public-methods)
+    "R0801", # duplicate-code
+]
+
+[tool.black]
+skip-string-normalization = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "strict"
+addopts = "--strict-markers --showlocals --verbosity 2"
+log_level = "DEBUG"
+
+[tool.bandit]
+exclude_dirs = ["tests"]

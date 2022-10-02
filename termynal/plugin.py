@@ -2,6 +2,7 @@ import logging
 import os
 
 from mkdocs import utils
+from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.plugins import BasePlugin
 
 logger = logging.getLogger(__name__)
@@ -21,7 +22,7 @@ class TermynalPlugin(BasePlugin):
 
         return config
 
-    def on_post_build(self, config, **kwargs):  # pylint: disable=unused-argument
+    def on_post_build(self, *, config: MkDocsConfig):
         output_base_path = config['site_dir']
 
         for filename in ['termynal.css', 'termynal.js']:
