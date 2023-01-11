@@ -83,7 +83,7 @@ update-changelog: docs-changelog
 .PHONY: bump-version
 bump-version:  ## Bump version (commit and tag)
 	poetry version $(v)
-	git add . && git commit -m "Bump version $(v)"
+	git add . && git commit -m "bump: bump version to $(v)"
 	git tag -m "" -a $(v)
 	make update-changelog
 
@@ -92,7 +92,3 @@ clean:  ## Clean
 	rm -rf site || true
 	rm -rf dist || true
 	rm -rf htmlcov || true
-
-.PHONY: git-lint
-git-lint:  ## Check git commit
-	$(POETRY_RUN) gitlint

@@ -1,11 +1,9 @@
-import logging
 import os
 
 from mkdocs import utils
 from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.plugins import BasePlugin
 
-logger = logging.getLogger(__name__)
 base_path = os.path.dirname(os.path.abspath(__file__))
 
 
