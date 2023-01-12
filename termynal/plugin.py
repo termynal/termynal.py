@@ -8,7 +8,7 @@ base_path = os.path.dirname(os.path.abspath(__file__))
 
 
 class TermynalPlugin(BasePlugin):
-    def on_config(self, config, **kwargs):  # pylint: disable=unused-argument
+    def on_config(self, config):
         if 'termynal.css' not in config['extra_css']:
             config['extra_css'].append('termynal.css')
 
