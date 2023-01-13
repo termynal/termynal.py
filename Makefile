@@ -64,11 +64,11 @@ docs:  ## Build docs
 docs-serve:  ## Serve docs
 	$(POETRY_RUN) mkdocs serve
 
-.PHONY: bump-version
-bump-version:  ## Bump version (commit and tag)
+.PHONY: bump
+bump:  ## Bump version (commit and tag)
 	poetry version $(v)
 	git add . && git commit -m "bump: bump version to $(v)"
-	git tag -m "" -a $(v)
+	git tag -m "" -a v$(v)
 
 .PHONY: clean
 clean:  ## Clean
