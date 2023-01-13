@@ -22,8 +22,8 @@ mkdocs = {version = "^1.4", optional = true}
 
 [tool.poetry.group.dev.dependencies]
 autoflake = "*"
+bandit = "*"
 black = "*"
-ruff = "*"
 isort = "*"
 mypy = "*"
 pylint = "*"
@@ -32,6 +32,7 @@ pytest-asyncio = "*"
 pytest-cov = "*"
 pytest-deadfixtures = "*"
 pytest-mock = "*"
+ruff = "*"
 toml = "*"
 types-Markdown = "*"
 unify = "*"
