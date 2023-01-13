@@ -16,7 +16,7 @@ install:  ## Install dependencies
 
 .PHONY: install-docs
 install-docs:  ## Install docs dependencies
-	poetry install --group docs
+	poetry install --only docs
 
 .PHONY: publish
 publish:  ## Publish package
