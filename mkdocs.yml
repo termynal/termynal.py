@@ -13,7 +13,7 @@ nav:
 
 theme:
   name: material
-  language: ru
+  language: en
   palette:
     primary: black
     accent: yellow
@@ -21,15 +21,7 @@ theme:
 plugins:
   - termynal
   - search:
-      lang: ru
-  - mkdocstrings:
-      default_handler: python
-      handlers:
-        python:
-          rendering:
-            show_source: true
-      watch:
-        - "termynal"
+      lang: en
 
 markdown_extensions:
   - admonition

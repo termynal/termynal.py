@@ -10,21 +10,13 @@ help: ## Show help
 .PHONY: all
 all: format lint test  ## Run format lint test
 
-.PHONY: lock
-lock:  ## Lock dependencies
-	poetry lock
-
-.PHONY: update
-update:  ## Update dependencies
-	poetry update
-
-.PHONY: build
-build:  ## Build package
-	poetry build
-
 .PHONY: install
 install:  ## Install dependencies
 	poetry install
+
+.PHONY: install-docs
+install-docs:  ## Install docs dependencies
+	poetry install --group docs
 
 .PHONY: publish
 publish:  ## Publish package
@@ -32,7 +24,7 @@ publish:  ## Publish package
 
 .PHONY: test
 test:  ## Test with coverage
-	$(TEST) --cov
+	$(TEST) --cov=./
 
 .PHONY: test-fast
 test-fast:  ## Test until error
@@ -49,7 +41,7 @@ test-report:  ## Report testing
 
 .PHONY: lint
 lint:  ## Check code
-	$(POETRY_RUN) flake8 --jobs 1 --statistics --show-source $(CODE)
+	$(POETRY_RUN) ruff $(CODE)
 	$(POETRY_RUN) pylint --jobs 1 --rcfile=pyproject.toml $(CODE)
 	$(POETRY_RUN) bandit -c pyproject.toml -r $(CODE)
 	$(POETRY_RUN) black --check $(CODE)
@@ -59,6 +51,7 @@ lint:  ## Check code
 .PHONY: format
 format:  ## Formating code
 	$(POETRY_RUN) autoflake --recursive --in-place --remove-all-unused-imports $(CODE)
+	$(POETRY_RUN) ruff --fix $(CODE)
 	$(POETRY_RUN) isort $(CODE)
 	$(POETRY_RUN) black $(CODE)
 	$(POETRY_RUN) unify --in-place --recursive $(CODE)
@@ -71,21 +64,11 @@ docs:  ## Build docs
 docs-serve:  ## Serve docs
 	$(POETRY_RUN) mkdocs serve
 
-.PHONY: docs-changelog
-docs-changelog:  ## Build changelog
-	$(POETRY_RUN) git-changelog -s conventional -o CHANGELOG.md .
-
-.PHONY: update-changelog  ## Update changelog (commit)
-update-changelog: docs-changelog
-	git add .
-	git commit -m "docs: update changelog"
-
 .PHONY: bump-version
 bump-version:  ## Bump version (commit and tag)
 	poetry version $(v)
 	git add . && git commit -m "bump: bump version to $(v)"
 	git tag -m "" -a $(v)
-	make update-changelog
 
 .PHONY: clean
 clean:  ## Clean

@@ -1,6 +1,8 @@
 import os
+from typing import Optional
 
 from mkdocs import utils
+from mkdocs.config.base import Config
 from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.plugins import BasePlugin
 
@@ -8,7 +10,7 @@ base_path = os.path.dirname(os.path.abspath(__file__))
 
 
 class TermynalPlugin(BasePlugin):
-    def on_config(self, config):
+    def on_config(self, config: MkDocsConfig) -> Optional[Config]:
         if 'termynal.css' not in config['extra_css']:
             config['extra_css'].append('termynal.css')
 
@@ -20,7 +22,7 @@ class TermynalPlugin(BasePlugin):
 
         return config
 
-    def on_post_build(self, *, config: MkDocsConfig):
+    def on_post_build(self, *, config: MkDocsConfig) -> None:
         output_base_path = config['site_dir']
 
         for filename in ['termynal.css', 'termynal.js']:
