@@ -18,6 +18,10 @@ install:  ## Install dependencies
 install-docs:  ## Install docs dependencies
 	poetry install --only docs
 
+.PHONY: install-git
+install-git:  ## Install git dependencies
+	poetry install --only git
+
 .PHONY: publish
 publish:  ## Publish package
 	@poetry publish --build --no-interaction --username=$(pypi_username) --password=$(pypi_password)
@@ -66,9 +70,7 @@ docs-serve:  ## Serve docs
 
 .PHONY: bump
 bump:  ## Bump version (commit and tag)
-	poetry version $(v)
-	git add . && git commit -m "bump: bump version to $(v)"
-	git tag -m "" -a v$(v)
+	$(POETRY_RUN) cz bump
 
 .PHONY: clean
 clean:  ## Clean

@@ -2,7 +2,9 @@ name: Github pages
 
 on:
   push:
-    branches: [ main ]
+    paths:
+      - "README.md"
+    branches: [main]
   workflow_dispatch:
 
 jobs:
