@@ -1,3 +1,13 @@
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.2.1"
+tag_format = "v$version"
+version_files = [
+    "pyproject.toml:version"
+]
+bump_message = "chore(release): version $current_version → $new_version"
+update_changelog_on_bump = true
+
 [tool.poetry]
 name = "termynal"
 version = "0.2.1"
@@ -40,6 +50,9 @@ unify = "*"
 [tool.poetry.group.docs.dependencies]
 mkdocs = "*"
 mkdocs-material = "*"
+
+[tool.poetry.group.git.dependencies]
+commitizen = "^2.39.1"
 
 [tool.poetry.extras]
 mkdocs = ["mkdocs"]

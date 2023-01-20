@@ -1,0 +1,20 @@
+name: Bump version
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          fetch-depth: 0
+
+      - name: Create bump and changelog
+        uses: commitizen-tools/commitizen-action@master
+        with:
+          push: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}

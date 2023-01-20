@@ -2,8 +2,16 @@ name: CI Tests/Lints
 
 on:
   push:
+    paths:
+      - "termynal/**"
+      - "tests/**"
+      - "poetry.lock"
     branches: [ main ]
   pull_request:
+    paths:
+      - "termynal/**"
+      - "tests/**"
+      - "poetry.lock"
     branches: [ main ]
   workflow_dispatch:
 
