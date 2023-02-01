@@ -31,12 +31,8 @@ markdown = "*"
 mkdocs = {version = "^1.4", optional = true}
 
 [tool.poetry.group.dev.dependencies]
-autoflake = "*"
-bandit = "*"
 black = "*"
-isort = "*"
 mypy = "*"
-pylint = "*"
 pytest = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
@@ -45,7 +41,6 @@ pytest-mock = "*"
 ruff = "*"
 toml = "*"
 types-Markdown = "*"
-unify = "*"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "*"
@@ -70,9 +65,6 @@ module = "tests.*"
 disallow_untyped_defs = false
 disallow_incomplete_defs = false
 
-[tool.isort]
-profile = "black"
-
 [tool.coverage.run]
 omit = ["tests/*", "**/__main__.py", "**/.venv/*", "**/site-packages/*"]
 branch = true
@@ -82,32 +74,66 @@ show_missing = true
 skip_covered = true
 fail_under = 93.8
 
-[tool.pylint]
-good-names = ["i","j","k","e","x","_","pk","id"]
-max-args = 5
-max-attributes = 10
-max-bool-expr = 5
-max-module-lines = 300
-max-nested-blocks = 2
-max-public-methods = 30
-max-returns = 5
-max-statements = 30
-output-format = "colorized"
-ignored-classes = ["contextlib.closing"]
-disable = [
-    "C0111", # Missing module docstring (missing-docstring)
-    "R0901", # Too many ancestors (m/n) (too-many-ancestors)
-    "R0903", # Too few public methods (m/n) (too-few-public-methods)
-    "R0801", # duplicate-code
-]
-
-[tool.black]
-skip-string-normalization = true
-
 [tool.pytest.ini_options]
 asyncio_mode = "strict"
 addopts = "--strict-markers --showlocals --verbosity 2"
 log_level = "DEBUG"
 
-[tool.bandit]
-exclude_dirs = ["tests"]
+[tool.ruff]
+select = ["F",
+    "E",
+    "W",
+    "C90",
+    "I",
+    "N",
+    "D",
+    # "UP",
+    "YTT",
+    # "ANN",
+    "S",
+    "BLE",
+    # "FBT",
+    "B",
+    "A",
+    "COM",
+    "C4",
+    "DTZ",
+    "T10",
+    "EM",
+    "EXE",
+    "ISC",
+    "ICN",
+    "G",
+    "INP",
+    "PIE",
+    "T20",
+    "PT",
+    "Q",
+    "RET",
+    "SIM",
+    "TID",
+    "TCH",
+    "ARG",
+    "PTH",
+    "ERA",
+    "PD",
+    # "PGH",
+    "PL",
+    "TRY",
+    "RSE",
+    "RUF",
+]
+ignore = [
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D105",
+    "D106",
+    "D107",
+    "D203",
+    "D213",
+    "S101",
+]
+exclude = []

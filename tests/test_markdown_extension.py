@@ -64,14 +64,14 @@ expected_html3 = """<h1>Header</h1>
 
 
 @pytest.mark.parametrize(
-    ('md', 'expected_html'),
+    ("md", "expected_html"),
     [(md, expected_html), (md2, expected_html2), (md3, expected_html3)],
 )
 def test_converting(md, expected_html):
     html = markdown(
         md,
         extensions=[
-            'fenced_code',
+            "fenced_code",
             TermynalExtension(),
         ],
     )

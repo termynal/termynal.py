@@ -13,15 +13,15 @@ def plugin():
 
 @pytest.fixture()
 def empty_config():
-    return {'extra_css': [], 'extra_javascript': [], 'markdown_extensions': []}
+    return {"extra_css": [], "extra_javascript": [], "markdown_extensions": []}
 
 
 @pytest.fixture()
 def config():
     return {
-        'extra_css': ['termynal.css'],
-        'extra_javascript': ['termynal.js'],
-        'markdown_extensions': ['termynal'],
+        "extra_css": ["termynal.css"],
+        "extra_javascript": ["termynal.js"],
+        "markdown_extensions": ["termynal"],
     }
 
 
@@ -35,4 +35,4 @@ def test_on_config_if_empty(plugin, empty_config, config):
 
 def test_on_post_build(plugin):
     with TemporaryDirectory() as tmpdir:
-        plugin.on_post_build(config={'site_dir': tmpdir})
+        plugin.on_post_build(config={"site_dir": tmpdir})
