@@ -1,5 +1,5 @@
 import re
-from typing import List, Dict
+from typing import Dict, List
 
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
