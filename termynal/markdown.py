@@ -1,5 +1,5 @@
 import re
-from typing import List
+from typing import List, Dict
 
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
@@ -36,7 +36,7 @@ class TermynalPreprocessor(Preprocessor):
     comment = "<!-- termynal -->"
     language_class = 'class="language-console"'
 
-    def run(self, lines: list):
+    def run(self, lines: List):
         content_by_placeholder = {}
         for i in range(self.md.htmlStash.html_counter):
             placeholder = self.md.htmlStash.get_placeholder(i)
@@ -55,8 +55,8 @@ class TermynalPreprocessor(Preprocessor):
 
     def _get_lines(
         self,
-        lines: list,
-        content_by_placeholder: dict,
+        lines: List,
+        content_by_placeholder: Dict,
     ):  # pylint:disable=too-many-nested-blocks
         lines_by_placeholder = {}
         is_termynal_code = False
