@@ -36,7 +36,7 @@ class TermynalPreprocessor(Preprocessor):
     comment = "<!-- termynal -->"
     language_class = 'class="language-console"'
 
-    def run(self, lines):
+    def run(self, lines: list):
         content_by_placeholder = {}
         for i in range(self.md.htmlStash.html_counter):
             placeholder = self.md.htmlStash.get_placeholder(i)
@@ -55,14 +55,18 @@ class TermynalPreprocessor(Preprocessor):
 
     def _get_lines(
         self,
-        lines,
-        content_by_placeholder,
+        lines: list,
+        content_by_placeholder: dict,
     ):  # pylint:disable=too-many-nested-blocks
         lines_by_placeholder = {}
         is_termynal_code = False
         for line in lines:
             if line in content_by_placeholder:
                 (content, i) = content_by_placeholder[line]
+
+                if not isinstance(content, str):
+                    continue
+
                 if content.startswith(self.comment):
                     is_termynal_code = True
                     continue
