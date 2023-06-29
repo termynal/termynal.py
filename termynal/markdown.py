@@ -36,6 +36,12 @@ class TermynalPreprocessor(Preprocessor):
     comment = "<!-- termynal -->"
     language_class = 'class="language-console"'
 
+    def __init__(self, config: dict, md: core.Markdown):
+        """Initialize."""
+        self.prompt_literal_start = config.get("prompt_literal_start", ("$ ", "> ",))
+
+        super(TermynalPreprocessor, self).__init__(md=md)
+
     def run(self, lines: List):
         content_by_placeholder = {}
         for i in range(self.md.htmlStash.html_counter):
@@ -92,10 +98,29 @@ class TermynalPreprocessor(Preprocessor):
 
 
 class TermynalExtension(Extension):
-    def extendMarkdown(self, md):  # noqa:N802
+    def __init__(self, *args, **kwargs):
+        """Initialize."""
+
+        self.config = {
+            "prompt_literal_start": [
+                [
+                    "$ ",
+                ],
+                "A list of prompt characters start to consider as console - Default: ['$ ',]"
+            ],
+
+        }
+
+        super(TermynalExtension, self).__init__(*args, **kwargs)
+
+    def extendMarkdown(self, md: core.Markdown):  # noqa:N802
+        """Register the extension."""
         md.registerExtension(self)
-        md.preprocessors.register(TermynalPreprocessor(md), "termynal", 20)
+        config = self.getConfigs()
+        md.preprocessors.register(TermynalPreprocessor(config, md), "termynal", 20)
 
 
-def makeExtension(**kwargs):  # noqa:N802  # pylint:disable=invalid-name
-    return TermynalExtension(**kwargs)
+def makeExtension(*args, **kwargs):  # noqa:N802  # pylint:disable=invalid-name
+    """Return extension."""
+
+    return TermynalExtension(*args, **kwargs)
