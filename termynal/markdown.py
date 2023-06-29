@@ -38,7 +38,7 @@ class TermynalPreprocessor(Preprocessor):
 
     def __init__(self, config: dict, md: core.Markdown):
         """Initialize."""
-        self.prompt_literal_start = config.get("prompt_literal_start", ("$ ", "> ",))
+        self.prompt_literal_start = config.get("prompt_literal_start", ("$ ",))
 
         super(TermynalPreprocessor, self).__init__(md=md)
 
