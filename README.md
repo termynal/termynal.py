@@ -61,7 +61,9 @@ comment, start with `#`
 ```
 ````
 
-`mkdocs` plugin
+### Mkdocs integration
+
+Declare the plugin:
 
 ```yaml
 ...
@@ -69,5 +71,19 @@ plugins:
   - termynal
 ...
 ```
+
+Optionally, pass options to the processor:
+
+```yaml
+[...]
+markdown_extensions:
+  - termynal:
+      prompt_literal_start:
+        - "$ "
+        - "&gt; "
+[...]
+```
+
+## Credits
 
 Thanks [ines](https://github.com/ines/termynal)
