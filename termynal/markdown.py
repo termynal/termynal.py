@@ -7,13 +7,13 @@ from markdown.preprocessors import Preprocessor
 
 class Termynal:
     progress_literal_start = "---&gt; 100%"
-    prompt_literal_start = "$ "
     custom_literal_start = "# "
 
-    def __init__(self, code: str):
-        self.code = code
+    def __init__(self, prompt_literal_start: tuple = ("$ ",)):
+        """Initialize."""
+        self.prompt_literal_start = tuple(prompt_literal_start)
 
-    def convert(self) -> List[str]:
+    def convert(self, code: str) -> List[str]:
         code_lines = []
         code_lines.append('<div class="termy" data-termynal>')
         for line in self.code.split("\n"):
@@ -64,6 +64,7 @@ class TermynalPreprocessor(Preprocessor):
         lines: List,
         content_by_placeholder: Dict,
     ):  # pylint:disable=too-many-nested-blocks
+        termynal_obj = Termynal(prompt_literal_start=self.prompt_literal_start)
         lines_by_placeholder = {}
         is_termynal_code = False
         for line in lines:
@@ -90,7 +91,7 @@ class TermynalPreprocessor(Preprocessor):
                 is_termynal_code = False
                 self.md.htmlStash.rawHtmlBlocks[i] = ""
                 content = matches.group(2)
-                code_lines = Termynal(content).convert()
+                code_lines = termynal_obj.convert(code=content)
                 if code_lines:
                     lines_by_placeholder[line] = code_lines
 
