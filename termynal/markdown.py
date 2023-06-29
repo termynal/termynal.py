@@ -1,6 +1,7 @@
 import re
 from typing import Dict, List
 
+from markdown import core
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
 
@@ -16,9 +17,10 @@ class Termynal:
     def convert(self, code: str) -> List[str]:
         code_lines = []
         code_lines.append('<div class="termy" data-termynal>')
-        for line in self.code.split("\n"):
-            if line.startswith(self.prompt_literal_start):
-                code_lines.append(f'<span data-ty="input">{line[2:]}</span>')
+        for line in code.split("\n"):
+            if (match := re.match(rf"^({'|'.join(self.prompt_literal_start)})", line)):
+                used_prompt = match.group()
+                code_lines.append(f'<span data-ty="input" data-ty-prompt="{used_prompt}">{line.rsplit(used_prompt)[1]}</span>')
             elif line.startswith(self.custom_literal_start):
                 code_lines.append(
                     f'<span class="termynal-comment" data-ty>{line}</span>',
