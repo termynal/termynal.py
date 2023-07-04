@@ -84,6 +84,19 @@ markdown_extensions:
 [...]
 ```
 
+This config allows you to use another prompt:
+
+````markdown
+<!-- termynal -->
+
+```
+> pip install termynal
+---> 100%
+Installed
+```
+
+````
+
 ## Credits
 
 Thanks [ines](https://github.com/ines/termynal)
