@@ -12,15 +12,19 @@ class Termynal:
 
     def __init__(self, prompt_literal_start: tuple = ("$ ",)):
         """Initialize."""
-        self.prompt_literal_start = tuple(prompt_literal_start)
+        self.prompt_literal_start = "|".join(re.escape(p) for p in prompt_literal_start)
+        self.regex_prompts = re.compile(f"^({self.prompt_literal_start})")
 
     def convert(self, code: str) -> List[str]:
         code_lines = []
         code_lines.append('<div class="termy" data-termynal>')
         for line in code.split("\n"):
-            if (match := re.match(rf"^({'|'.join(self.prompt_literal_start)})", line)):
+            if match := self.regex_prompts.match(line):
                 used_prompt = match.group()
-                code_lines.append(f'<span data-ty="input" data-ty-prompt="{used_prompt}">{line.rsplit(used_prompt)[1]}</span>')
+                code_lines.append(
+                    f'<span data-ty="input" data-ty-prompt="{used_prompt.strip()}">'
+                    f"{line.rsplit(used_prompt)[1]}</span>",
+                )
             elif line.startswith(self.custom_literal_start):
                 code_lines.append(
                     f'<span class="termynal-comment" data-ty>{line}</span>',
@@ -103,15 +107,14 @@ class TermynalPreprocessor(Preprocessor):
 class TermynalExtension(Extension):
     def __init__(self, *args, **kwargs):
         """Initialize."""
-
         self.config = {
             "prompt_literal_start": [
                 [
                     "$ ",
                 ],
-                "A list of prompt characters start to consider as console - Default: ['$ ',]"
+                "A list of prompt characters start to consider as console - "
+                "Default: ['$ ',]",
             ],
-
         }
 
         super(TermynalExtension, self).__init__(*args, **kwargs)
@@ -125,5 +128,4 @@ class TermynalExtension(Extension):
 
 def makeExtension(*args, **kwargs):  # noqa:N802  # pylint:disable=invalid-name
     """Return extension."""
-
     return TermynalExtension(*args, **kwargs)
