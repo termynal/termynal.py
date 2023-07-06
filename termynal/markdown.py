@@ -1,9 +1,11 @@
 import re
-from typing import Dict, List
+from typing import TYPE_CHECKING, Dict, List
 
-from markdown import core
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
+
+if TYPE_CHECKING:  # pragma:no cover
+    from markdown import core
 
 
 class Termynal:
@@ -42,7 +44,7 @@ class TermynalPreprocessor(Preprocessor):
     comment = "<!-- termynal -->"
     language_class = 'class="language-console"'
 
-    def __init__(self, config: dict, md: core.Markdown):
+    def __init__(self, config: dict, md: "core.Markdown"):
         """Initialize."""
         self.prompt_literal_start = config.get("prompt_literal_start", ("$ ",))
 
@@ -119,7 +121,7 @@ class TermynalExtension(Extension):
 
         super(TermynalExtension, self).__init__(*args, **kwargs)
 
-    def extendMarkdown(self, md: core.Markdown):  # noqa:N802
+    def extendMarkdown(self, md: "core.Markdown"):  # noqa:N802
         """Register the extension."""
         md.registerExtension(self)
         config = self.getConfigs()
