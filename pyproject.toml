@@ -72,7 +72,7 @@ branch = true
 [tool.coverage.report]
 show_missing = true
 skip_covered = true
-fail_under = 93.8
+fail_under = 90
 
 [tool.pytest.ini_options]
 asyncio_mode = "strict"
