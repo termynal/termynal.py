@@ -1,5 +1,13 @@
 # Termynal
 
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/daxartio/termynal/check.yml)
+[![PyPI](https://img.shields.io/pypi/v/termynal)](https://pypi.org/project/termynal/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/termynal)](https://www.python.org/downloads/)
+[![Docs](https://img.shields.io/badge/docs-latest-blue)](https://daxartio.github.io/termynal/)
+![GitHub](https://img.shields.io/github/license/daxartio/termynal)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/termynal)
+![GitHub last commit](https://img.shields.io/github/last-commit/daxartio/termynal)
+
 A lightweight and modern animated terminal window.
 Built for [mkdocs](https://www.mkdocs.org/).
 
