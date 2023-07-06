@@ -16,7 +16,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -32,6 +32,23 @@ jobs:
 
       - name: Run linters
         run: make lint
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: ['3.8', '3.9', '3.10', '3.11']
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.version }}
+
+      - name: Install poetry
+        run: pip install poetry==1.3.2
+
+      - name: Install python dependencies
+        run: make install
 
       - name: Run test
         run: make test
