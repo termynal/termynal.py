@@ -1,5 +1,7 @@
 # pylint:disable=redefined-outer-name
 # pylint:disable=invalid-name
+from typing import Dict
+
 import pytest
 from markdown import markdown
 
@@ -20,7 +22,7 @@ expected_html = """<h1>Header</h1>
 ---&gt; 100%
 </code></pre>"""
 
-config = {}
+config: Dict[str, str] = {}
 
 md2 = """
 # Header
