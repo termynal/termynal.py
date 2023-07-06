@@ -27,3 +27,8 @@ markdown_extensions:
   - admonition
   - codehilite
   - pymdownx.superfences
+  - termynal:
+      prompt_literal_start:
+        - "$ "
+        - "&gt; "
+        - "&gt;&gt;&gt; "

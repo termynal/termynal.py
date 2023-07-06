@@ -1,5 +1,7 @@
 # pylint:disable=redefined-outer-name
 # pylint:disable=invalid-name
+from typing import Dict
+
 import pytest
 from markdown import markdown
 
@@ -20,6 +22,7 @@ expected_html = """<h1>Header</h1>
 ---&gt; 100%
 </code></pre>"""
 
+config: Dict[str, str] = {}
 
 md2 = """
 # Header
@@ -38,7 +41,7 @@ expected_html2 = """<h1>Header</h1>
 
 <p>
 <div class="termy" data-termynal>
-<span data-ty="input">pip install termynal</span>
+<span data-ty="input" data-ty-prompt="$">pip install termynal</span>
 <span data-ty="progress"></span>
 <span data-ty></span>
 </div></p>"""
@@ -57,22 +60,80 @@ $ pip install termynal
 expected_html3 = """<h1>Header</h1>
 <p>
 <div class="termy" data-termynal>
-<span data-ty="input">pip install termynal</span>
+<span data-ty="input" data-ty-prompt="$">pip install termynal</span>
 <span data-ty="progress"></span>
 <span data-ty></span>
 </div></p>"""
 
+# -- MD 4
+md4 = """
+# Header
+
+<!-- termynal -->
+
+```
+$ pip install termynal
+---> 100%
+```
+"""
+
+expected_html4 = """<h1>Header</h1>
+<!-- termynal -->
+
+<p>
+<div class="termy" data-termynal>
+<span data-ty>$ pip install termynal</span>
+<span data-ty="progress"></span>
+<span data-ty></span>
+</div></p>"""
+
+config4 = {"prompt_literal_start": ["&gt; "]}
+
+# -- MD 5 --
+md5 = """
+# Header
+
+<!-- termynal -->
+
+```
+> pip install termynal
+---> 100%
+```
+"""
+
+expected_html5 = """<h1>Header</h1>
+<!-- termynal -->
+
+<p>
+<div class="termy" data-termynal>
+<span data-ty="input" data-ty-prompt="&gt;">pip install termynal</span>
+<span data-ty="progress"></span>
+<span data-ty></span>
+</div></p>"""
+
+config5 = {"prompt_literal_start": ["&gt; "]}
+
 
 @pytest.mark.parametrize(
-    ("md", "expected_html"),
-    [(md, expected_html), (md2, expected_html2), (md3, expected_html3)],
+    ("md", "expected_html", "config"),
+    [
+        (md, expected_html, config),
+        (md2, expected_html2, config),
+        (md3, expected_html3, config),
+        (md4, expected_html4, config4),
+        (md5, expected_html5, config5),
+    ],
 )
-def test_converting(md, expected_html):
+def test_converting(
+    md: str,
+    expected_html: str,
+    config: dict,
+):
     html = markdown(
         md,
         extensions=[
             "fenced_code",
-            TermynalExtension(),
+            TermynalExtension(**config),
         ],
     )
     assert html == expected_html

@@ -1,24 +1,32 @@
 import re
-from typing import Dict, List
+from typing import TYPE_CHECKING, Dict, List
 
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
 
+if TYPE_CHECKING:  # pragma:no cover
+    from markdown import core
+
 
 class Termynal:
     progress_literal_start = "---&gt; 100%"
-    prompt_literal_start = "$ "
     custom_literal_start = "# "
 
-    def __init__(self, code: str):
-        self.code = code
+    def __init__(self, prompt_literal_start: tuple = ("$ ",)):
+        """Initialize."""
+        self.prompt_literal_start = "|".join(re.escape(p) for p in prompt_literal_start)
+        self.regex_prompts = re.compile(f"^({self.prompt_literal_start})")
 
-    def convert(self) -> List[str]:
+    def convert(self, code: str) -> List[str]:
         code_lines = []
         code_lines.append('<div class="termy" data-termynal>')
-        for line in self.code.split("\n"):
-            if line.startswith(self.prompt_literal_start):
-                code_lines.append(f'<span data-ty="input">{line[2:]}</span>')
+        for line in code.split("\n"):
+            if match := self.regex_prompts.match(line):
+                used_prompt = match.group()
+                code_lines.append(
+                    f'<span data-ty="input" data-ty-prompt="{used_prompt.strip()}">'
+                    f"{line.rsplit(used_prompt)[1]}</span>",
+                )
             elif line.startswith(self.custom_literal_start):
                 code_lines.append(
                     f'<span class="termynal-comment" data-ty>{line}</span>',
@@ -35,6 +43,12 @@ class TermynalPreprocessor(Preprocessor):
     rexep = re.compile("(<code.*>)((.|\n)*?)(</code>)")
     comment = "<!-- termynal -->"
     language_class = 'class="language-console"'
+
+    def __init__(self, config: dict, md: "core.Markdown"):
+        """Initialize."""
+        self.prompt_literal_start = config.get("prompt_literal_start", ("$ ",))
+
+        super(TermynalPreprocessor, self).__init__(md=md)
 
     def run(self, lines: List):
         content_by_placeholder = {}
@@ -58,6 +72,7 @@ class TermynalPreprocessor(Preprocessor):
         lines: List,
         content_by_placeholder: Dict,
     ):  # pylint:disable=too-many-nested-blocks
+        termynal_obj = Termynal(prompt_literal_start=self.prompt_literal_start)
         lines_by_placeholder = {}
         is_termynal_code = False
         for line in lines:
@@ -84,7 +99,7 @@ class TermynalPreprocessor(Preprocessor):
                 is_termynal_code = False
                 self.md.htmlStash.rawHtmlBlocks[i] = ""
                 content = matches.group(2)
-                code_lines = Termynal(content).convert()
+                code_lines = termynal_obj.convert(code=content)
                 if code_lines:
                     lines_by_placeholder[line] = code_lines
 
@@ -92,10 +107,27 @@ class TermynalPreprocessor(Preprocessor):
 
 
 class TermynalExtension(Extension):
-    def extendMarkdown(self, md):  # noqa:N802
+    def __init__(self, *args, **kwargs):
+        """Initialize."""
+        self.config = {
+            "prompt_literal_start": [
+                [
+                    "$ ",
+                ],
+                "A list of prompt characters start to consider as console - "
+                "Default: ['$ ',]",
+            ],
+        }
+
+        super(TermynalExtension, self).__init__(*args, **kwargs)
+
+    def extendMarkdown(self, md: "core.Markdown"):  # noqa:N802
+        """Register the extension."""
         md.registerExtension(self)
-        md.preprocessors.register(TermynalPreprocessor(md), "termynal", 20)
+        config = self.getConfigs()
+        md.preprocessors.register(TermynalPreprocessor(config, md), "termynal", 20)
 
 
-def makeExtension(**kwargs):  # noqa:N802  # pylint:disable=invalid-name
-    return TermynalExtension(**kwargs)
+def makeExtension(*args, **kwargs):  # noqa:N802  # pylint:disable=invalid-name
+    """Return extension."""
+    return TermynalExtension(*args, **kwargs)
