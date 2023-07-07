@@ -12,11 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install poetry
-        run: pip install poetry==1.3.2
-
       - name: Publish package to pypi
-        run: make publish
+        run: make install-poetry publish
         env:
           pypi_username: ${{ secrets.PYPI_USERNAME }}
           pypi_password: ${{ secrets.PYPI_PASSWORD }}

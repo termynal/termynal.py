@@ -24,11 +24,8 @@ jobs:
         with:
           python-version: '3.8'
 
-      - name: Install poetry
-        run: pip install poetry==1.3.2
-
       - name: Install python dependencies
-        run: make install
+        run: make install-poetry install
 
       - name: Run linters
         run: make lint
@@ -44,11 +41,8 @@ jobs:
         with:
           python-version: ${{ matrix.version }}
 
-      - name: Install poetry
-        run: pip install poetry==1.3.2
-
       - name: Install python dependencies
-        run: make install
+        run: make install-poetry install
 
       - name: Run test
         run: make test

@@ -10,6 +10,10 @@ help: ## Show help
 .PHONY: all
 all: format lint test  ## Run format lint test
 
+.PHONY: install-poetry
+install-poetry:  ## Install poetry
+	pip install poetry
+
 .PHONY: install
 install:  ## Install dependencies
 	poetry install
