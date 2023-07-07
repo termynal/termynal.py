@@ -108,3 +108,7 @@ Installed
 ## Credits
 
 Thanks [ines](https://github.com/ines/termynal)
+
+## Contribution
+
+[Contribution guidelines for this project](CONTRIBUTING.md)
