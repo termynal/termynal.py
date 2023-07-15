@@ -1,15 +1,18 @@
 site_name: "Termynal"
 site_url: "https://pypi.org/project/termynal"
-site_description: ""
+site_description: "A lightweight and modern animated terminal window for mkdocs"
 
-repo_name: "termynal"
+repo_name: "daxartio/termynal"
 repo_url: "https://github.com/daxartio/termynal"
 edit_uri: "edit/main/docs/"
 
-copyright: "Copyright &copy; 2021 Danil Akhtarov <daxartio@gmail.com>"
+copyright: "Copyright &copy; 2023 Danil Akhtarov"
 
 nav:
   - "Home": README.md
+  - "Contributing": contributing.md
+  - "Changelog": changelog.md
+  - "Code of Conduct": code-of-conduct.md
 
 theme:
   name: material
@@ -32,3 +35,5 @@ markdown_extensions:
         - "$ "
         - "&gt; "
         - "&gt;&gt;&gt; "
+  - markdown_include.include:
+      base_path: .

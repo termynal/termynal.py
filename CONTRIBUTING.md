@@ -15,8 +15,8 @@ make install-poetry
 # pip install poetry
 ```
 
-- don't forget to use last version of poetry
-- don't forget to use python 3.8
+- don't forget to use the last version of poetry
+- don't forget to write a code for python 3.8+
 - don't forget to use virtualenv
   - For using venv in the project directory, run `poetry config virtualenvs.in-project true`
 

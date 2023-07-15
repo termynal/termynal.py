@@ -43,11 +43,12 @@ toml = "*"
 types-Markdown = "*"
 
 [tool.poetry.group.docs.dependencies]
+markdown-include = "^0.8.1"
 mkdocs = "*"
 mkdocs-material = "*"
 
 [tool.poetry.group.git.dependencies]
-commitizen = "^2.39.1"
+commitizen = "^3.5.3"
 
 [tool.poetry.extras]
 mkdocs = ["mkdocs"]
