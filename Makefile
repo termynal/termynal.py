@@ -56,7 +56,7 @@ lint:  ## Check code
 
 .PHONY: format
 format:  ## Formating code
-	$(POETRY_RUN) ruff --fix $(CODE)
+	$(POETRY_RUN) ruff --fix-only $(CODE)
 	$(POETRY_RUN) black $(CODE)
 
 .PHONY: docs

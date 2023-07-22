@@ -12,21 +12,39 @@ class Termynal:
     progress_literal_start = "---&gt; 100%"
     custom_literal_start = "# "
 
-    def __init__(self, prompt_literal_start: tuple = ("$ ",)):
+    def __init__(
+        self,
+        prompt_literal_start: tuple = ("$ ",),
+        promt_in_multiline: bool = False,
+    ):
         """Initialize."""
         self.prompt_literal_start = "|".join(re.escape(p) for p in prompt_literal_start)
         self.regex_prompts = re.compile(f"^({self.prompt_literal_start})")
+        self.promt_in_multiline = promt_in_multiline
 
     def convert(self, code: str) -> List[str]:
         code_lines = []
         code_lines.append('<div class="termy" data-termynal>')
+        multiline = False
+        used_prompt = None
         for line in code.split("\n"):
             if match := self.regex_prompts.match(line):
                 used_prompt = match.group()
                 code_lines.append(
                     f'<span data-ty="input" data-ty-prompt="{used_prompt.strip()}">'
-                    f"{line.rsplit(used_prompt)[1]}</span>",
+                    f"{line.rsplit(used_prompt)[1].replace(' ', '&nbsp;')}</span>",
                 )
+                multiline = bool(line.endswith("\\"))
+            elif multiline:
+                used_prompt = used_prompt or ""
+                if not self.promt_in_multiline:
+                    used_prompt = ""
+                code_lines.append(
+                    f'<span data-ty="input" data-ty-prompt="{used_prompt.strip()}">'
+                    f'{line.replace(" ", "&nbsp;")}</span>',
+                )
+                multiline = bool(line.endswith("\\"))
+
             elif line.startswith(self.custom_literal_start):
                 code_lines.append(
                     f'<span class="termynal-comment" data-ty>{line}</span>',
@@ -47,6 +65,7 @@ class TermynalPreprocessor(Preprocessor):
     def __init__(self, config: dict, md: "core.Markdown"):
         """Initialize."""
         self.prompt_literal_start = config.get("prompt_literal_start", ("$ ",))
+        self.promt_in_multiline = config.get("promt_in_multiline", False)
 
         super(TermynalPreprocessor, self).__init__(md=md)
 
@@ -72,7 +91,10 @@ class TermynalPreprocessor(Preprocessor):
         lines: List,
         content_by_placeholder: Dict,
     ):  # pylint:disable=too-many-nested-blocks
-        termynal_obj = Termynal(prompt_literal_start=self.prompt_literal_start)
+        termynal_obj = Termynal(
+            prompt_literal_start=self.prompt_literal_start,
+            promt_in_multiline=self.promt_in_multiline,
+        )
         lines_by_placeholder = {}
         is_termynal_code = False
         for line in lines:
@@ -116,6 +138,10 @@ class TermynalExtension(Extension):
                 ],
                 "A list of prompt characters start to consider as console - "
                 "Default: ['$ ',]",
+            ],
+            "promt_in_multiline": [
+                False,
+                "Default: False",
             ],
         }
 

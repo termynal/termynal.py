@@ -1,6 +1,6 @@
 # pylint:disable=redefined-outer-name
 # pylint:disable=invalid-name
-from typing import Dict
+from typing import Any, Dict
 
 import pytest
 from markdown import markdown
@@ -41,7 +41,7 @@ expected_html2 = """<h1>Header</h1>
 
 <p>
 <div class="termy" data-termynal>
-<span data-ty="input" data-ty-prompt="$">pip install termynal</span>
+<span data-ty="input" data-ty-prompt="$">pip&nbsp;install&nbsp;termynal</span>
 <span data-ty="progress"></span>
 <span data-ty></span>
 </div></p>"""
@@ -60,7 +60,7 @@ $ pip install termynal
 expected_html3 = """<h1>Header</h1>
 <p>
 <div class="termy" data-termynal>
-<span data-ty="input" data-ty-prompt="$">pip install termynal</span>
+<span data-ty="input" data-ty-prompt="$">pip&nbsp;install&nbsp;termynal</span>
 <span data-ty="progress"></span>
 <span data-ty></span>
 </div></p>"""
@@ -106,12 +106,59 @@ expected_html5 = """<h1>Header</h1>
 
 <p>
 <div class="termy" data-termynal>
-<span data-ty="input" data-ty-prompt="&gt;">pip install termynal</span>
+<span data-ty="input" data-ty-prompt="&gt;">pip&nbsp;install&nbsp;termynal</span>
 <span data-ty="progress"></span>
 <span data-ty></span>
 </div></p>"""
 
 config5 = {"prompt_literal_start": ["&gt; "]}
+
+md6 = """
+# Header
+
+```console
+$ pip install \\
+    termynal
+---> 100%
+```
+"""
+
+
+expected_html6 = """<h1>Header</h1>
+<p>
+<div class="termy" data-termynal>
+<span data-ty="input" data-ty-prompt="$">pip&nbsp;install&nbsp;\\</span>
+<span data-ty="input" data-ty-prompt="">&nbsp;&nbsp;&nbsp;&nbsp;termynal</span>
+<span data-ty="progress"></span>
+<span data-ty></span>
+</div></p>"""
+
+config6: Dict[str, Any] = {}
+
+md7 = """
+# Header
+
+```console
+> pip install \\
+    termynal
+---> 100%
+```
+"""
+
+
+expected_html7 = """<h1>Header</h1>
+<p>
+<div class="termy" data-termynal>
+<span data-ty="input" data-ty-prompt="&gt;">pip&nbsp;install&nbsp;\\</span>
+<span data-ty="input" data-ty-prompt="&gt;">&nbsp;&nbsp;&nbsp;&nbsp;termynal</span>
+<span data-ty="progress"></span>
+<span data-ty></span>
+</div></p>"""
+
+config7: Dict[str, Any] = {
+    "promt_in_multiline": True,
+    "prompt_literal_start": ["&gt; "],
+}
 
 
 @pytest.mark.parametrize(
@@ -122,6 +169,8 @@ config5 = {"prompt_literal_start": ["&gt; "]}
         (md3, expected_html3, config),
         (md4, expected_html4, config4),
         (md5, expected_html5, config5),
+        (md6, expected_html6, config6),
+        (md7, expected_html7, config7),
     ],
 )
 def test_converting(

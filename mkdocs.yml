@@ -10,6 +10,7 @@ copyright: "Copyright &copy; 2023 Danil Akhtarov"
 
 nav:
   - "Home": README.md
+  - "Configuration": configuration.md
   - "Contributing": contributing.md
   - "Changelog": changelog.md
   - "Code of Conduct": code-of-conduct.md
@@ -31,6 +32,7 @@ markdown_extensions:
   - codehilite
   - pymdownx.superfences
   - termynal:
+      promt_in_multiline: false
       prompt_literal_start:
         - "$ "
         - "&gt; "
