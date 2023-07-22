@@ -14,7 +14,7 @@
       
       
       
-        <link rel="next" href="contributing/">
+        <link rel="next" href="configuration/">
       
       <link rel="icon" href="assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.9">
@@ -259,12 +259,47 @@
     Usage
   </a>
   
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mkdocs-integration" class="md-nav__link">
+    Mkdocs integration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credits" class="md-nav__link">
+    Credits
+  </a>
+  
 </li>
       
     </ul>
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/" class="md-nav__link">
+        Configuration
+      </a>
     </li>
   
 
@@ -352,6 +387,26 @@
     Usage
   </a>
   
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mkdocs-integration" class="md-nav__link">
+    Mkdocs integration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credits" class="md-nav__link">
+    Credits
+  </a>
+  
 </li>
       
     </ul>
@@ -381,7 +436,7 @@ Built for <a href="https://www.mkdocs.org/">mkdocs</a>.</p>
 
 <p>
 <div class="termy" data-termynal>
-<span data-ty="input" data-ty-prompt="$">pip install termynal</span>
+<span data-ty="input" data-ty-prompt="$">pip&nbsp;install&nbsp;termynal</span>
 <span data-ty="progress"></span>
 <span data-ty>Installed</span>
 <span data-ty></span>
@@ -418,7 +473,7 @@ Done!
 
 <p>
 <div class="termy" data-termynal>
-<span data-ty="input" data-ty-prompt="$">show progress</span>
+<span data-ty="input" data-ty-prompt="$">show&nbsp;progress</span>
 <span data-ty="progress"></span>
 <span data-ty>Done!</span>
 <span data-ty></span>
@@ -435,6 +490,28 @@ $ command
 <span data-ty="input" data-ty-prompt="$">command</span>
 <span data-ty></span>
 </div></p>
+<p>Multiline commands</p>
+<div class="highlight"><pre><span></span><code>```console
+&gt; some longish command with \
+  many \
+    many \
+      many \
+  arguments
+and this is the output
+```
+</code></pre></div>
+<!-- termynal -->
+
+<p>
+<div class="termy" data-termynal>
+<span data-ty="input" data-ty-prompt="&gt;">some&nbsp;longish&nbsp;command&nbsp;with&nbsp;\</span>
+<span data-ty="input" data-ty-prompt="">&nbsp;&nbsp;many&nbsp;\</span>
+<span data-ty="input" data-ty-prompt="">&nbsp;&nbsp;&nbsp;&nbsp;many&nbsp;\</span>
+<span data-ty="input" data-ty-prompt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;many&nbsp;\</span>
+<span data-ty="input" data-ty-prompt="">&nbsp;&nbsp;arguments</span>
+<span data-ty>and this is the output</span>
+<span data-ty></span>
+</div></p>
 <p>comment, start with <code>#</code></p>
 <div class="highlight"><pre><span></span><code>```console
 # comment
@@ -447,12 +524,41 @@ $ command
 <span data-ty>comment</span>
 <span data-ty></span>
 </div></p>
-<p><code>mkdocs</code> plugin</p>
+<h3 id="mkdocs-integration">Mkdocs integration</h3>
+<p>Declare the plugin:</p>
 <div class="highlight"><pre><span></span><code><span class="nn">...</span>
 <span class="nt">plugins</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">termynal</span>
 <span class="nn">...</span>
 </code></pre></div>
+<p>Optionally, pass options to the processor:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+<span class="nt">markdown_extensions</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">termynal</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">prompt_literal_start</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;$</span><span class="nv"> </span><span class="s">&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;&amp;gt;</span><span class="nv"> </span><span class="s">&quot;</span>
+<span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<p>This config allows you to use another prompt:</p>
+<div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
+
+<span class="sb">```</span>
+<span class="sb">&gt; pip install termynal</span>
+<span class="sb">---&gt; 100%</span>
+<span class="sb">Installed</span>
+<span class="sb">```</span>
+</code></pre></div>
+<!-- termynal -->
+
+<p>
+<div class="termy" data-termynal>
+<span data-ty="input" data-ty-prompt="&gt;">pip&nbsp;install&nbsp;termynal</span>
+<span data-ty="progress"></span>
+<span data-ty>Installed</span>
+<span data-ty></span>
+</div></p>
+<h2 id="credits">Credits</h2>
 <p>Thanks <a href="https://github.com/ines/termynal">ines</a></p>
 
 

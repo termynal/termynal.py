@@ -10,18 +10,20 @@
       
       
       
-        <link rel="canonical" href="https://pypi.org/project/termynal/code-of-conduct/">
+        <link rel="canonical" href="https://pypi.org/project/termynal/configuration/">
       
       
-        <link rel="prev" href="../changelog/">
+        <link rel="prev" href="..">
       
+      
+        <link rel="next" href="../contributing/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.9">
     
     
       
-        <title>Code of Conduct - Termynal</title>
+        <title>Configuration - Termynal</title>
       
     
     
@@ -71,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#code-of-conduct" class="md-skip">
+        <a href="#configuration" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Code of Conduct
+              Configuration
             
           </span>
         </div>
@@ -227,11 +229,21 @@
 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../configuration/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Configuration
       </a>
+      
     </li>
   
 
@@ -272,21 +284,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../code-of-conduct/" class="md-nav__link">
         Code of Conduct
       </a>
-      
     </li>
   
 
@@ -328,8 +330,31 @@
 
 
 
-<h1 id="code-of-conduct">Code of Conduct</h1>
-<p>This project adheres to the Python Code of Conduct, which can be found <a href="https://www.python.org/psf/conduct/">here</a>.</p>
+<h1 id="configuration">Configuration</h1>
+<table>
+<thead>
+<tr>
+<th><strong>name</strong></th>
+<th><strong>default</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>promt_in_multiline</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td>prompt_literal_start</td>
+<td><code>["$ "]</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="nt">markdown_extensions</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">termynal</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">promt_in_multiline</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">prompt_literal_start</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;$</span><span class="nv"> </span><span class="s">&quot;</span>
+</code></pre></div>
 
 
 
