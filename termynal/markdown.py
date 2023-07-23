@@ -1,5 +1,5 @@
 import re
-from typing import TYPE_CHECKING, Dict, List
+from typing import TYPE_CHECKING, Any, Dict, Iterable, List, Tuple
 
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
@@ -14,16 +14,15 @@ class Termynal:
 
     def __init__(
         self,
-        prompt_literal_start: tuple = ("$ ",),
+        prompt_literal_start: Iterable[str] = ("$ ",),
         promt_in_multiline: bool = False,
     ):
-        """Initialize."""
         self.prompt_literal_start = "|".join(re.escape(p) for p in prompt_literal_start)
         self.regex_prompts = re.compile(f"^({self.prompt_literal_start})")
         self.promt_in_multiline = promt_in_multiline
 
     def convert(self, code: str) -> List[str]:
-        code_lines = []
+        code_lines: List[str] = []
         code_lines.append('<div class="termy" data-termynal>')
         multiline = False
         used_prompt = None
@@ -62,14 +61,13 @@ class TermynalPreprocessor(Preprocessor):
     comment = "<!-- termynal -->"
     language_class = 'class="language-console"'
 
-    def __init__(self, config: dict, md: "core.Markdown"):
-        """Initialize."""
+    def __init__(self, config: Dict[str, Any], md: "core.Markdown"):
         self.prompt_literal_start = config.get("prompt_literal_start", ("$ ",))
         self.promt_in_multiline = config.get("promt_in_multiline", False)
 
         super(TermynalPreprocessor, self).__init__(md=md)
 
-    def run(self, lines: List):
+    def run(self, lines: List[str]) -> List[str]:
         content_by_placeholder = {}
         for i in range(self.md.htmlStash.html_counter):
             placeholder = self.md.htmlStash.get_placeholder(i)
@@ -88,9 +86,9 @@ class TermynalPreprocessor(Preprocessor):
 
     def _get_lines(
         self,
-        lines: List,
-        content_by_placeholder: Dict,
-    ):  # pylint:disable=too-many-nested-blocks
+        lines: List[str],
+        content_by_placeholder: Dict[str, Tuple[str, int]],
+    ) -> Dict[str, List[str]]:  # pylint:disable=too-many-nested-blocks
         termynal_obj = Termynal(
             prompt_literal_start=self.prompt_literal_start,
             promt_in_multiline=self.promt_in_multiline,
@@ -129,8 +127,7 @@ class TermynalPreprocessor(Preprocessor):
 
 
 class TermynalExtension(Extension):
-    def __init__(self, *args, **kwargs):
-        """Initialize."""
+    def __init__(self, *args: Any, **kwargs: Any):
         self.config = {
             "prompt_literal_start": [
                 [
@@ -147,13 +144,16 @@ class TermynalExtension(Extension):
 
         super(TermynalExtension, self).__init__(*args, **kwargs)
 
-    def extendMarkdown(self, md: "core.Markdown"):  # noqa:N802
+    def extendMarkdown(self, md: "core.Markdown") -> None:  # noqa:N802
         """Register the extension."""
         md.registerExtension(self)
         config = self.getConfigs()
         md.preprocessors.register(TermynalPreprocessor(config, md), "termynal", 20)
 
 
-def makeExtension(*args, **kwargs):  # noqa:N802  # pylint:disable=invalid-name
+def makeExtension(  # noqa:N802  # pylint:disable=invalid-name
+    *args: Any,
+    **kwargs: Any,
+) -> TermynalExtension:
     """Return extension."""
     return TermynalExtension(*args, **kwargs)
