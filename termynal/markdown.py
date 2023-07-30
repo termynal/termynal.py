@@ -31,7 +31,7 @@ class Termynal:
                 used_prompt = match.group()
                 code_lines.append(
                     f'<span data-ty="input" data-ty-prompt="{used_prompt.strip()}">'
-                    f"{line.rsplit(used_prompt)[1].replace(' ', '&nbsp;')}</span>",
+                    f"{line.rsplit(used_prompt)[1]}</span>",
                 )
                 multiline = bool(line.endswith("\\"))
             elif multiline:
@@ -40,7 +40,7 @@ class Termynal:
                     used_prompt = ""
                 code_lines.append(
                     f'<span data-ty="input" data-ty-prompt="{used_prompt.strip()}">'
-                    f'{line.replace(" ", "&nbsp;")}</span>',
+                    f"{line}</span>",
                 )
                 multiline = bool(line.endswith("\\"))
 

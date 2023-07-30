@@ -27,14 +27,6 @@ Use `<!-- termynal -->` before code block
 ```
 ````
 
-or `console` in code block
-
-````
-```console
-// code
-```
-````
-
 <!-- termynal -->
 
 ```
@@ -62,21 +54,33 @@ Done!
 command, start with `$`
 
 ````
-```console
-$ command
+<!-- termynal -->
+
+```
+$ python
+>>> import requests
+>>> requests.get('https://exampls.com')
+<Response [200]>
+>>>
 ```
 ````
 
 <!-- termynal -->
 
 ```
-$ command
+$ python
+>>> import requests
+>>> requests.get('https://exampls.com')
+<Response [200]>
+>>>
 ```
 
 Multiline commands
 
 ````
-```console
+<!-- termynal -->
+
+```
 > some longish command with \
   many \
     many \
@@ -100,7 +104,9 @@ and this is the output
 comment, start with `#`
 
 ````
-```console
+<!-- termynal -->
+
+```
 # comment
 ```
 ````
@@ -109,6 +115,60 @@ comment, start with `#`
 
 ```console
 # comment
+```
+
+tool's help looks like this:
+
+````
+<!-- termynal -->
+
+```
+
+```
+````
+
+<!-- termynal -->
+
+```
+$ poetry --help
+
+Description:
+  Lists commands.
+
+Usage:
+  list [options] [--] [<namespace>]
+
+Arguments:
+  namespace                  The namespace name
+
+Options:
+  -h, --help                 Display help for the given command.
+                             When no command is given display help
+                             for the list command.
+  -q, --quiet                Do not output any message.
+  -V, --version              Display this application version.
+      --ansi                 Force ANSI output.
+      --no-ansi              Disable ANSI output.
+  -n, --no-interaction       Do not ask any interactive question.
+      --no-plugins           Disables plugins.
+      --no-cache             Disables Poetry source caches.
+  -C, --directory=DIRECTORY  The working directory for the Poetry
+                             command (defaults to the current
+                             working directory).
+  -v|vv|vvv, --verbose       Increase the verbosity of messages:
+                             1 for normal output,
+                             2 for more verbose output and
+                             3 for debug.
+
+Help:
+  The list command lists all commands:
+
+    poetry list
+
+  You can also display the commands for a specific namespace:
+
+    poetry list test
+
 ```
 
 ### Mkdocs integration
@@ -140,18 +200,16 @@ This config allows you to use another prompt:
 <!-- termynal -->
 
 ```
-> pip install termynal
----> 100%
-Installed
+> command with >
+Ok!
 ```
 
 ````
 <!-- termynal -->
 
 ```
-> pip install termynal
----> 100%
-Installed
+> command with >
+Ok!
 ```
 
 ## Credits
