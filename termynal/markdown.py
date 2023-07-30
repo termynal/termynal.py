@@ -21,7 +21,7 @@ class Termynal:
         self.regex_prompts = re.compile(f"^({self.prompt_literal_start})")
         self.promt_in_multiline = promt_in_multiline
 
-    def convert(self, code: str) -> List[str]:
+    def convert(self, code: str) -> str:
         code_lines: List[str] = []
         code_lines.append('<div class="termy" data-termynal>')
         multiline = False
@@ -53,7 +53,7 @@ class Termynal:
             else:
                 code_lines.append(f"<span data-ty>{line}</span>")
         code_lines.append("</div>")
-        return code_lines
+        return "\n".join(code_lines)
 
 
 class TermynalPreprocessor(Preprocessor):
@@ -74,13 +74,14 @@ class TermynalPreprocessor(Preprocessor):
             content = self.md.htmlStash.rawHtmlBlocks[i]
             content_by_placeholder[placeholder] = (content, i)
 
-        lines_by_placeholder = self._get_lines(lines, content_by_placeholder)
+        target_code_by_placeholder = self._get_lines(lines, content_by_placeholder)
 
         new_lines = []
         for line in lines:
-            new_lines.append(line)
-            if line in lines_by_placeholder:
-                new_lines.extend(lines_by_placeholder[line])
+            if line in target_code_by_placeholder:
+                new_lines.append(target_code_by_placeholder[line])
+            else:
+                new_lines.append(line)
 
         return new_lines
 
@@ -88,7 +89,7 @@ class TermynalPreprocessor(Preprocessor):
         self,
         lines: List[str],
         content_by_placeholder: Dict[str, Tuple[str, int]],
-    ) -> Dict[str, List[str]]:  # pylint:disable=too-many-nested-blocks
+    ) -> Dict[str, str]:  # pylint:disable=too-many-nested-blocks
         termynal_obj = Termynal(
             prompt_literal_start=self.prompt_literal_start,
             promt_in_multiline=self.promt_in_multiline,
@@ -117,11 +118,11 @@ class TermynalPreprocessor(Preprocessor):
                     continue
 
                 is_termynal_code = False
-                self.md.htmlStash.rawHtmlBlocks[i] = ""
                 content = matches.group(2)
-                code_lines = termynal_obj.convert(code=content)
-                if code_lines:
-                    lines_by_placeholder[line] = code_lines
+                target_code = termynal_obj.convert(code=content)
+                if target_code:
+                    self.md.htmlStash.rawHtmlBlocks[i] = ""
+                    lines_by_placeholder[line] = target_code
 
         return lines_by_placeholder
 

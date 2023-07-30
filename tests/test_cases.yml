@@ -29,8 +29,7 @@
     <h1>Header</h1>
     <!-- termynal -->
 
-    <p>
-    <div class="termy" data-termynal>
+    <p><div class="termy" data-termynal>
     <span data-ty="input" data-ty-prompt="$">pip&nbsp;install&nbsp;termynal</span>
     <span data-ty="progress"></span>
     <span data-ty></span>
@@ -47,8 +46,7 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <p>
-    <div class="termy" data-termynal>
+    <p><div class="termy" data-termynal>
     <span data-ty="input" data-ty-prompt="$">pip&nbsp;install&nbsp;termynal</span>
     <span data-ty="progress"></span>
     <span data-ty></span>
@@ -69,8 +67,7 @@
     <h1>Header</h1>
     <!-- termynal -->
 
-    <p>
-    <div class="termy" data-termynal>
+    <p><div class="termy" data-termynal>
     <span data-ty>$ pip install termynal</span>
     <span data-ty="progress"></span>
     <span data-ty></span>
@@ -91,8 +88,7 @@
     <h1>Header</h1>
     <!-- termynal -->
 
-    <p>
-    <div class="termy" data-termynal>
+    <p><div class="termy" data-termynal>
     <span data-ty="input" data-ty-prompt="&gt;">pip&nbsp;install&nbsp;termynal</span>
     <span data-ty="progress"></span>
     <span data-ty></span>
@@ -110,8 +106,7 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <p>
-    <div class="termy" data-termynal>
+    <p><div class="termy" data-termynal>
     <span data-ty="input" data-ty-prompt="$">pip&nbsp;install&nbsp;\</span>
     <span data-ty="input" data-ty-prompt="">&nbsp;&nbsp;&nbsp;&nbsp;termynal</span>
     <span data-ty="progress"></span>
@@ -133,8 +128,7 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <p>
-    <div class="termy" data-termynal>
+    <p><div class="termy" data-termynal>
     <span data-ty="input" data-ty-prompt="&gt;">pip&nbsp;install&nbsp;\</span>
     <span data-ty="input" data-ty-prompt="&gt;">&nbsp;&nbsp;&nbsp;&nbsp;termynal</span>
     <span data-ty="progress"></span>
