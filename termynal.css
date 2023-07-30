@@ -62,6 +62,7 @@ a[data-terminal-control] {
 [data-ty] {
     display: block;
     line-height: 2;
+    white-space: pre;
 }
 
 [data-ty]:before {

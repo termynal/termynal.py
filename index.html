@@ -434,9 +434,8 @@ Built for <a href="https://www.mkdocs.org/">mkdocs</a>.</p>
 <h2 id="installation">Installation</h2>
 <!-- termynal -->
 
-<p>
-<div class="termy" data-termynal>
-<span data-ty="input" data-ty-prompt="$">pip&nbsp;install&nbsp;termynal</span>
+<p><div class="termy" data-termynal>
+<span data-ty="input" data-ty-prompt="$">pip install termynal</span>
 <span data-ty="progress"></span>
 <span data-ty>Installed</span>
 <span data-ty></span>
@@ -450,15 +449,9 @@ Built for <a href="https://www.mkdocs.org/">mkdocs</a>.</p>
 // code
 ```
 </code></pre></div>
-<p>or <code>console</code> in code block</p>
-<div class="highlight"><pre><span></span><code>```console
-// code
-```
-</code></pre></div>
 <!-- termynal -->
 
-<p>
-<div class="termy" data-termynal>
+<p><div class="termy" data-termynal>
 <span data-ty>// code</span>
 <span data-ty></span>
 </div></p>
@@ -471,27 +464,37 @@ Done!
 </code></pre></div>
 <!-- termynal -->
 
-<p>
-<div class="termy" data-termynal>
-<span data-ty="input" data-ty-prompt="$">show&nbsp;progress</span>
+<p><div class="termy" data-termynal>
+<span data-ty="input" data-ty-prompt="$">show progress</span>
 <span data-ty="progress"></span>
 <span data-ty>Done!</span>
 <span data-ty></span>
 </div></p>
 <p>command, start with <code>$</code></p>
-<div class="highlight"><pre><span></span><code>```console
-$ command
+<div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
+
+```
+$ python
+&gt;&gt;&gt; import requests
+&gt;&gt;&gt; requests.get(&#39;https://exampls.com&#39;)
+&lt;Response [200]&gt;
+&gt;&gt;&gt;
 ```
 </code></pre></div>
 <!-- termynal -->
 
-<p>
-<div class="termy" data-termynal>
-<span data-ty="input" data-ty-prompt="$">command</span>
+<p><div class="termy" data-termynal>
+<span data-ty="input" data-ty-prompt="$">python</span>
+<span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import requests</span>
+<span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">requests.get(&#39;https://exampls.com&#39;)</span>
+<span data-ty>&lt;Response [200]&gt;</span>
+<span data-ty>&gt;&gt;&gt;</span>
 <span data-ty></span>
 </div></p>
 <p>Multiline commands</p>
-<div class="highlight"><pre><span></span><code>```console
+<div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
+
+```
 &gt; some longish command with \
   many \
     many \
@@ -502,26 +505,76 @@ and this is the output
 </code></pre></div>
 <!-- termynal -->
 
-<p>
-<div class="termy" data-termynal>
-<span data-ty="input" data-ty-prompt="&gt;">some&nbsp;longish&nbsp;command&nbsp;with&nbsp;\</span>
-<span data-ty="input" data-ty-prompt="">&nbsp;&nbsp;many&nbsp;\</span>
-<span data-ty="input" data-ty-prompt="">&nbsp;&nbsp;&nbsp;&nbsp;many&nbsp;\</span>
-<span data-ty="input" data-ty-prompt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;many&nbsp;\</span>
-<span data-ty="input" data-ty-prompt="">&nbsp;&nbsp;arguments</span>
+<p><div class="termy" data-termynal>
+<span data-ty="input" data-ty-prompt="&gt;">some longish command with \</span>
+<span data-ty="input" data-ty-prompt="">  many \</span>
+<span data-ty="input" data-ty-prompt="">    many \</span>
+<span data-ty="input" data-ty-prompt="">      many \</span>
+<span data-ty="input" data-ty-prompt="">  arguments</span>
 <span data-ty>and this is the output</span>
 <span data-ty></span>
 </div></p>
 <p>comment, start with <code>#</code></p>
-<div class="highlight"><pre><span></span><code>```console
+<div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
+
+```
 # comment
 ```
 </code></pre></div>
 <!-- termynal -->
 
-<p>
-<div class="termy" data-termynal>
+<p><div class="termy" data-termynal>
 <span data-ty>comment</span>
+<span data-ty></span>
+</div></p>
+<p>tool's help looks like this:</p>
+<div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
+
+```
+
+```
+</code></pre></div>
+<!-- termynal -->
+
+<p><div class="termy" data-termynal>
+<span data-ty="input" data-ty-prompt="$">poetry --help</span>
+<span data-ty></span>
+<span data-ty>Description:</span>
+<span data-ty>  Lists commands.</span>
+<span data-ty></span>
+<span data-ty>Usage:</span>
+<span data-ty>  list [options] [--] [&lt;namespace&gt;]</span>
+<span data-ty></span>
+<span data-ty>Arguments:</span>
+<span data-ty>  namespace                  The namespace name</span>
+<span data-ty></span>
+<span data-ty>Options:</span>
+<span data-ty>  -h, --help                 Display help for the given command.</span>
+<span data-ty>                             When no command is given display help</span>
+<span data-ty>                             for the list command.</span>
+<span data-ty>  -q, --quiet                Do not output any message.</span>
+<span data-ty>  -V, --version              Display this application version.</span>
+<span data-ty>      --ansi                 Force ANSI output.</span>
+<span data-ty>      --no-ansi              Disable ANSI output.</span>
+<span data-ty>  -n, --no-interaction       Do not ask any interactive question.</span>
+<span data-ty>      --no-plugins           Disables plugins.</span>
+<span data-ty>      --no-cache             Disables Poetry source caches.</span>
+<span data-ty>  -C, --directory=DIRECTORY  The working directory for the Poetry</span>
+<span data-ty>                             command (defaults to the current</span>
+<span data-ty>                             working directory).</span>
+<span data-ty>  -v|vv|vvv, --verbose       Increase the verbosity of messages:</span>
+<span data-ty>                             1 for normal output,</span>
+<span data-ty>                             2 for more verbose output and</span>
+<span data-ty>                             3 for debug.</span>
+<span data-ty></span>
+<span data-ty>Help:</span>
+<span data-ty>  The list command lists all commands:</span>
+<span data-ty></span>
+<span data-ty>    poetry list</span>
+<span data-ty></span>
+<span data-ty>  You can also display the commands for a specific namespace:</span>
+<span data-ty></span>
+<span data-ty>    poetry list test</span>
 <span data-ty></span>
 </div></p>
 <h3 id="mkdocs-integration">Mkdocs integration</h3>
@@ -544,18 +597,15 @@ and this is the output
 <div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
 
 <span class="sb">```</span>
-<span class="sb">&gt; pip install termynal</span>
-<span class="sb">---&gt; 100%</span>
-<span class="sb">Installed</span>
+<span class="sb">&gt; command with &gt;</span>
+<span class="sb">Ok!</span>
 <span class="sb">```</span>
 </code></pre></div>
 <!-- termynal -->
 
-<p>
-<div class="termy" data-termynal>
-<span data-ty="input" data-ty-prompt="&gt;">pip&nbsp;install&nbsp;termynal</span>
-<span data-ty="progress"></span>
-<span data-ty>Installed</span>
+<p><div class="termy" data-termynal>
+<span data-ty="input" data-ty-prompt="&gt;">command with &gt;</span>
+<span data-ty>Ok!</span>
 <span data-ty></span>
 </div></p>
 <h2 id="credits">Credits</h2>
