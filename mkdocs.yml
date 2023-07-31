@@ -33,7 +33,6 @@ markdown_extensions:
   - pymdownx.superfences
   - termynal:
       title: "shell"
-      prompt_in_multiline: false
       prompt_literal_start:
         - "$"
         - ">"

@@ -29,11 +29,9 @@ class Termynal:
         self,
         title: Optional[str] = None,
         prompt_literal_start: Iterable[str] = ("$",),
-        prompt_in_multiline: bool = False,
     ):
         self.title = title
         self.regex_prompts = make_regex_prompts(prompt_literal_start)
-        self.prompt_in_multiline = prompt_in_multiline
 
     def convert(self, code: str) -> str:
         code_lines: List[str] = []
@@ -55,11 +53,8 @@ class Termynal:
                 multiline = bool(line.endswith("\\"))
             elif multiline:
                 used_prompt = used_prompt or ""
-                if not self.prompt_in_multiline:
-                    used_prompt = ""
                 code_lines.append(
-                    f'<span data-ty="input" data-ty-prompt="{used_prompt.strip()}">'
-                    f"{line}</span>",
+                    f'<span data-ty="input" data-ty-prompt="">{line}</span>',
                 )
                 multiline = bool(line.endswith("\\"))
 
@@ -83,7 +78,6 @@ class TermynalPreprocessor(Preprocessor):
     def __init__(self, config: Dict[str, Any], md: "core.Markdown"):
         self.title = config.get("title", None)
         self.prompt_literal_start = config.get("prompt_literal_start", ("$ ",))
-        self.prompt_in_multiline = config.get("prompt_in_multiline", False)
 
         super(TermynalPreprocessor, self).__init__(md=md)
 
@@ -113,7 +107,6 @@ class TermynalPreprocessor(Preprocessor):
         termynal_obj = Termynal(
             title=self.title,
             prompt_literal_start=self.prompt_literal_start,
-            prompt_in_multiline=self.prompt_in_multiline,
         )
         lines_by_placeholder = {}
         is_termynal_code = False
@@ -161,10 +154,6 @@ class TermynalExtension(Extension):
                 ],
                 "A list of prompt characters start to consider as console - "
                 "Default: ['$']",
-            ],
-            "prompt_in_multiline": [
-                False,
-                "Default: False",
             ],
         }
 

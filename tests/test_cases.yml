@@ -115,7 +115,6 @@
 
 - name: case-7
   config: {
-    "prompt_in_multiline": True,
     "prompt_literal_start": ["&gt; "],
   }
   md: |
@@ -123,7 +122,7 @@
 
     ```console
     > pip install \
-        termynal
+    >     termynal
     ---> 100%
     ```
   expected_html: |
