@@ -263,14 +263,49 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mkdocs-integration" class="md-nav__link">
-    Mkdocs integration
+  <a href="#progress" class="md-nav__link">
+    progress
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command" class="md-nav__link">
+    command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiline-command" class="md-nav__link">
+    multiline command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comment" class="md-nav__link">
+    comment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    output
   </a>
   
 </li>
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocs-integration" class="md-nav__link">
+    Mkdocs integration
+  </a>
   
 </li>
       
@@ -391,14 +426,49 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mkdocs-integration" class="md-nav__link">
-    Mkdocs integration
+  <a href="#progress" class="md-nav__link">
+    progress
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command" class="md-nav__link">
+    command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiline-command" class="md-nav__link">
+    multiline command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comment" class="md-nav__link">
+    comment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    output
   </a>
   
 </li>
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocs-integration" class="md-nav__link">
+    Mkdocs integration
+  </a>
   
 </li>
       
@@ -437,8 +507,7 @@ Built for <a href="https://www.mkdocs.org/">mkdocs</a>.</p>
 <p><div class="termy" data-termynal data-ty-title="shell">
 <span data-ty="input" data-ty-prompt="$">pip install termynal</span>
 <span data-ty="progress"></span>
-<span data-ty>Installed</span>
-<span data-ty></span>
+<span data-ty>Installed<br></span>
 </div></p>
 <p><a href="https://daxartio.github.io/termynal/">Example</a></p>
 <h2 id="usage">Usage</h2>
@@ -452,11 +521,13 @@ Built for <a href="https://www.mkdocs.org/">mkdocs</a>.</p>
 <!-- termynal -->
 
 <p><div class="termy" data-termynal data-ty-title="shell">
-<span data-ty>// code</span>
-<span data-ty></span>
+<span data-ty>// code<br></span>
 </div></p>
+<h3 id="progress">progress</h3>
 <p>progress, prompt <code>---&gt; 100%</code></p>
-<div class="highlight"><pre><span></span><code>```
+<div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
+
+```
 $ show progress
 ---&gt; 100%
 Done!
@@ -467,10 +538,10 @@ Done!
 <p><div class="termy" data-termynal data-ty-title="shell">
 <span data-ty="input" data-ty-prompt="$">show progress</span>
 <span data-ty="progress"></span>
-<span data-ty>Done!</span>
-<span data-ty></span>
+<span data-ty>Done!<br></span>
 </div></p>
-<p>command, start with <code>$</code></p>
+<h3 id="command">command</h3>
+<p>command, start with <code>$</code>. You can change it with <code>prompt_literal_start</code> option.</p>
 <div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
 
 ```
@@ -485,13 +556,11 @@ $ python
 
 <p><div class="termy" data-termynal data-ty-title="shell">
 <span data-ty="input" data-ty-prompt="$">python</span>
-<span data-ty>&gt;&gt;&gt; import requests</span>
-<span data-ty>&gt;&gt;&gt; requests.get(&#39;https://exampls.com&#39;)</span>
-<span data-ty>&lt;Response [200]&gt;</span>
-<span data-ty>&gt;&gt;&gt;</span>
-<span data-ty></span>
+<span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import requests</span>
+<span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">requests.get(&#39;https://exampls.com&#39;)</span>
+<span data-ty>&lt;Response [200]&gt;<br>&gt;&gt;&gt;<br></span>
 </div></p>
-<p>Multiline commands</p>
+<h3 id="multiline-command">multiline command</h3>
 <div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
 
 ```
@@ -506,14 +575,14 @@ and this is the output
 <!-- termynal -->
 
 <p><div class="termy" data-termynal data-ty-title="shell">
-<span data-ty="input" data-ty-prompt="&gt;">some longish command with \</span>
-<span data-ty="input" data-ty-prompt="">  many \</span>
-<span data-ty="input" data-ty-prompt="">    many \</span>
-<span data-ty="input" data-ty-prompt="">      many \</span>
-<span data-ty="input" data-ty-prompt="">  arguments</span>
-<span data-ty>and this is the output</span>
-<span data-ty></span>
+<span data-ty="input" data-ty-prompt="&gt;">some longish command with \
+  many \
+    many \
+      many \
+  arguments</span>
+<span data-ty>and this is the output<br></span>
 </div></p>
+<h3 id="comment">comment</h3>
 <p>comment, start with <code>#</code></p>
 <div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
 
@@ -524,60 +593,25 @@ and this is the output
 <!-- termynal -->
 
 <p><div class="termy" data-termynal data-ty-title="shell">
-<span data-ty>comment</span>
-<span data-ty></span>
+<span data-ty>comment<br></span>
 </div></p>
+<h3 id="output">output</h3>
 <p>tool's help looks like this:</p>
 <div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
 
 ```
+$ poetry --help
 
+...
 ```
 </code></pre></div>
 <!-- termynal -->
 
 <p><div class="termy" data-termynal data-ty-title="shell">
 <span data-ty="input" data-ty-prompt="$">poetry --help</span>
-<span data-ty></span>
-<span data-ty>Description:</span>
-<span data-ty>  Lists commands.</span>
-<span data-ty></span>
-<span data-ty>Usage:</span>
-<span data-ty>  list [options] [--] [&lt;namespace&gt;]</span>
-<span data-ty></span>
-<span data-ty>Arguments:</span>
-<span data-ty>  namespace                  The namespace name</span>
-<span data-ty></span>
-<span data-ty>Options:</span>
-<span data-ty>  -h, --help                 Display help for the given command.</span>
-<span data-ty>                             When no command is given display help</span>
-<span data-ty>                             for the list command.</span>
-<span data-ty>  -q, --quiet                Do not output any message.</span>
-<span data-ty>  -V, --version              Display this application version.</span>
-<span data-ty>      --ansi                 Force ANSI output.</span>
-<span data-ty>      --no-ansi              Disable ANSI output.</span>
-<span data-ty>  -n, --no-interaction       Do not ask any interactive question.</span>
-<span data-ty>      --no-plugins           Disables plugins.</span>
-<span data-ty>      --no-cache             Disables Poetry source caches.</span>
-<span data-ty>  -C, --directory=DIRECTORY  The working directory for the Poetry</span>
-<span data-ty>                             command (defaults to the current</span>
-<span data-ty>                             working directory).</span>
-<span data-ty>  -v|vv|vvv, --verbose       Increase the verbosity of messages:</span>
-<span data-ty>                             1 for normal output,</span>
-<span data-ty>                             2 for more verbose output and</span>
-<span data-ty>                             3 for debug.</span>
-<span data-ty></span>
-<span data-ty>Help:</span>
-<span data-ty>  The list command lists all commands:</span>
-<span data-ty></span>
-<span data-ty>    poetry list</span>
-<span data-ty></span>
-<span data-ty>  You can also display the commands for a specific namespace:</span>
-<span data-ty></span>
-<span data-ty>    poetry list test</span>
-<span data-ty></span>
+<span data-ty><br>Description:<br>  Lists commands.<br><br>Usage:<br>  list [options] [--] [&lt;namespace&gt;]<br><br>Arguments:<br>  namespace                  The namespace name<br><br>Options:<br>  -h, --help                 Display help for the given command.<br>                             When no command is given display help<br>                             for the list command.<br>  -q, --quiet                Do not output any message.<br>  -V, --version              Display this application version.<br>      --ansi                 Force ANSI output.<br>      --no-ansi              Disable ANSI output.<br>  -n, --no-interaction       Do not ask any interactive question.<br>      --no-plugins           Disables plugins.<br>      --no-cache             Disables Poetry source caches.<br>  -C, --directory=DIRECTORY  The working directory for the Poetry<br>                             command (defaults to the current<br>                             working directory).<br>  -v|vv|vvv, --verbose       Increase the verbosity of messages:<br>                             1 for normal output,<br>                             2 for more verbose output and<br>                             3 for debug.<br><br>Help:<br>  The list command lists all commands:<br><br>    poetry list<br><br>  You can also display the commands for a specific namespace:<br><br>    poetry list test<br></span>
 </div></p>
-<h3 id="mkdocs-integration">Mkdocs integration</h3>
+<h2 id="mkdocs-integration">Mkdocs integration</h2>
 <p>Declare the plugin:</p>
 <div class="highlight"><pre><span></span><code><span class="nn">...</span>
 <span class="nt">plugins</span><span class="p">:</span>
@@ -605,8 +639,7 @@ and this is the output
 
 <p><div class="termy" data-termynal data-ty-title="shell">
 <span data-ty="input" data-ty-prompt="&gt;">command with &gt;</span>
-<span data-ty>Ok!</span>
-<span data-ty></span>
+<span data-ty>Ok!<br></span>
 </div></p>
 <h2 id="credits">Credits</h2>
 <p>Thanks <a href="https://github.com/ines/termynal">ines</a></p>
