@@ -8,7 +8,7 @@ if TYPE_CHECKING:  # pragma:no cover
     from markdown import core
 
 
-def make_regex_prompts(prompt_literal_start: Iterable[str]) -> re.Pattern[str]:
+def make_regex_prompts(prompt_literal_start: Iterable[str]) -> "re.Pattern[str]":
     prompt_literal_start = [re.escape(p).strip() for p in prompt_literal_start]
     prompt_to_replace = {
         ">": "&gt;",
