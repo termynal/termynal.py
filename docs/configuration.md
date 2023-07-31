@@ -4,7 +4,7 @@
 |----------------------|-------------|
 | title                | `"bash"`    |
 | prompt_in_multiline  | `false`     |
-| prompt_literal_start | `["$ "]`    |
+| prompt_literal_start | `["$"]`     |
 
 ```yaml
 markdown_extensions:
@@ -12,5 +12,5 @@ markdown_extensions:
       title: bash
       prompt_in_multiline: false
       prompt_literal_start:
-        - "$ "
+        - "$"
 ```

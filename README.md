@@ -21,7 +21,7 @@ $ pip install termynal
 Installed
 ```
 
-[Example](https://daxartio.github.io/termynal/)
+[Examples](https://daxartio.github.io/termynal/)
 
 ## Usage
 
@@ -31,41 +31,7 @@ Use `<!-- termynal -->` before code block
 <!-- termynal -->
 
 ```
-// code
-```
-````
-
-or `console` in code block
-
-````
-```console
-// code
-```
-````
-
-progress, prompt `---> 100%`
-
-````
-```console
-$ show progress
----> 100%
-Done!
-```
-````
-
-command, start with `$`
-
-````
-```console
-$ command
-```
-````
-
-comment, start with `#`
-
-````
-```console
-# comment
+$ python script.py
 ```
 ````
 
@@ -87,8 +53,8 @@ Optionally, pass options to the processor:
 markdown_extensions:
   - termynal:
       prompt_literal_start:
-        - "$ "
-        - "&gt; "
+        - "$"
+        - ">"
 [...]
 ```
 

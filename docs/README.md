@@ -189,8 +189,8 @@ Optionally, pass options to the processor:
 markdown_extensions:
   - termynal:
       prompt_literal_start:
-        - "$ "
-        - "&gt; "
+        - "$"
+        - ">"
 [...]
 ```
 
