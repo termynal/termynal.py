@@ -107,8 +107,8 @@
   expected_html: |
     <h1>Header</h1>
     <p><div class="termy" data-termynal data-ty-title="bash">
-    <span data-ty="input" data-ty-prompt="$">pip install \</span>
-    <span data-ty="input" data-ty-prompt="">    termynal</span>
+    <span data-ty="input" data-ty-prompt="$">pip install \
+        termynal</span>
     <span data-ty="progress"></span>
     <span data-ty></span>
     </div></p>
@@ -174,4 +174,30 @@
     <span data-ty="input" data-ty-prompt="&lt;">pip install termynal</span>
     <span data-ty="progress"></span>
     <span data-ty></span>
+    </div></p>
+
+- name: case-10
+  config: {"prompt_literal_start": ["$", ">>>", "PS >"]}
+  md: |
+    # Header
+
+    <!-- termynal -->
+
+    ```
+    # example
+    $ python
+    >>> import requests
+    >>> requests.get('https://exampls.com')
+    <Response [200]>
+    ```
+  expected_html: |
+    <h1>Header</h1>
+    <!-- termynal -->
+
+    <p><div class="termy" data-termynal data-ty-title="bash">
+    <span class="termynal-comment" data-ty># example</span>
+    <span data-ty="input" data-ty-prompt="$">python</span>
+    <span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import requests</span>
+    <span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">requests.get('https://exampls.com')</span>
+    <span data-ty>&lt;Response [200]&gt;<br></span>
     </div></p>

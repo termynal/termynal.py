@@ -1,5 +1,15 @@
 import re
-from typing import TYPE_CHECKING, Any, Dict, Iterable, List, Optional, Tuple
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Dict,
+    Iterable,
+    List,
+    NamedTuple,
+    Optional,
+    Tuple,
+    Union,
+)
 
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
@@ -8,30 +18,86 @@ if TYPE_CHECKING:  # pragma:no cover
     from markdown import core
 
 
+class Command(NamedTuple):
+    prompt: str
+    lines: List[str]
+
+
+class Comment(NamedTuple):
+    lines: List[str]
+
+
+class Output(NamedTuple):
+    lines: List[str]
+
+
+class Progress:
+    def __repr__(self) -> str:  # pragma:no cover
+        return "Progress()"
+
+
+ParsedBlock = Union[Command, Comment, Output, Progress]
+
+
 def make_regex_prompts(prompt_literal_start: Iterable[str]) -> "re.Pattern[str]":
     prompt_literal_start = [re.escape(p).strip() for p in prompt_literal_start]
     prompt_to_replace = {
         ">": "&gt;",
         "<": "&lt;",
     }
-    for i, prompt in enumerate(prompt_literal_start):
-        if prompt in prompt_to_replace:
-            prompt_literal_start[i] = prompt_to_replace[prompt]
+    for p, code in prompt_to_replace.items():
+        for i, prompt in enumerate(prompt_literal_start):
+            prompt_literal_start[i] = prompt.replace(p, code)
     prompt_literal_start_re = "|".join(f"{p} " for p in prompt_literal_start)
     return re.compile(f"^({prompt_literal_start_re})")
 
 
 class Termynal:
-    progress_literal_start = "---&gt; 100%"
-    custom_literal_start = "# "
-
     def __init__(
         self,
         title: Optional[str] = None,
         prompt_literal_start: Iterable[str] = ("$",),
+        progress_literal_start="---&gt; 100%",
+        comment_literal_start="# ",
     ):
         self.title = title
         self.regex_prompts = make_regex_prompts(prompt_literal_start)
+        self.progress_literal_start = progress_literal_start
+        self.comment_literal_start = comment_literal_start
+
+    def parse(self, code_lines: List[str]) -> List[ParsedBlock]:
+        parsed: List[ParsedBlock] = []
+        multiline = False
+        used_prompt = None
+        prev: Optional[ParsedBlock] = None
+        for line in code_lines:
+            if match := self.regex_prompts.match(line):
+                used_prompt = match.group()
+                prev = Command(used_prompt.strip(), [line.rsplit(used_prompt)[1]])
+                parsed.append(prev)
+                multiline = bool(line.endswith("\\"))
+
+            elif multiline:
+                if prev and isinstance(prev, Command):
+                    prev.lines.append(line)
+                multiline = bool(line.endswith("\\"))
+
+            elif line.startswith(self.comment_literal_start):
+                prev = None
+                parsed.append(Comment([line]))
+
+            elif line.startswith(self.progress_literal_start):
+                prev = None
+                parsed.append(Progress())
+
+            else:
+                if prev and isinstance(prev, Output):
+                    prev.lines.append(line)
+                else:
+                    prev = Output([line])
+                    parsed.append(prev)
+
+        return parsed
 
     def convert(self, code: str) -> str:
         code_lines: List[str] = []
@@ -41,31 +107,28 @@ class Termynal:
             )
         else:
             code_lines.append('<div class="termy">')
-        multiline = False
-        used_prompt = None
-        for line in code.split("\n"):
-            if match := self.regex_prompts.match(line):
-                used_prompt = match.group()
-                code_lines.append(
-                    f'<span data-ty="input" data-ty-prompt="{used_prompt.strip()}">'
-                    f"{line.rsplit(used_prompt)[1]}</span>",
-                )
-                multiline = bool(line.endswith("\\"))
-            elif multiline:
-                used_prompt = used_prompt or ""
-                code_lines.append(
-                    f'<span data-ty="input" data-ty-prompt="">{line}</span>',
-                )
-                multiline = bool(line.endswith("\\"))
 
-            elif line.startswith(self.custom_literal_start):
+        for block in self.parse(code.split("\n")):
+            if isinstance(block, Command):
+                lines = "\n".join(block.lines)
                 code_lines.append(
-                    f'<span class="termynal-comment" data-ty>{line}</span>',
+                    f'<span data-ty="input" data-ty-prompt="{block.prompt}">'
+                    f"{lines}</span>",
                 )
-            elif line.startswith(self.progress_literal_start):
+
+            elif isinstance(block, Comment):
+                lines = "\n".join(block.lines)
+                code_lines.append(
+                    f'<span class="termynal-comment" data-ty>{lines}</span>',
+                )
+
+            elif isinstance(block, Progress):
                 code_lines.append('<span data-ty="progress"></span>')
-            else:
-                code_lines.append(f"<span data-ty>{line}</span>")
+
+            elif isinstance(block, Output):
+                lines = "<br>".join(block.lines)
+                code_lines.append(f"<span data-ty>{lines}</span>")
+
         code_lines.append("</div>")
         return "\n".join(code_lines)
 

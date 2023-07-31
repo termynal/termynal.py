@@ -33,9 +33,14 @@ Use `<!-- termynal -->` before code block
 // code
 ```
 
+### progress
+
 progress, prompt `---> 100%`
 
 ````
+
+<!-- termynal -->
+
 ```
 $ show progress
 ---> 100%
@@ -51,7 +56,9 @@ $ show progress
 Done!
 ```
 
-command, start with `$`
+### command
+
+command, start with `$`. You can change it with `prompt_literal_start` option.
 
 ````
 <!-- termynal -->
@@ -75,7 +82,7 @@ $ python
 >>>
 ```
 
-Multiline commands
+### multiline command
 
 ````
 <!-- termynal -->
@@ -100,6 +107,8 @@ and this is the output
   arguments
 and this is the output
 ```
+
+### comment
 
 comment, start with `#`
 
@@ -117,13 +126,17 @@ comment, start with `#`
 # comment
 ```
 
+### output
+
 tool's help looks like this:
 
 ````
 <!-- termynal -->
 
 ```
+$ poetry --help
 
+...
 ```
 ````
 
@@ -171,7 +184,7 @@ Help:
 
 ```
 
-### Mkdocs integration
+## Mkdocs integration
 
 Declare the plugin:
 
