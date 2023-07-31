@@ -32,10 +32,11 @@ markdown_extensions:
   - codehilite
   - pymdownx.superfences
   - termynal:
-      promt_in_multiline: false
+      title: "shell"
+      prompt_in_multiline: false
       prompt_literal_start:
-        - "$ "
-        - "&gt; "
-        - "&gt;&gt;&gt; "
+        - "$"
+        - ">"
+        - ">>>"
   - markdown_include.include:
       base_path: .

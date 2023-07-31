@@ -1,5 +1,5 @@
 import re
-from typing import TYPE_CHECKING, Any, Dict, Iterable, List, Tuple
+from typing import TYPE_CHECKING, Any, Dict, Iterable, List, Optional, Tuple
 
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
@@ -8,22 +8,41 @@ if TYPE_CHECKING:  # pragma:no cover
     from markdown import core
 
 
+def make_regex_prompts(prompt_literal_start: Iterable[str]) -> re.Pattern[str]:
+    prompt_literal_start = [re.escape(p).strip() for p in prompt_literal_start]
+    prompt_to_replace = {
+        ">": "&gt;",
+        "<": "&lt;",
+    }
+    for i, prompt in enumerate(prompt_literal_start):
+        if prompt in prompt_to_replace:
+            prompt_literal_start[i] = prompt_to_replace[prompt]
+    prompt_literal_start_re = "|".join(f"{p} " for p in prompt_literal_start)
+    return re.compile(f"^({prompt_literal_start_re})")
+
+
 class Termynal:
     progress_literal_start = "---&gt; 100%"
     custom_literal_start = "# "
 
     def __init__(
         self,
-        prompt_literal_start: Iterable[str] = ("$ ",),
-        promt_in_multiline: bool = False,
+        title: Optional[str] = None,
+        prompt_literal_start: Iterable[str] = ("$",),
+        prompt_in_multiline: bool = False,
     ):
-        self.prompt_literal_start = "|".join(re.escape(p) for p in prompt_literal_start)
-        self.regex_prompts = re.compile(f"^({self.prompt_literal_start})")
-        self.promt_in_multiline = promt_in_multiline
+        self.title = title
+        self.regex_prompts = make_regex_prompts(prompt_literal_start)
+        self.prompt_in_multiline = prompt_in_multiline
 
     def convert(self, code: str) -> str:
         code_lines: List[str] = []
-        code_lines.append('<div class="termy" data-termynal>')
+        if self.title is not None:
+            code_lines.append(
+                f'<div class="termy" data-termynal data-ty-title="{self.title}">',
+            )
+        else:
+            code_lines.append('<div class="termy">')
         multiline = False
         used_prompt = None
         for line in code.split("\n"):
@@ -36,7 +55,7 @@ class Termynal:
                 multiline = bool(line.endswith("\\"))
             elif multiline:
                 used_prompt = used_prompt or ""
-                if not self.promt_in_multiline:
+                if not self.prompt_in_multiline:
                     used_prompt = ""
                 code_lines.append(
                     f'<span data-ty="input" data-ty-prompt="{used_prompt.strip()}">'
@@ -62,8 +81,9 @@ class TermynalPreprocessor(Preprocessor):
     language_class = 'class="language-console"'
 
     def __init__(self, config: Dict[str, Any], md: "core.Markdown"):
+        self.title = config.get("title", None)
         self.prompt_literal_start = config.get("prompt_literal_start", ("$ ",))
-        self.promt_in_multiline = config.get("promt_in_multiline", False)
+        self.prompt_in_multiline = config.get("prompt_in_multiline", False)
 
         super(TermynalPreprocessor, self).__init__(md=md)
 
@@ -91,8 +111,9 @@ class TermynalPreprocessor(Preprocessor):
         content_by_placeholder: Dict[str, Tuple[str, int]],
     ) -> Dict[str, str]:  # pylint:disable=too-many-nested-blocks
         termynal_obj = Termynal(
+            title=self.title,
             prompt_literal_start=self.prompt_literal_start,
-            promt_in_multiline=self.promt_in_multiline,
+            prompt_in_multiline=self.prompt_in_multiline,
         )
         lines_by_placeholder = {}
         is_termynal_code = False
@@ -130,14 +151,18 @@ class TermynalPreprocessor(Preprocessor):
 class TermynalExtension(Extension):
     def __init__(self, *args: Any, **kwargs: Any):
         self.config = {
+            "title": [
+                "bash",
+                "Default: 'bash'",
+            ],
             "prompt_literal_start": [
                 [
-                    "$ ",
+                    "$",
                 ],
                 "A list of prompt characters start to consider as console - "
-                "Default: ['$ ',]",
+                "Default: ['$']",
             ],
-            "promt_in_multiline": [
+            "prompt_in_multiline": [
                 False,
                 "Default: False",
             ],
