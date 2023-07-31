@@ -53,6 +53,10 @@
     text-align: center;
 }
 
+[data-termynal][data-ty-title]:after {
+    content: attr(data-ty-title);
+}
+
 a[data-terminal-control] {
     text-align: right;
     display: block;
