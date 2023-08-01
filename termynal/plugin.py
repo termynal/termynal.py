@@ -5,14 +5,13 @@ from mkdocs import utils
 from mkdocs.plugins import BasePlugin
 
 if TYPE_CHECKING:  # pragma:no cover
-    from mkdocs.config.base import Config
     from mkdocs.config.defaults import MkDocsConfig
 
 base_path = Path(__file__).parent
 
 
 class TermynalPlugin(BasePlugin):
-    def on_config(self, config: "MkDocsConfig") -> Optional["Config"]:
+    def on_config(self, config: "MkDocsConfig") -> Optional["MkDocsConfig"]:
         if "termynal.css" not in config["extra_css"]:
             config["extra_css"].append("termynal.css")
 

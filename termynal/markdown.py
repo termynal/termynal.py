@@ -90,12 +90,11 @@ class Termynal:
                 prev = None
                 parsed.append(Progress())
 
+            elif prev and isinstance(prev, Output):
+                prev.lines.append(line)
             else:
-                if prev and isinstance(prev, Output):
-                    prev.lines.append(line)
-                else:
-                    prev = Output([line])
-                    parsed.append(prev)
+                prev = Output([line])
+                parsed.append(prev)
 
         return parsed
 

@@ -35,23 +35,21 @@ markdown = "*"
 mkdocs = {version = "^1.4", optional = true}
 
 [tool.poetry.group.dev.dependencies]
-black = "*"
-mypy = "*"
-pytest = "*"
-pytest-asyncio = "*"
-pytest-cov = "*"
-pytest-deadfixtures = "*"
-pytest-mock = "*"
+black = ">=23.7.0"
+mypy = "^1.4.1"
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+pytest-deadfixtures = "^2.2.1"
+pytest-mock = "^3.11.1"
 pyyaml = "^6.0.1"
-ruff = "*"
-toml = "*"
-types-Markdown = "*"
+ruff = "^0.0.282"
+types-Markdown = "^3.4.2.10"
 types-pyyaml = "^6.0.12.11"
 
 [tool.poetry.group.docs.dependencies]
 markdown-include = "^0.8.1"
-mkdocs = "*"
-mkdocs-material = "*"
+mkdocs = "^1.4"
+mkdocs-material = "^9.1.21"
 
 [tool.poetry.group.git.dependencies]
 commitizen = "^3.5.3"
