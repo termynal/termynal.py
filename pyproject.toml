@@ -11,13 +11,17 @@ update_changelog_on_bump = true
 [tool.poetry]
 name = "termynal"
 version = "0.8.0"
-description = ""
+description = "A lightweight and modern animated terminal window"
 authors = ["Danil Akhtarov <daxartio@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/daxartio/termynal"
-homepage = "https://pypi.org/project/termynal"
-keywords = []
+homepage = "https://daxartio.github.io/termynal/"
+documentation = "https://daxartio.github.io/termynal/"
+keywords = ["mkdocs", "markdown", "plugin"]
+
+[tool.poetry.urls]
+Changelog = "https://daxartio.github.io/termynal/changelog/"
 
 [tool.poetry.plugins."mkdocs.plugins"]
 "termynal" = "termynal.plugin:TermynalPlugin"
