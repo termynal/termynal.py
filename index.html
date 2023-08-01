@@ -502,145 +502,162 @@
 <p>A lightweight and modern animated terminal window.
 Built for <a href="https://www.mkdocs.org/">mkdocs</a>.</p>
 <h2 id="installation">Installation</h2>
-<!-- termynal -->
+<div class="termy" data-termynal data-ty-title="shell"><span data-ty="input" data-ty-prompt="$">pip install termynal</span><span data-ty="progress"></span><span data-ty>Installed<br></span></div>
 
-<p><div class="termy" data-termynal data-ty-title="shell">
-<span data-ty="input" data-ty-prompt="$">pip install termynal</span>
-<span data-ty="progress"></span>
-<span data-ty>Installed<br></span>
-</div></p>
 <p><a href="https://daxartio.github.io/termynal/">Example</a></p>
 <h2 id="usage">Usage</h2>
 <p>Use <code>&lt;!-- termynal --&gt;</code> before code block</p>
-<div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>&lt;!-- termynal --&gt;
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>```
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>// code
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>```
+</span></code></pre></div></td></tr></table></div>
+<div class="termy" data-termynal data-ty-title="shell"><span data-ty>// code<br></span></div>
 
-```
-// code
-```
-</code></pre></div>
-<!-- termynal -->
-
-<p><div class="termy" data-termynal data-ty-title="shell">
-<span data-ty>// code<br></span>
-</div></p>
 <h3 id="progress">progress</h3>
 <p>progress, prompt <code>---&gt; 100%</code></p>
-<div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">6</a></span>
+<span class="normal"><a href="#__codelineno-1-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>&lt;!-- termynal --&gt;
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>```
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>$ show progress
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>---&gt; 100%
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>Done!
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a>```
+</span></code></pre></div></td></tr></table></div>
+<div class="termy" data-termynal data-ty-title="shell"><span data-ty="input" data-ty-prompt="$">show progress</span><span data-ty="progress"></span><span data-ty>Done!<br></span></div>
 
-```
-$ show progress
----&gt; 100%
-Done!
-```
-</code></pre></div>
-<!-- termynal -->
-
-<p><div class="termy" data-termynal data-ty-title="shell">
-<span data-ty="input" data-ty-prompt="$">show progress</span>
-<span data-ty="progress"></span>
-<span data-ty>Done!<br></span>
-</div></p>
 <h3 id="command">command</h3>
 <p>command, start with <code>$</code>. You can change it with <code>prompt_literal_start</code> option.</p>
-<div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span>
+<span class="normal"><a href="#__codelineno-2-8">8</a></span>
+<span class="normal"><a href="#__codelineno-2-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>&lt;!-- termynal --&gt;
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>```
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>$ python
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a>&gt;&gt;&gt; import requests
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a>&gt;&gt;&gt; requests.get(&#39;https://exampls.com&#39;)
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>&lt;Response [200]&gt;
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a>&gt;&gt;&gt;
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a>```
+</span></code></pre></div></td></tr></table></div>
+<div class="termy" data-termynal data-ty-title="shell"><span data-ty="input" data-ty-prompt="$">python</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import requests</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">requests.get('https://exampls.com')</span><span data-ty>&lt;Response [200]&gt;<br>&gt;&gt;&gt;<br></span></div>
 
-```
-$ python
-&gt;&gt;&gt; import requests
-&gt;&gt;&gt; requests.get(&#39;https://exampls.com&#39;)
-&lt;Response [200]&gt;
-&gt;&gt;&gt;
-```
-</code></pre></div>
-<!-- termynal -->
-
-<p><div class="termy" data-termynal data-ty-title="shell">
-<span data-ty="input" data-ty-prompt="$">python</span>
-<span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import requests</span>
-<span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">requests.get(&#39;https://exampls.com&#39;)</span>
-<span data-ty>&lt;Response [200]&gt;<br>&gt;&gt;&gt;<br></span>
-</div></p>
 <h3 id="multiline-command">multiline command</h3>
-<div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
-
-```
-&gt; some longish command with \
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>&lt;!-- termynal --&gt;
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>```
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>&gt; some longish command with \
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a>  many \
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a>    many \
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a>      many \
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a>  arguments
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a>and this is the output
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a>```
+</span></code></pre></div></td></tr></table></div>
+<div class="termy" data-termynal data-ty-title="shell"><span data-ty="input" data-ty-prompt="&gt;">some longish command with \
   many \
     many \
       many \
-  arguments
-and this is the output
-```
-</code></pre></div>
-<!-- termynal -->
+  arguments</span><span data-ty>and this is the output<br></span></div>
 
-<p><div class="termy" data-termynal data-ty-title="shell">
-<span data-ty="input" data-ty-prompt="&gt;">some longish command with \
-  many \
-    many \
-      many \
-  arguments</span>
-<span data-ty>and this is the output<br></span>
-</div></p>
 <h3 id="comment">comment</h3>
 <p>comment, start with <code>#</code></p>
-<div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>&lt;!-- termynal --&gt;
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a>```
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a># comment
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a>```
+</span></code></pre></div></td></tr></table></div>
+<div class="termy" data-termynal data-ty-title="shell"><span class="termynal-comment" data-ty># comment</span><span data-ty></span></div>
 
-```
-# comment
-```
-</code></pre></div>
-<!-- termynal -->
-
-<p><div class="termy" data-termynal data-ty-title="shell">
-<span data-ty>comment<br></span>
-</div></p>
 <h3 id="output">output</h3>
 <p>tool's help looks like this:</p>
-<div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span>
+<span class="normal"><a href="#__codelineno-5-6">6</a></span>
+<span class="normal"><a href="#__codelineno-5-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>&lt;!-- termynal --&gt;
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a>```
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a>$ poetry --help
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a>...
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a>```
+</span></code></pre></div></td></tr></table></div>
+<div class="termy" data-termynal data-ty-title="shell"><span data-ty="input" data-ty-prompt="$">poetry --help</span><span data-ty><br>Description:<br>  Lists commands.<br><br>Usage:<br>  list [options] [--] [&lt;namespace&gt;]<br><br>Arguments:<br>  namespace                  The namespace name<br><br>Options:<br>  -h, --help                 Display help for the given command.<br>                             When no command is given display help<br>                             for the list command.<br>  -q, --quiet                Do not output any message.<br>  -V, --version              Display this application version.<br>      --ansi                 Force ANSI output.<br>      --no-ansi              Disable ANSI output.<br>  -n, --no-interaction       Do not ask any interactive question.<br>      --no-plugins           Disables plugins.<br>      --no-cache             Disables Poetry source caches.<br>  -C, --directory=DIRECTORY  The working directory for the Poetry<br>                             command (defaults to the current<br>                             working directory).<br>  -v|vv|vvv, --verbose       Increase the verbosity of messages:<br>                             1 for normal output,<br>                             2 for more verbose output and<br>                             3 for debug.<br><br>Help:<br>  The list command lists all commands:<br><br>    poetry list<br><br>  You can also display the commands for a specific namespace:<br><br>    poetry list test<br><br></span></div>
 
-```
-$ poetry --help
-
-...
-```
-</code></pre></div>
-<!-- termynal -->
-
-<p><div class="termy" data-termynal data-ty-title="shell">
-<span data-ty="input" data-ty-prompt="$">poetry --help</span>
-<span data-ty><br>Description:<br>  Lists commands.<br><br>Usage:<br>  list [options] [--] [&lt;namespace&gt;]<br><br>Arguments:<br>  namespace                  The namespace name<br><br>Options:<br>  -h, --help                 Display help for the given command.<br>                             When no command is given display help<br>                             for the list command.<br>  -q, --quiet                Do not output any message.<br>  -V, --version              Display this application version.<br>      --ansi                 Force ANSI output.<br>      --no-ansi              Disable ANSI output.<br>  -n, --no-interaction       Do not ask any interactive question.<br>      --no-plugins           Disables plugins.<br>      --no-cache             Disables Poetry source caches.<br>  -C, --directory=DIRECTORY  The working directory for the Poetry<br>                             command (defaults to the current<br>                             working directory).<br>  -v|vv|vvv, --verbose       Increase the verbosity of messages:<br>                             1 for normal output,<br>                             2 for more verbose output and<br>                             3 for debug.<br><br>Help:<br>  The list command lists all commands:<br><br>    poetry list<br><br>  You can also display the commands for a specific namespace:<br><br>    poetry list test<br></span>
-</div></p>
 <h2 id="mkdocs-integration">Mkdocs integration</h2>
 <p>Declare the plugin:</p>
-<div class="highlight"><pre><span></span><code><span class="nn">...</span>
-<span class="nt">plugins</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">termynal</span>
-<span class="nn">...</span>
-</code></pre></div>
+<div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="nn">...</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="nt">plugins</span><span class="p">:</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">termynal</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="nn">...</span>
+</span></code></pre></div></td></tr></table></div>
 <p>Optionally, pass options to the processor:</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
-<span class="nt">markdown_extensions</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">termynal</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">prompt_literal_start</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;$&quot;</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;&gt;&quot;</span>
-<span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
-</code></pre></div>
+<div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span>
+<span class="normal"><a href="#__codelineno-7-5">5</a></span>
+<span class="normal"><a href="#__codelineno-7-6">6</a></span>
+<span class="normal"><a href="#__codelineno-7-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="nt">markdown_extensions</span><span class="p">:</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">termynal</span><span class="p">:</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">      </span><span class="nt">prompt_literal_start</span><span class="p">:</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;$&quot;</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;&gt;&quot;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+</span></code></pre></div></td></tr></table></div>
 <p>This config allows you to use another prompt:</p>
-<div class="highlight"><pre><span></span><code>&lt;!-- termynal --&gt;
+<div class="language-markdown highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span>
+<span class="normal"><a href="#__codelineno-8-5">5</a></span>
+<span class="normal"><a href="#__codelineno-8-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a>&lt;!-- termynal --&gt;
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="sb">```</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="sb">&gt; command with &gt;</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="sb">Ok!</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="sb">```</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="termy" data-termynal data-ty-title="shell"><span data-ty="input" data-ty-prompt="&gt;">command with &gt;</span><span data-ty>Ok!<br></span></div>
 
-<span class="sb">```</span>
-<span class="sb">&gt; command with &gt;</span>
-<span class="sb">Ok!</span>
-<span class="sb">```</span>
-</code></pre></div>
-<!-- termynal -->
-
-<p><div class="termy" data-termynal data-ty-title="shell">
-<span data-ty="input" data-ty-prompt="&gt;">command with &gt;</span>
-<span data-ty>Ok!<br></span>
-</div></p>
 <h2 id="credits">Credits</h2>
 <p>Thanks <a href="https://github.com/ines/termynal">ines</a></p>
 
