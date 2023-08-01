@@ -5,7 +5,7 @@ Built for [mkdocs](https://www.mkdocs.org/).
 
 ## Installation
 
-<!-- termynal -->
+<!--termynal: {title: bash, prompt_literal_start: [$]}-->
 
 ```
 $ pip install termynal

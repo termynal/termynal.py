@@ -11,11 +11,18 @@ from typing import (
     Union,
 )
 
+import yaml
+import yaml.parser
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
 
 if TYPE_CHECKING:  # pragma:no cover
     from markdown import core
+
+
+class Config(NamedTuple):
+    title: str
+    prompt_literal_start: Iterable[str]
 
 
 class Command(NamedTuple):
@@ -52,16 +59,34 @@ def make_regex_prompts(prompt_literal_start: Iterable[str]) -> "re.Pattern[str]"
     return re.compile(f"^({prompt_literal_start_re})")
 
 
+def parse_config(raw: str) -> Optional[Config]:
+    try:
+        config = yaml.full_load(raw)
+    except yaml.parser.ParserError:
+        return None
+
+    if not isinstance(config, dict):
+        return None
+
+    return parse_config_from_dict(config)
+
+
+def parse_config_from_dict(config: Dict[str, Any]) -> Config:
+    return Config(
+        title=str(config.get("title", "bash")),
+        prompt_literal_start=list(config.get("prompt_literal_start", ("$",))),
+    )
+
+
 class Termynal:
     def __init__(
         self,
-        title: Optional[str] = None,
-        prompt_literal_start: Iterable[str] = ("$",),
+        config: Config,
         progress_literal_start="---&gt; 100%",
         comment_literal_start="# ",
     ):
-        self.title = title
-        self.regex_prompts = make_regex_prompts(prompt_literal_start)
+        self.config = config
+        self.regex_prompts = make_regex_prompts(config.prompt_literal_start)
         self.progress_literal_start = progress_literal_start
         self.comment_literal_start = comment_literal_start
 
@@ -100,12 +125,9 @@ class Termynal:
 
     def convert(self, code: str) -> str:
         code_lines: List[str] = []
-        if self.title is not None:
-            code_lines.append(
-                f'<div class="termy" data-termynal data-ty-title="{self.title}">',
-            )
-        else:
-            code_lines.append('<div class="termy">')
+        code_lines.append(
+            f'<div class="termy" data-termynal data-ty-title="{self.config.title}">',
+        )
 
         for block in self.parse(code.split("\n")):
             if isinstance(block, Command):
@@ -133,7 +155,7 @@ class Termynal:
 
 
 class TermynalPreprocessor(Preprocessor):
-    ty_comment = "<!-- termynal -->"
+    ty_comment = re.compile(r"<!--\s*termynal:?(.*)-->")
     marker = "9HDrdgVBNLga"
     FENCED_BLOCK_RE = re.compile(
         dedent(
@@ -151,11 +173,9 @@ class TermynalPreprocessor(Preprocessor):
         re.MULTILINE | re.DOTALL | re.VERBOSE,
     )
 
-    def __init__(self, config: Dict[str, Any], md: "core.Markdown"):
-        self.title = config.get("title", None)
-        self.prompt_literal_start = config.get("prompt_literal_start", ("$ ",))
-
+    def __init__(self, config: Config, md: "core.Markdown"):
         super(TermynalPreprocessor, self).__init__(md=md)
+        self.config = config
 
     def run(self, lines: List[str]) -> List[str]:
         placeholder_i = 0
@@ -172,20 +192,25 @@ class TermynalPreprocessor(Preprocessor):
             else:
                 break
 
-        termynal = Termynal(
-            title=self.title,
-            prompt_literal_start=self.prompt_literal_start,
-        )
+        default_termynal = Termynal(self.config)
+        termynal = default_termynal
 
         new_lines: List[str] = []
         is_ty_code = False
         for line in text.split("\n"):
-            if line.startswith(self.ty_comment):
+            ty_match = self.ty_comment.match(line)
+            if ty_match:
+                configs_raw = ty_match.group(1)
+                if configs_raw and configs_raw.strip():
+                    config = parse_config(configs_raw)
+                    if config:
+                        termynal = Termynal(config)
                 is_ty_code = True
                 continue
 
             if is_ty_code and line in store:
                 new_lines.append(termynal.convert(self._escape(store[line][0])))
+                termynal = default_termynal
                 is_ty_code = False
             elif line in store:
                 new_lines.append(store[line][1])
@@ -223,7 +248,8 @@ class TermynalExtension(Extension):
     def extendMarkdown(self, md: "core.Markdown") -> None:  # noqa:N802
         """Register the extension."""
         md.registerExtension(self)
-        config = self.getConfigs()
+        md_config = self.getConfigs()
+        config = parse_config_from_dict(md_config)
         md.preprocessors.register(TermynalPreprocessor(config, md), "termynal", 35)
 
 
