@@ -1,4 +1,5 @@
 import re
+from textwrap import dedent
 from typing import (
     TYPE_CHECKING,
     Any,
@@ -7,7 +8,6 @@ from typing import (
     List,
     NamedTuple,
     Optional,
-    Tuple,
     Union,
 )
 
@@ -130,13 +130,27 @@ class Termynal:
                 code_lines.append(f"<span data-ty>{lines}</span>")
 
         code_lines.append("</div>")
-        return "\n".join(code_lines)
+        return "".join(code_lines)
 
 
 class TermynalPreprocessor(Preprocessor):
-    rexep = re.compile("(<code.*>)((.|\n)*?)(</code>)")
-    comment = "<!-- termynal -->"
-    language_class = 'class="language-console"'
+    ty_comment = "<!-- termynal -->"
+    marker = "9HDrdgVBNLga"
+    FENCED_BLOCK_RE = re.compile(
+        dedent(
+            r"""
+            (?P<fence>^(?:~{3,}|`{3,}))[ ]*   # opening fence
+            ((\{(?P<attrs>[^\}\n]*)\})|       # (optional {attrs} or
+            (\.?(?P<lang>[\w#.+-]*)[ ]*)?     # optional (.)lang
+            (hl_lines=(?P<quot>"|')           # optional hl_lines)
+            (?P<hl_lines>.*?)(?P=quot)[ ]*)?)
+            \n                                # newline (end of opening fence)
+            (?P<code>.*?)(?<=\n)              # the code block
+            (?P=fence)[ ]*$                   # closing fence
+        """,
+        ),
+        re.MULTILINE | re.DOTALL | re.VERBOSE,
+    )
 
     def __init__(self, config: Dict[str, Any], md: "core.Markdown"):
         self.title = config.get("title", None)
@@ -145,63 +159,48 @@ class TermynalPreprocessor(Preprocessor):
         super(TermynalPreprocessor, self).__init__(md=md)
 
     def run(self, lines: List[str]) -> List[str]:
-        content_by_placeholder = {}
-        for i in range(self.md.htmlStash.html_counter):
-            placeholder = self.md.htmlStash.get_placeholder(i)
-            content = self.md.htmlStash.rawHtmlBlocks[i]
-            content_by_placeholder[placeholder] = (content, i)
+        placeholder_i = 0
+        text = "\n".join(lines)
+        store = {}
+        while 1:
+            m = self.FENCED_BLOCK_RE.search(text)
+            if m:
+                code = m.group("code")
+                placeholder = f"{self.marker}-{placeholder_i}"
+                placeholder_i += 1
+                store[placeholder] = (code, text[m.start() : m.end()])
+                text = f"{text[:m.start()]}\n{placeholder}\n{text[m.end():]}"
+            else:
+                break
 
-        target_code_by_placeholder = self._get_lines(lines, content_by_placeholder)
+        termynal = Termynal(
+            title=self.title,
+            prompt_literal_start=self.prompt_literal_start,
+        )
 
-        new_lines = []
-        for line in lines:
-            if line in target_code_by_placeholder:
-                new_lines.append(target_code_by_placeholder[line])
+        new_lines: List[str] = []
+        is_ty_code = False
+        for line in text.split("\n"):
+            if line.startswith(self.ty_comment):
+                is_ty_code = True
+                continue
+
+            if is_ty_code and line in store:
+                new_lines.append(termynal.convert(self._escape(store[line][0])))
+                is_ty_code = False
+            elif line in store:
+                new_lines.append(store[line][1])
             else:
                 new_lines.append(line)
 
         return new_lines
 
-    def _get_lines(
-        self,
-        lines: List[str],
-        content_by_placeholder: Dict[str, Tuple[str, int]],
-    ) -> Dict[str, str]:  # pylint:disable=too-many-nested-blocks
-        termynal_obj = Termynal(
-            title=self.title,
-            prompt_literal_start=self.prompt_literal_start,
-        )
-        lines_by_placeholder = {}
-        is_termynal_code = False
-        for line in lines:
-            if line in content_by_placeholder:
-                (content, i) = content_by_placeholder[line]
-
-                if not isinstance(content, str):
-                    continue
-
-                if content.startswith(self.comment):
-                    is_termynal_code = True
-                    continue
-
-                matches = self.rexep.search(content)
-                if not matches:
-                    continue
-
-                if self.language_class in matches.group(1):
-                    is_termynal_code = True
-
-                if not is_termynal_code:
-                    continue
-
-                is_termynal_code = False
-                content = matches.group(2)
-                target_code = termynal_obj.convert(code=content)
-                if target_code:
-                    self.md.htmlStash.rawHtmlBlocks[i] = ""
-                    lines_by_placeholder[line] = target_code
-
-        return lines_by_placeholder
+    def _escape(self, txt: str) -> str:
+        txt = txt.replace("&", "&amp;")
+        txt = txt.replace("<", "&lt;")
+        txt = txt.replace(">", "&gt;")
+        txt = txt.replace('"', "&quot;")
+        return txt  # noqa:RET504
 
 
 class TermynalExtension(Extension):
@@ -226,7 +225,7 @@ class TermynalExtension(Extension):
         """Register the extension."""
         md.registerExtension(self)
         config = self.getConfigs()
-        md.preprocessors.register(TermynalPreprocessor(config, md), "termynal", 20)
+        md.preprocessors.register(TermynalPreprocessor(config, md), "termynal", 35)
 
 
 def makeExtension(  # noqa:N802  # pylint:disable=invalid-name

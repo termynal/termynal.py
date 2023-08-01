@@ -27,13 +27,7 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <!-- termynal -->
-
-    <p><div class="termy" data-termynal data-ty-title="bash">
-    <span data-ty="input" data-ty-prompt="$">pip install termynal</span>
-    <span data-ty="progress"></span>
-    <span data-ty></span>
-    </div></p>
+    <div class="termy" data-termynal data-ty-title="bash"><span data-ty="input" data-ty-prompt="$">pip install termynal</span><span data-ty="progress"></span><span data-ty></span></div>
 
 - name: case-3
   config: {}
@@ -46,11 +40,9 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <p><div class="termy" data-termynal data-ty-title="bash">
-    <span data-ty="input" data-ty-prompt="$">pip install termynal</span>
-    <span data-ty="progress"></span>
-    <span data-ty></span>
-    </div></p>
+    <pre><code class="language-console">$ pip install termynal
+    ---&gt; 100%
+    </code></pre>
 
 - name: case-4
   config: {"prompt_literal_start": ["&gt; "]}
@@ -65,13 +57,7 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <!-- termynal -->
-
-    <p><div class="termy" data-termynal data-ty-title="bash">
-    <span data-ty>$ pip install termynal</span>
-    <span data-ty="progress"></span>
-    <span data-ty></span>
-    </div></p>
+    <div class="termy" data-termynal data-ty-title="bash"><span data-ty>$ pip install termynal</span><span data-ty="progress"></span><span data-ty></span></div>
 
 - name: case-5
   config: {"prompt_literal_start": ["&gt; "]}
@@ -86,32 +72,24 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <!-- termynal -->
-
-    <p><div class="termy" data-termynal data-ty-title="bash">
-    <span data-ty="input" data-ty-prompt="&gt;">pip install termynal</span>
-    <span data-ty="progress"></span>
-    <span data-ty></span>
-    </div></p>
+    <div class="termy" data-termynal data-ty-title="bash"><span data-ty="input" data-ty-prompt="&gt;">pip install termynal</span><span data-ty="progress"></span><span data-ty></span></div>
 
 - name: case-6
   config: {}
   md: |
     # Header
 
-    ```console
+    <!-- termynal -->
+
+    ```
     $ pip install \
         termynal
     ---> 100%
     ```
   expected_html: |
     <h1>Header</h1>
-    <p><div class="termy" data-termynal data-ty-title="bash">
-    <span data-ty="input" data-ty-prompt="$">pip install \
-        termynal</span>
-    <span data-ty="progress"></span>
-    <span data-ty></span>
-    </div></p>
+    <div class="termy" data-termynal data-ty-title="bash"><span data-ty="input" data-ty-prompt="$">pip install \
+        termynal</span><span data-ty="progress"></span><span data-ty></span></div>
 
 - name: case-7
   config: {
@@ -120,6 +98,8 @@
   md: |
     # Header
 
+    <!-- termynal -->
+
     ```console
     > pip install \
     >     termynal
@@ -127,12 +107,7 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <p><div class="termy" data-termynal data-ty-title="bash">
-    <span data-ty="input" data-ty-prompt="&gt;">pip install \</span>
-    <span data-ty="input" data-ty-prompt="&gt;">    termynal</span>
-    <span data-ty="progress"></span>
-    <span data-ty></span>
-    </div></p>
+    <div class="termy" data-termynal data-ty-title="bash"><span data-ty="input" data-ty-prompt="&gt;">pip install \</span><span data-ty="input" data-ty-prompt="&gt;">    termynal</span><span data-ty="progress"></span><span data-ty></span></div>
 
 - name: case-8
   config: {"prompt_literal_start": [">"]}
@@ -147,13 +122,7 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <!-- termynal -->
-
-    <p><div class="termy" data-termynal data-ty-title="bash">
-    <span data-ty="input" data-ty-prompt="&gt;">pip install termynal</span>
-    <span data-ty="progress"></span>
-    <span data-ty></span>
-    </div></p>
+    <div class="termy" data-termynal data-ty-title="bash"><span data-ty="input" data-ty-prompt="&gt;">pip install termynal</span><span data-ty="progress"></span><span data-ty></span></div>
 
 - name: case-9
   config: {"prompt_literal_start": ["<"]}
@@ -168,13 +137,7 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <!-- termynal -->
-
-    <p><div class="termy" data-termynal data-ty-title="bash">
-    <span data-ty="input" data-ty-prompt="&lt;">pip install termynal</span>
-    <span data-ty="progress"></span>
-    <span data-ty></span>
-    </div></p>
+    <div class="termy" data-termynal data-ty-title="bash"><span data-ty="input" data-ty-prompt="&lt;">pip install termynal</span><span data-ty="progress"></span><span data-ty></span></div>
 
 - name: case-10
   config: {"prompt_literal_start": ["$", ">>>", "PS >"]}
@@ -192,12 +155,4 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <!-- termynal -->
-
-    <p><div class="termy" data-termynal data-ty-title="bash">
-    <span class="termynal-comment" data-ty># example</span>
-    <span data-ty="input" data-ty-prompt="$">python</span>
-    <span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import requests</span>
-    <span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">requests.get('https://exampls.com')</span>
-    <span data-ty>&lt;Response [200]&gt;<br></span>
-    </div></p>
+    <div class="termy" data-termynal data-ty-title="bash"><span class="termynal-comment" data-ty># example</span><span data-ty="input" data-ty-prompt="$">python</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import requests</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">requests.get('https://exampls.com')</span><span data-ty>&lt;Response [200]&gt;<br></span></div>
