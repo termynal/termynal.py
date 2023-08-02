@@ -19,13 +19,23 @@ theme:
   name: material
   language: en
   palette:
-    primary: black
-    accent: yellow
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+      primary: black
+      accent: yellow
+  icon:
+    repo: fontawesome/brands/github
 
 plugins:
   - termynal
   - search:
-      lang: en
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
 
 markdown_extensions:
   - admonition
