@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://pypi.org/project/termynal/</loc>
+         <loc>https://daxartio.github.io/termynal/</loc>
          <lastmod>2023-08-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://pypi.org/project/termynal/changelog/</loc>
+         <loc>https://daxartio.github.io/termynal/changelog/</loc>
          <lastmod>2023-08-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://pypi.org/project/termynal/code-of-conduct/</loc>
+         <loc>https://daxartio.github.io/termynal/code-of-conduct/</loc>
          <lastmod>2023-08-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://pypi.org/project/termynal/configuration/</loc>
+         <loc>https://daxartio.github.io/termynal/configuration/</loc>
          <lastmod>2023-08-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://pypi.org/project/termynal/contributing/</loc>
+         <loc>https://daxartio.github.io/termynal/contributing/</loc>
          <lastmod>2023-08-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
