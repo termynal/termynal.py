@@ -347,6 +347,10 @@
 <td><code>"bash"</code></td>
 </tr>
 <tr>
+<td>buttons</td>
+<td><code>"macos"</code>, <code>"windows"</code></td>
+</tr>
+<tr>
 <td>prompt_literal_start</td>
 <td><code>["$"]</code></td>
 </tr>
@@ -356,11 +360,13 @@
 <span class="normal"><a href="#__codelineno-0-2">2</a></span>
 <span class="normal"><a href="#__codelineno-0-3">3</a></span>
 <span class="normal"><a href="#__codelineno-0-4">4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nt">markdown_extensions</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nt">markdown_extensions</span><span class="p">:</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">termynal</span><span class="p">:</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="w">      </span><span class="nt">prompt_literal_start</span><span class="p">:</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;$&quot;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="w">      </span><span class="nt">buttons</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">macos</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="w">      </span><span class="nt">prompt_literal_start</span><span class="p">:</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;$&quot;</span>
 </span></code></pre></div></td></tr></table></div>
 <p>You can override configs for each block. If you set a part of the settings, another part will be set to the default value.</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
@@ -368,14 +374,14 @@
 <span class="normal"><a href="#__codelineno-1-3">3</a></span>
 <span class="normal"><a href="#__codelineno-1-4">4</a></span>
 <span class="normal"><a href="#__codelineno-1-5">5</a></span>
-<span class="normal"><a href="#__codelineno-1-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>&lt;!-- termynal: {&quot;prompt_literal_start&quot;: [&quot;$&quot;, &quot;&gt;&gt;&gt;&quot;, &quot;PS &gt;&quot;], title: shell} --&gt;
+<span class="normal"><a href="#__codelineno-1-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>&lt;!-- termynal: {&quot;prompt_literal_start&quot;: [&quot;$&quot;, &quot;&gt;&gt;&gt;&quot;, &quot;PS &gt;&quot;], title: powershell} --&gt;
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>```
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>PS &gt; python
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>&gt;&gt;&gt; import json
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>```
 </span></code></pre></div></td></tr></table></div>
-<div class="termy" data-termynal data-ty-title="shell"><span data-ty="input" data-ty-prompt="PS &gt;">python</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import json</span><span data-ty></span></div>
+<div class="termy" data-termynal data-ty-windows data-ty-title="powershell"><span data-ty="input" data-ty-prompt="PS &gt;">python</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import json</span><span data-ty></span></div>
 
 
 
