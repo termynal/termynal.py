@@ -27,7 +27,7 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <div class="termy" data-termynal data-ty-title="bash"><span data-ty="input" data-ty-prompt="$">pip install termynal</span><span data-ty="progress"></span><span data-ty></span></div>
+    <div class="termy" data-termynal data-ty-macos data-ty-title="bash"><span data-ty="input" data-ty-prompt="$">pip install termynal</span><span data-ty="progress"></span><span data-ty></span></div>
 
 - name: case-3
   config: {}
@@ -57,7 +57,7 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <div class="termy" data-termynal data-ty-title="bash"><span data-ty>$ pip install termynal</span><span data-ty="progress"></span><span data-ty></span></div>
+    <div class="termy" data-termynal data-ty-macos data-ty-title="bash"><span data-ty>$ pip install termynal</span><span data-ty="progress"></span><span data-ty></span></div>
 
 - name: case-5
   config: {"prompt_literal_start": ["&gt; "]}
@@ -72,7 +72,7 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <div class="termy" data-termynal data-ty-title="bash"><span data-ty="input" data-ty-prompt="&gt;">pip install termynal</span><span data-ty="progress"></span><span data-ty></span></div>
+    <div class="termy" data-termynal data-ty-macos data-ty-title="bash"><span data-ty="input" data-ty-prompt="&gt;">pip install termynal</span><span data-ty="progress"></span><span data-ty></span></div>
 
 - name: case-6
   config: {}
@@ -88,7 +88,7 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <div class="termy" data-termynal data-ty-title="bash"><span data-ty="input" data-ty-prompt="$">pip install \
+    <div class="termy" data-termynal data-ty-macos data-ty-title="bash"><span data-ty="input" data-ty-prompt="$">pip install \
         termynal</span><span data-ty="progress"></span><span data-ty></span></div>
 
 - name: case-7
@@ -107,7 +107,7 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <div class="termy" data-termynal data-ty-title="bash"><span data-ty="input" data-ty-prompt="&gt;">pip install \</span><span data-ty="input" data-ty-prompt="&gt;">    termynal</span><span data-ty="progress"></span><span data-ty></span></div>
+    <div class="termy" data-termynal data-ty-macos data-ty-title="bash"><span data-ty="input" data-ty-prompt="&gt;">pip install \</span><span data-ty="input" data-ty-prompt="&gt;">    termynal</span><span data-ty="progress"></span><span data-ty></span></div>
 
 - name: case-8
   config: {"prompt_literal_start": [">"]}
@@ -122,7 +122,7 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <div class="termy" data-termynal data-ty-title="bash"><span data-ty="input" data-ty-prompt="&gt;">pip install termynal</span><span data-ty="progress"></span><span data-ty></span></div>
+    <div class="termy" data-termynal data-ty-macos data-ty-title="bash"><span data-ty="input" data-ty-prompt="&gt;">pip install termynal</span><span data-ty="progress"></span><span data-ty></span></div>
 
 - name: case-9
   config: {"prompt_literal_start": ["<"]}
@@ -137,7 +137,7 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <div class="termy" data-termynal data-ty-title="bash"><span data-ty="input" data-ty-prompt="&lt;">pip install termynal</span><span data-ty="progress"></span><span data-ty></span></div>
+    <div class="termy" data-termynal data-ty-macos data-ty-title="bash"><span data-ty="input" data-ty-prompt="&lt;">pip install termynal</span><span data-ty="progress"></span><span data-ty></span></div>
 
 - name: case-10
   config: {"prompt_literal_start": ["$", ">>>", "PS >"]}
@@ -155,7 +155,7 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <div class="termy" data-termynal data-ty-title="bash"><span class="termynal-comment" data-ty># example</span><span data-ty="input" data-ty-prompt="$">python</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import requests</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">requests.get('https://exampls.com')</span><span data-ty>&lt;Response [200]&gt;<br></span></div>
+    <div class="termy" data-termynal data-ty-macos data-ty-title="bash"><span class="termynal-comment" data-ty># example</span><span data-ty="input" data-ty-prompt="$">python</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import requests</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">requests.get('https://exampls.com')</span><span data-ty>&lt;Response [200]&gt;<br></span></div>
 
 - name: case-11
   config: {}
@@ -173,7 +173,7 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <div class="termy" data-termynal data-ty-title="shell"><span class="termynal-comment" data-ty># example</span><span data-ty="input" data-ty-prompt="$">python</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import requests</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">requests.get('https://exampls.com')</span><span data-ty>&lt;Response [200]&gt;<br></span></div>
+    <div class="termy" data-termynal data-ty-macos data-ty-title="shell"><span class="termynal-comment" data-ty># example</span><span data-ty="input" data-ty-prompt="$">python</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import requests</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">requests.get('https://exampls.com')</span><span data-ty>&lt;Response [200]&gt;<br></span></div>
 
 - name: case-12
   config: {"prompt_literal_start": ["$", ">>>", "PS >"], title: shell}
@@ -191,4 +191,22 @@
     ```
   expected_html: |
     <h1>Header</h1>
-    <div class="termy" data-termynal data-ty-title="shell"><span class="termynal-comment" data-ty># example</span><span data-ty="input" data-ty-prompt="$">python</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import requests</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">requests.get('https://exampls.com')</span><span data-ty>&lt;Response [200]&gt;<br></span></div>
+    <div class="termy" data-termynal data-ty-macos data-ty-title="shell"><span class="termynal-comment" data-ty># example</span><span data-ty="input" data-ty-prompt="$">python</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import requests</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">requests.get('https://exampls.com')</span><span data-ty>&lt;Response [200]&gt;<br></span></div>
+
+- name: case-14
+  config: {"prompt_literal_start": ["$", ">>>", "PS >"], title: shell, buttons: windows}
+  md: |
+    # Header
+
+    <!-- termynal: error -->
+
+    ```
+    # example
+    $ python
+    >>> import requests
+    >>> requests.get('https://exampls.com')
+    <Response [200]>
+    ```
+  expected_html: |
+    <h1>Header</h1>
+    <div class="termy" data-termynal data-ty-windows data-ty-title="shell"><span class="termynal-comment" data-ty># example</span><span data-ty="input" data-ty-prompt="$">python</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import requests</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">requests.get('https://exampls.com')</span><span data-ty>&lt;Response [200]&gt;<br></span></div>

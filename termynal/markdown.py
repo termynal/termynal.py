@@ -1,4 +1,5 @@
 import re
+from enum import Enum
 from textwrap import dedent
 from typing import (
     TYPE_CHECKING,
@@ -20,9 +21,15 @@ if TYPE_CHECKING:  # pragma:no cover
     from markdown import core
 
 
+class Buttons(str, Enum):
+    MACOS = "macos"
+    WINDOWS = "windows"
+
+
 class Config(NamedTuple):
     title: str
     prompt_literal_start: Iterable[str]
+    buttons: Buttons
 
 
 class Command(NamedTuple):
@@ -75,6 +82,7 @@ def parse_config_from_dict(config: Dict[str, Any]) -> Config:
     return Config(
         title=str(config.get("title", "bash")),
         prompt_literal_start=list(config.get("prompt_literal_start", ("$",))),
+        buttons=Buttons(config.get("buttons", "macos")),
     )
 
 
@@ -126,7 +134,8 @@ class Termynal:
     def convert(self, code: str) -> str:
         code_lines: List[str] = []
         code_lines.append(
-            f'<div class="termy" data-termynal data-ty-title="{self.config.title}">',
+            f'<div class="termy" data-termynal data-ty-{self.config.buttons.value} '
+            f'data-ty-title="{self.config.title}">',
         )
 
         for block in self.parse(code.split("\n")):
@@ -234,6 +243,10 @@ class TermynalExtension(Extension):
                 "bash",
                 "Default: 'bash'",
             ],
+            "buttons": [
+                "macos",
+                "Default: 'macos'",
+            ],
             "prompt_literal_start": [
                 [
                     "$",
@@ -248,8 +261,7 @@ class TermynalExtension(Extension):
     def extendMarkdown(self, md: "core.Markdown") -> None:  # noqa:N802
         """Register the extension."""
         md.registerExtension(self)
-        md_config = self.getConfigs()
-        config = parse_config_from_dict(md_config)
+        config = parse_config_from_dict(self.getConfigs())
         md.preprocessors.register(TermynalPreprocessor(config, md), "termynal", 35)
 
 
