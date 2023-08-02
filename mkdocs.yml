@@ -1,5 +1,5 @@
 site_name: "Termynal"
-site_url: "https://pypi.org/project/termynal"
+site_url: "https://daxartio.github.io/termynal/"
 site_description: "A lightweight and modern animated terminal window for mkdocs"
 
 repo_name: "daxartio/termynal"
