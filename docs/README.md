@@ -13,8 +13,6 @@ $ pip install termynal
 Installed
 ```
 
-[Example](https://daxartio.github.io/termynal/)
-
 ## Usage
 
 Use `<!-- termynal -->` before code block

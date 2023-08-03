@@ -13,13 +13,7 @@ Built for [mkdocs](https://www.mkdocs.org/).
 
 ## Installation
 
-<!-- termynal -->
-
-```
-$ pip install termynal
----> 100%
-Installed
-```
+![termynal](termynal.gif)
 
 [Examples](https://daxartio.github.io/termynal/)
 
