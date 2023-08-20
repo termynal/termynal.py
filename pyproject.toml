@@ -15,13 +15,13 @@ description = "A lightweight and modern animated terminal window"
 authors = ["Danil Akhtarov <daxartio@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/daxartio/termynal"
-homepage = "https://daxartio.github.io/termynal/"
-documentation = "https://daxartio.github.io/termynal/"
+repository = "https://github.com/mkdocs-plugins/termynal"
+homepage = "https://mkdocs-plugins.github.io/termynal/"
+documentation = "https://mkdocs-plugins.github.io/termynal/"
 keywords = ["mkdocs", "markdown", "plugin"]
 
 [tool.poetry.urls]
-Changelog = "https://daxartio.github.io/termynal/changelog/"
+Changelog = "https://mkdocs-plugins.github.io/termynal/changelog/"
 
 [tool.poetry.plugins."mkdocs.plugins"]
 "termynal" = "termynal.plugin:TermynalPlugin"

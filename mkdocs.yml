@@ -1,9 +1,9 @@
 site_name: "Termynal"
-site_url: "https://daxartio.github.io/termynal/"
+site_url: "https://mkdocs-plugins.github.io/termynal/"
 site_description: "A lightweight and modern animated terminal window for mkdocs"
 
-repo_name: "daxartio/termynal"
-repo_url: "https://github.com/daxartio/termynal"
+repo_name: "mkdocs-plugins/termynal"
+repo_url: "https://github.com/mkdocs-plugins/termynal"
 edit_uri: "edit/main/docs/"
 
 copyright: "Copyright &copy; 2023 Danil Akhtarov"
