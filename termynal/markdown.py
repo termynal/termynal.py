@@ -1,16 +1,7 @@
 import re
 from enum import Enum
 from textwrap import dedent
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Dict,
-    Iterable,
-    List,
-    NamedTuple,
-    Optional,
-    Union,
-)
+from typing import TYPE_CHECKING, Any, Dict, Iterable, List, NamedTuple, Optional, Union
 
 import yaml
 import yaml.parser

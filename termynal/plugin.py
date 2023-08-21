@@ -2,6 +2,8 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Optional
 
 from mkdocs import utils
+from mkdocs.config import base
+from mkdocs.config import config_options as c
 from mkdocs.plugins import BasePlugin
 
 if TYPE_CHECKING:  # pragma:no cover
@@ -10,7 +12,13 @@ if TYPE_CHECKING:  # pragma:no cover
 base_path = Path(__file__).parent
 
 
-class TermynalPlugin(BasePlugin):
+class TermynalPluginConfig(base.Config):
+    title = c.Type(str, default="bash")
+    buttons = c.Choice(("macos", "windows"), default="macos")
+    prompt_literal_start = c.ListOfItems(c.Type(str), default=["$"])
+
+
+class TermynalPlugin(BasePlugin[TermynalPluginConfig]):
     def on_config(self, config: "MkDocsConfig") -> Optional["MkDocsConfig"]:
         if "termynal.css" not in config["extra_css"]:
             config["extra_css"].append("termynal.css")
@@ -20,6 +28,9 @@ class TermynalPlugin(BasePlugin):
 
         if "termynal" not in config["markdown_extensions"]:
             config["markdown_extensions"].append("termynal")
+
+        md_config = config["mdx_configs"].setdefault("termynal", {})
+        config["mdx_configs"]["termynal"] = {**self.config, **md_config}
 
         return config
 

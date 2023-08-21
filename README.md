@@ -44,7 +44,7 @@ Optionally, pass options to the processor:
 
 ```yaml
 [...]
-markdown_extensions:
+plugins:
   - termynal:
       prompt_literal_start:
         - "$"

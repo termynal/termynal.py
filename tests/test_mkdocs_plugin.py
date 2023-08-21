@@ -13,7 +13,12 @@ def plugin():
 
 @pytest.fixture()
 def empty_config():
-    return {"extra_css": [], "extra_javascript": [], "markdown_extensions": []}
+    return {
+        "extra_css": [],
+        "extra_javascript": [],
+        "markdown_extensions": [],
+        "mdx_configs": {},
+    }
 
 
 @pytest.fixture()
@@ -22,6 +27,7 @@ def config():
         "extra_css": ["termynal.css"],
         "extra_javascript": ["termynal.js"],
         "markdown_extensions": ["termynal"],
+        "mdx_configs": {"termynal": {}},
     }
 
 

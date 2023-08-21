@@ -1,13 +1,13 @@
 # Configuration
 
-| **name**             | **default**            |
-|----------------------|------------------------|
-| title                | `"bash"`               |
-| buttons              | `"macos"`, `"windows"` |
-| prompt_literal_start | `["$"]`                |
+| **name**             | **default** |                        |
+|----------------------|-------------|------------------------|
+| title                | `"bash"`    |                        |
+| buttons              | `"macos"`   | `"macos"`, `"windows"` |
+| prompt_literal_start | `["$"]`     |                        |
 
 ```yaml
-markdown_extensions:
+plugins:
   - termynal:
       title: bash
       buttons: macos
@@ -15,7 +15,7 @@ markdown_extensions:
         - "$"
 ```
 
-You can override configs for each block. If you set a part of the settings, another part will be set to the default value.
+You can override configurations for each block. If you set a part of the settings, the other part will be set to the default value.
 
 ````
 <!-- termynal: {"prompt_literal_start": ["$", ">>>", "PS >"], title: powershell, buttons: windows} -->

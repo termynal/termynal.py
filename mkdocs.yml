@@ -33,14 +33,6 @@ theme:
     repo: fontawesome/brands/github
 
 plugins:
-  - termynal
-  - search:
-      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
-
-markdown_extensions:
-  - admonition
-  - codehilite
-  - pymdownx.superfences
   - termynal:
       title: "shell"
       buttons: "macos"
@@ -48,6 +40,13 @@ markdown_extensions:
         - "$"
         - ">"
         - ">>>"
+  - search:
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.superfences
   - markdown_include.include:
       base_path: .
   - pymdownx.highlight:
