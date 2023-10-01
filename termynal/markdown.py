@@ -159,7 +159,10 @@ class TermynalPreprocessor(Preprocessor):
     marker = "9HDrdgVBNLga"
     FENCED_BLOCK_RE = re.compile(
         dedent(
-            r"""
+            ty_comment.pattern
+            + r"\n+"
+            + r"""
+            (?P<terminal>                     # termynal group
             (?P<fence>^(?:~{3,}|`{3,}))[ ]*   # opening fence
             ((\{(?P<attrs>[^\}\n]*)\})|       # (optional {attrs} or
             (\.?(?P<lang>[\w#.+-]*)[ ]*)?     # optional (.)lang
@@ -167,7 +170,8 @@ class TermynalPreprocessor(Preprocessor):
             (?P<hl_lines>.*?)(?P=quot)[ ]*)?)
             \n                                # newline (end of opening fence)
             (?P<code>.*?)(?<=\n)              # the code block
-            (?P=fence)[ ]*$                   # closing fence
+            (?P=fence)[ ]*                    # closing fence
+            )$
         """,
         ),
         re.MULTILINE | re.DOTALL | re.VERBOSE,
@@ -187,8 +191,8 @@ class TermynalPreprocessor(Preprocessor):
                 code = m.group("code")
                 placeholder = f"{self.marker}-{placeholder_i}"
                 placeholder_i += 1
-                store[placeholder] = (code, text[m.start() : m.end()])
-                text = f"{text[:m.start()]}\n{placeholder}\n{text[m.end():]}"
+                store[placeholder] = (code, text[m.start("terminal") : m.end()])
+                text = f"{text[:m.start('terminal')]}\n{placeholder}\n{text[m.end():]}"
             else:
                 break
 
