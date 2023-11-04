@@ -36,7 +36,7 @@ mkdocs = {version = "^1.4", optional = true}
 
 [tool.poetry.group.dev.dependencies]
 black = ">=23.7.0"
-mypy = "^1.4.1"
+mypy = "^1.6.1"
 pytest = "^7.4.0"
 pytest-cov = "^4.1.0"
 pytest-deadfixtures = "^2.2.1"
@@ -48,11 +48,11 @@ types-pyyaml = "^6.0.12.11"
 
 [tool.poetry.group.docs.dependencies]
 markdown-include = "^0.8.1"
-mkdocs = "^1.4"
-mkdocs-material = "^9.1.21"
+mkdocs = "^1.5.3"
+mkdocs-material = "^9.4.7"
 
 [tool.poetry.group.git.dependencies]
-commitizen = "^3.5.3"
+commitizen = "^3.12.0"
 
 [tool.poetry.extras]
 mkdocs = ["mkdocs"]

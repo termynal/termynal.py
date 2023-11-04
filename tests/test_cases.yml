@@ -210,3 +210,24 @@
   expected_html: |
     <h1>Header</h1>
     <div class="termy" data-termynal data-ty-windows data-ty-title="shell"><span class="termynal-comment" data-ty># example</span><span data-ty="input" data-ty-prompt="$">python</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import requests</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">requests.get('https://exampls.com')</span><span data-ty>&lt;Response [200]&gt;<br></span></div>
+
+- name: case-15
+  config: {}
+  md: |
+    # Header
+
+        <!-- termynal -->
+
+        ```
+        $ pip install termynal
+        ---> 100%
+        ```
+  expected_html: |
+    <h1>Header</h1>
+    <pre><code>&lt;!-- termynal --&gt;
+    
+    ```
+    $ pip install termynal
+    ---&gt; 100%
+    ```
+    </code></pre>

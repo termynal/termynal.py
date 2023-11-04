@@ -18,8 +18,6 @@ Installed
 Use `<!-- termynal -->` before code block
 
 ````
-<!-- termynal -->
-
 ```
 // code
 ```
@@ -36,9 +34,6 @@ Use `<!-- termynal -->` before code block
 progress, prompt `---> 100%`
 
 ````
-
-<!-- termynal -->
-
 ```
 $ show progress
 ---> 100%
@@ -59,8 +54,6 @@ Done!
 command, start with `$`. You can change it with `prompt_literal_start` option.
 
 ````
-<!-- termynal -->
-
 ```
 $ python
 >>> import requests
@@ -83,8 +76,6 @@ $ python
 ### multiline command
 
 ````
-<!-- termynal -->
-
 ```
 > some longish command with \
   many \
@@ -111,8 +102,6 @@ and this is the output
 comment, start with `#`
 
 ````
-<!-- termynal -->
-
 ```
 # comment
 ```
@@ -129,8 +118,6 @@ comment, start with `#`
 tool's help looks like this:
 
 ````
-<!-- termynal -->
-
 ```
 $ poetry --help
 
@@ -208,14 +195,12 @@ plugins:
 This config allows you to use another prompt:
 
 ````markdown
-<!-- termynal -->
-
 ```
 > command with >
 Ok!
 ```
-
 ````
+
 <!-- termynal -->
 
 ```

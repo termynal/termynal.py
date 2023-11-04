@@ -160,19 +160,19 @@ class TermynalPreprocessor(Preprocessor):
     FENCED_BLOCK_RE = re.compile(
         dedent(
             ty_comment.pattern
-            + r"\n+"
             + r"""
-            (?P<terminal>                     # termynal group
-            (?P<fence>^(?:~{3,}|`{3,}))[ ]*   # opening fence
-            ((\{(?P<attrs>[^\}\n]*)\})|       # (optional {attrs} or
-            (\.?(?P<lang>[\w#.+-]*)[ ]*)?     # optional (.)lang
-            (hl_lines=(?P<quot>"|')           # optional hl_lines)
+            \n+
+            (?P<terminal>                      # termynal group
+            (?P<fence>^(?:~{3,}|`{3,}))[ ]*    # opening fence
+            ((\{(?P<attrs>[^\}\n]*)\})|        # (optional {attrs} or
+            (\.?(?P<lang>[\w#.+-]*)[ ]*)?      # optional (.)lang
+            (hl_lines=(?P<quot>"|')            # optional hl_lines)
             (?P<hl_lines>.*?)(?P=quot)[ ]*)?)
-            \n                                # newline (end of opening fence)
-            (?P<code>.*?)(?<=\n)              # the code block
-            (?P=fence)[ ]*                    # closing fence
+            \n                                 # newline (end of opening fence)
+            (?P<code>.*?)(?<=\n)               # the code block
+            (?P=fence)[ ]*                     # closing fence
             )$
-        """,
+            """,
         ),
         re.MULTILINE | re.DOTALL | re.VERBOSE,
     )
@@ -185,7 +185,7 @@ class TermynalPreprocessor(Preprocessor):
         placeholder_i = 0
         text = "\n".join(lines)
         store = {}
-        while 1:
+        while True:
             m = self.FENCED_BLOCK_RE.search(text)
             if m:
                 code = m.group("code")
@@ -213,7 +213,8 @@ class TermynalPreprocessor(Preprocessor):
                 continue
 
             if is_ty_code and line in store:
-                new_lines.append(termynal.convert(self._escape(store[line][0])))
+                code = store[line][0]
+                new_lines.append(termynal.convert(self._escape(code)))
                 termynal = default_termynal
                 is_ty_code = False
             elif line in store:
