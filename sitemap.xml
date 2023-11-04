@@ -2,27 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://mkdocs-plugins.github.io/termynal/</loc>
-         <lastmod>2023-10-01</lastmod>
+         <lastmod>2023-11-04</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocs-plugins.github.io/termynal/changelog/</loc>
-         <lastmod>2023-10-01</lastmod>
+         <lastmod>2023-11-04</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocs-plugins.github.io/termynal/code-of-conduct/</loc>
-         <lastmod>2023-10-01</lastmod>
+         <lastmod>2023-11-04</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocs-plugins.github.io/termynal/configuration/</loc>
-         <lastmod>2023-10-01</lastmod>
+         <lastmod>2023-11-04</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocs-plugins.github.io/termynal/contributing/</loc>
-         <lastmod>2023-10-01</lastmod>
+         <lastmod>2023-11-04</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
