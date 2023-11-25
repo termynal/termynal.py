@@ -28,11 +28,15 @@ make install
 
 ### Run tests
 
+Please, write tests for your code.
+
 ```
 make test
 ```
 
 ### Formatting
+
+Autofix code style issues.
 
 ```
 make format
@@ -40,13 +44,15 @@ make format
 
 ### Lint
 
+Check code style issues.
+
 ```
 make lint
 ```
 
 ## Release
 
-Automatically after merging with the master
+Automatically after merging with the master.
 
 1. `make bump`
 2. `git push` and `git push --tags`

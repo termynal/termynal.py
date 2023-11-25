@@ -57,10 +57,18 @@ def make_regex_prompts(prompt_literal_start: Iterable[str]) -> "re.Pattern[str]"
     return re.compile(f"^({prompt_literal_start_re})")
 
 
+def escape(txt: str) -> str:
+    txt = txt.replace("&", "&amp;")
+    txt = txt.replace("<", "&lt;")
+    txt = txt.replace(">", "&gt;")
+    txt = txt.replace('"', "&quot;")
+    return txt  # noqa:RET504
+
+
 def parse_config(raw: str) -> Optional[Config]:
     try:
         config = yaml.full_load(raw)
-    except yaml.parser.ParserError:
+    except yaml.parser.ParserError:  # pragma:no cover
         return None
 
     if not isinstance(config, dict):
@@ -78,6 +86,8 @@ def parse_config_from_dict(config: Dict[str, Any]) -> Config:
 
 
 class Termynal:
+    """Converts bash code to termynal HTML."""
+
     def __init__(
         self,
         config: Config,
@@ -89,7 +99,46 @@ class Termynal:
         self.progress_literal_start = progress_literal_start
         self.comment_literal_start = comment_literal_start
 
-    def parse(self, code_lines: List[str]) -> List[ParsedBlock]:
+    def convert(self, code: str) -> str:
+        """Converts bash code to termynal HTML.
+
+        Apply rules:
+        - If a line starts with a prompt, it is a command.
+        - If a line starts with a comment literal, it is a comment.
+        - If a line starts with a progress literal, it is a progress bar.
+        - If a line starts with anything else, it is an output.
+        """
+        code_lines: List[str] = []
+        code_lines.append(
+            f'<div class="termy" data-termynal data-ty-{self.config.buttons.value} '
+            f'data-ty-title="{self.config.title}">',
+        )
+
+        for block in self._parse(code.split("\n")):
+            if isinstance(block, Command):
+                lines = "\n".join(block.lines)
+                code_lines.append(
+                    f'<span data-ty="input" data-ty-prompt="{block.prompt}">'
+                    f"{lines}</span>",
+                )
+
+            elif isinstance(block, Comment):
+                lines = "\n".join(block.lines)
+                code_lines.append(
+                    f'<span class="termynal-comment" data-ty>{lines}</span>',
+                )
+
+            elif isinstance(block, Progress):
+                code_lines.append('<span data-ty="progress"></span>')
+
+            elif isinstance(block, Output):
+                lines = "<br>".join(block.lines)
+                code_lines.append(f"<span data-ty>{lines}</span>")
+
+        code_lines.append("</div>")
+        return "".join(code_lines)
+
+    def _parse(self, code_lines: List[str]) -> List[ParsedBlock]:
         parsed: List[ParsedBlock] = []
         multiline = False
         used_prompt = None
@@ -122,39 +171,10 @@ class Termynal:
 
         return parsed
 
-    def convert(self, code: str) -> str:
-        code_lines: List[str] = []
-        code_lines.append(
-            f'<div class="termy" data-termynal data-ty-{self.config.buttons.value} '
-            f'data-ty-title="{self.config.title}">',
-        )
-
-        for block in self.parse(code.split("\n")):
-            if isinstance(block, Command):
-                lines = "\n".join(block.lines)
-                code_lines.append(
-                    f'<span data-ty="input" data-ty-prompt="{block.prompt}">'
-                    f"{lines}</span>",
-                )
-
-            elif isinstance(block, Comment):
-                lines = "\n".join(block.lines)
-                code_lines.append(
-                    f'<span class="termynal-comment" data-ty>{lines}</span>',
-                )
-
-            elif isinstance(block, Progress):
-                code_lines.append('<span data-ty="progress"></span>')
-
-            elif isinstance(block, Output):
-                lines = "<br>".join(block.lines)
-                code_lines.append(f"<span data-ty>{lines}</span>")
-
-        code_lines.append("</div>")
-        return "".join(code_lines)
-
 
 class TermynalPreprocessor(Preprocessor):
+    """Converts fenced code blocks to termynal HTML."""
+
     ty_comment = re.compile(r"<!--\s*termynal:?(.*)-->")
     marker = "9HDrdgVBNLga"
     FENCED_BLOCK_RE = re.compile(
@@ -214,22 +234,16 @@ class TermynalPreprocessor(Preprocessor):
 
             if is_ty_code and line in store:
                 code = store[line][0]
-                new_lines.append(termynal.convert(self._escape(code)))
+                new_lines.append(termynal.convert(escape(code)))
                 termynal = default_termynal
                 is_ty_code = False
             elif line in store:
-                new_lines.append(store[line][1])
+                raw_code = store[line][1]
+                new_lines.append(raw_code)
             else:
                 new_lines.append(line)
 
         return new_lines
-
-    def _escape(self, txt: str) -> str:
-        txt = txt.replace("&", "&amp;")
-        txt = txt.replace("<", "&lt;")
-        txt = txt.replace(">", "&gt;")
-        txt = txt.replace('"', "&quot;")
-        return txt  # noqa:RET504
 
 
 class TermynalExtension(Extension):
