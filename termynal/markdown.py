@@ -1,3 +1,4 @@
+import os
 import re
 from enum import Enum
 from textwrap import dedent
@@ -7,6 +8,8 @@ import yaml
 import yaml.parser
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
+
+TERMYNAL_PREPROCESSOR_PRIORITY = int(os.getenv("TERMYNAL_PREPROCESSOR_PRIORITY", "35"))
 
 if TYPE_CHECKING:  # pragma:no cover
     from markdown import core
@@ -272,7 +275,11 @@ class TermynalExtension(Extension):
         """Register the extension."""
         md.registerExtension(self)
         config = parse_config_from_dict(self.getConfigs())
-        md.preprocessors.register(TermynalPreprocessor(config, md), "termynal", 35)
+        md.preprocessors.register(
+            TermynalPreprocessor(config, md),
+            "termynal",
+            TERMYNAL_PREPROCESSOR_PRIORITY,
+        )
 
 
 def makeExtension(  # noqa:N802  # pylint:disable=invalid-name
