@@ -609,16 +609,29 @@ Built for <a href="https://www.mkdocs.org/">mkdocs</a>.</p>
 
 <h2 id="usage">Usage</h2>
 <p>Use <code>&lt;!-- termynal --&gt;</code> before code block</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">HTML</label><label for="__tabbed_1_2">Markdown</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="termy" data-termynal data-ty-macos data-ty-title="shell"><span data-ty>// code<br></span></div></p>
+</div>
+<div class="tabbed-block">
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
 <span class="normal"><a href="#__codelineno-0-2">2</a></span>
 <span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>```
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>// code
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>```
 </span></code></pre></div></td></tr></table></div>
-<div class="termy" data-termynal data-ty-macos data-ty-title="shell"><span data-ty>// code<br></span></div>
-
+</div>
+</div>
+</div>
 <h3 id="progress">progress</h3>
 <p>progress, prompt <code>---&gt; 100%</code></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">HTML</label><label for="__tabbed_2_2">Markdown</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="termy" data-termynal data-ty-macos data-ty-title="shell"><span data-ty="input" data-ty-prompt="$">show progress</span><span data-ty="progress"></span><span data-ty>Done!<br></span></div></p>
+</div>
+<div class="tabbed-block">
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
 <span class="normal"><a href="#__codelineno-1-2">2</a></span>
 <span class="normal"><a href="#__codelineno-1-3">3</a></span>
@@ -629,10 +642,17 @@ Built for <a href="https://www.mkdocs.org/">mkdocs</a>.</p>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>Done!
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>```
 </span></code></pre></div></td></tr></table></div>
-<div class="termy" data-termynal data-ty-macos data-ty-title="shell"><span data-ty="input" data-ty-prompt="$">show progress</span><span data-ty="progress"></span><span data-ty>Done!<br></span></div>
-
+</div>
+</div>
+</div>
 <h3 id="command">command</h3>
 <p>command, start with <code>$</code>. You can change it with <code>prompt_literal_start</code> option.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">HTML</label><label for="__tabbed_3_2">Markdown</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="termy" data-termynal data-ty-macos data-ty-title="shell"><span data-ty="input" data-ty-prompt="$">python</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import requests</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">requests.get('https://exampls.com')</span><span data-ty>&lt;Response [200]&gt;<br>&gt;&gt;&gt;<br></span></div></p>
+</div>
+<div class="tabbed-block">
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
 <span class="normal"><a href="#__codelineno-2-2">2</a></span>
 <span class="normal"><a href="#__codelineno-2-3">3</a></span>
@@ -647,9 +667,20 @@ Built for <a href="https://www.mkdocs.org/">mkdocs</a>.</p>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a>&gt;&gt;&gt;
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>```
 </span></code></pre></div></td></tr></table></div>
-<div class="termy" data-termynal data-ty-macos data-ty-title="shell"><span data-ty="input" data-ty-prompt="$">python</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">import requests</span><span data-ty="input" data-ty-prompt="&gt;&gt;&gt;">requests.get('https://exampls.com')</span><span data-ty>&lt;Response [200]&gt;<br>&gt;&gt;&gt;<br></span></div>
-
+</div>
+</div>
+</div>
 <h3 id="multiline-command">multiline command</h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">HTML</label><label for="__tabbed_4_2">Markdown</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="termy" data-termynal data-ty-macos data-ty-title="shell"><span data-ty="input" data-ty-prompt="&gt;">some longish command with \
+  many \
+    many \
+      many \
+  arguments</span><span data-ty>and this is the output<br></span></div></p>
+</div>
+<div class="tabbed-block">
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
 <span class="normal"><a href="#__codelineno-3-2">2</a></span>
 <span class="normal"><a href="#__codelineno-3-3">3</a></span>
@@ -666,24 +697,34 @@ Built for <a href="https://www.mkdocs.org/">mkdocs</a>.</p>
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a>and this is the output
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a>```
 </span></code></pre></div></td></tr></table></div>
-<div class="termy" data-termynal data-ty-macos data-ty-title="shell"><span data-ty="input" data-ty-prompt="&gt;">some longish command with \
-  many \
-    many \
-      many \
-  arguments</span><span data-ty>and this is the output<br></span></div>
-
+</div>
+</div>
+</div>
 <h3 id="comment">comment</h3>
 <p>comment, start with <code>#</code></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">HTML</label><label for="__tabbed_5_2">Markdown</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="termy" data-termynal data-ty-macos data-ty-title="shell"><span class="termynal-comment" data-ty># comment</span><span data-ty></span></div></p>
+</div>
+<div class="tabbed-block">
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
 <span class="normal"><a href="#__codelineno-4-2">2</a></span>
 <span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>```
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a># comment
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a>```
 </span></code></pre></div></td></tr></table></div>
-<div class="termy" data-termynal data-ty-macos data-ty-title="shell"><span class="termynal-comment" data-ty># comment</span><span data-ty></span></div>
-
+</div>
+</div>
+</div>
 <h3 id="output">output</h3>
 <p>tool's help looks like this:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">HTML</label><label for="__tabbed_6_2">Markdown</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="termy" data-termynal data-ty-macos data-ty-title="shell"><span data-ty="input" data-ty-prompt="$">poetry --help</span><span data-ty><br>Description:<br>  Lists commands.<br><br>Usage:<br>  list [options] [--] [&lt;namespace&gt;]<br><br>Arguments:<br>  namespace                  The namespace name<br><br>Options:<br>  -h, --help                 Display help for the given command.<br>                             When no command is given display help<br>                             for the list command.<br>  -q, --quiet                Do not output any message.<br>  -V, --version              Display this application version.<br>      --ansi                 Force ANSI output.<br>      --no-ansi              Disable ANSI output.<br>  -n, --no-interaction       Do not ask any interactive question.<br>      --no-plugins           Disables plugins.<br>      --no-cache             Disables Poetry source caches.<br>  -C, --directory=DIRECTORY  The working directory for the Poetry<br>                             command (defaults to the current<br>                             working directory).<br>  -v|vv|vvv, --verbose       Increase the verbosity of messages:<br>                             1 for normal output,<br>                             2 for more verbose output and<br>                             3 for debug.<br><br>Help:<br>  The list command lists all commands:<br><br>    poetry list<br><br>  You can also display the commands for a specific namespace:<br><br>    poetry list test<br><br></span></div></p>
+</div>
+<div class="tabbed-block">
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
 <span class="normal"><a href="#__codelineno-5-2">2</a></span>
 <span class="normal"><a href="#__codelineno-5-3">3</a></span>
@@ -694,8 +735,9 @@ Built for <a href="https://www.mkdocs.org/">mkdocs</a>.</p>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a>...
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a>```
 </span></code></pre></div></td></tr></table></div>
-<div class="termy" data-termynal data-ty-macos data-ty-title="shell"><span data-ty="input" data-ty-prompt="$">poetry --help</span><span data-ty><br>Description:<br>  Lists commands.<br><br>Usage:<br>  list [options] [--] [&lt;namespace&gt;]<br><br>Arguments:<br>  namespace                  The namespace name<br><br>Options:<br>  -h, --help                 Display help for the given command.<br>                             When no command is given display help<br>                             for the list command.<br>  -q, --quiet                Do not output any message.<br>  -V, --version              Display this application version.<br>      --ansi                 Force ANSI output.<br>      --no-ansi              Disable ANSI output.<br>  -n, --no-interaction       Do not ask any interactive question.<br>      --no-plugins           Disables plugins.<br>      --no-cache             Disables Poetry source caches.<br>  -C, --directory=DIRECTORY  The working directory for the Poetry<br>                             command (defaults to the current<br>                             working directory).<br>  -v|vv|vvv, --verbose       Increase the verbosity of messages:<br>                             1 for normal output,<br>                             2 for more verbose output and<br>                             3 for debug.<br><br>Help:<br>  The list command lists all commands:<br><br>    poetry list<br><br>  You can also display the commands for a specific namespace:<br><br>    poetry list test<br><br></span></div>
-
+</div>
+</div>
+</div>
 <h2 id="mkdocs-integration">Mkdocs integration</h2>
 <p>Declare the plugin:</p>
 <div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
@@ -722,6 +764,12 @@ Built for <a href="https://www.mkdocs.org/">mkdocs</a>.</p>
 </span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
 </span></code></pre></div></td></tr></table></div>
 <p>This config allows you to use another prompt:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">HTML</label><label for="__tabbed_7_2">Markdown</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="termy" data-termynal data-ty-macos data-ty-title="shell"><span data-ty="input" data-ty-prompt="&gt;">command with &gt;</span><span data-ty>Ok!<br></span></div></p>
+</div>
+<div class="tabbed-block">
 <div class="language-markdown highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
 <span class="normal"><a href="#__codelineno-8-2">2</a></span>
 <span class="normal"><a href="#__codelineno-8-3">3</a></span>
@@ -730,8 +778,9 @@ Built for <a href="https://www.mkdocs.org/">mkdocs</a>.</p>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="sb">Ok!</span>
 </span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="sb">```</span>
 </span></code></pre></div></td></tr></table></div>
-<div class="termy" data-termynal data-ty-macos data-ty-title="shell"><span data-ty="input" data-ty-prompt="&gt;">command with &gt;</span><span data-ty>Ok!<br></span></div>
-
+</div>
+</div>
+</div>
 <h2 id="credits">Credits</h2>
 <p>Thanks <a href="https://github.com/ines/termynal">ines</a></p>
 
