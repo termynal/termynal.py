@@ -17,157 +17,172 @@ Installed
 
 Use `<!-- termynal -->` before code block
 
-````
-```
-// code
-```
-````
+=== "HTML"
 
-<!-- termynal -->
+    <!-- termynal -->
 
-```
-// code
-```
+    ```
+    // code
+    ```
+
+=== "Markdown"
+
+    ````
+    ```
+    // code
+    ```
+    ````
 
 ### progress
 
 progress, prompt `---> 100%`
 
-````
-```
-$ show progress
----> 100%
-Done!
-```
-````
+=== "HTML"
+    <!-- termynal -->
 
-<!-- termynal -->
+    ```
+    $ show progress
+    ---> 100%
+    Done!
+    ```
 
-```
-$ show progress
----> 100%
-Done!
-```
+=== "Markdown"
+    ````
+    ```
+    $ show progress
+    ---> 100%
+    Done!
+    ```
+    ````
 
 ### command
 
 command, start with `$`. You can change it with `prompt_literal_start` option.
 
-````
-```
-$ python
->>> import requests
->>> requests.get('https://exampls.com')
-<Response [200]>
->>>
-```
-````
+=== "HTML"
+    <!-- termynal -->
 
-<!-- termynal -->
+    ```
+    $ python
+    >>> import requests
+    >>> requests.get('https://exampls.com')
+    <Response [200]>
+    >>>
+    ```
 
-```
-$ python
->>> import requests
->>> requests.get('https://exampls.com')
-<Response [200]>
->>>
-```
+=== "Markdown"
+    ````
+    ```
+    $ python
+    >>> import requests
+    >>> requests.get('https://exampls.com')
+    <Response [200]>
+    >>>
+    ```
+    ````
 
 ### multiline command
 
-````
-```
-> some longish command with \
-  many \
-    many \
+=== "HTML"
+    <!-- termynal -->
+    
+    ```
+    > some longish command with \
       many \
-  arguments
-and this is the output
-```
-````
+        many \
+          many \
+      arguments
+    and this is the output
+    ```
 
-<!-- termynal -->
-
-```
-> some longish command with \
-  many \
-    many \
+=== "Markdown"
+    ````
+    ```
+    > some longish command with \
       many \
-  arguments
-and this is the output
-```
+        many \
+          many \
+      arguments
+    and this is the output
+    ```
+    ````
 
 ### comment
 
 comment, start with `#`
 
-````
-```
-# comment
-```
-````
+=== "HTML"
+    <!-- termynal -->
 
-<!-- termynal -->
+    ```console
+    # comment
+    ```
 
-```console
-# comment
-```
+=== "Markdown"
+
+    ````
+    ```
+    # comment
+    ```
+    ````
 
 ### output
 
 tool's help looks like this:
 
-````
-```
-$ poetry --help
+=== "HTML"
+    <!-- termynal -->
 
-...
-```
-````
+    ```
+    $ poetry --help
 
-<!-- termynal -->
+    Description:
+      Lists commands.
 
-```
-$ poetry --help
+    Usage:
+      list [options] [--] [<namespace>]
 
-Description:
-  Lists commands.
+    Arguments:
+      namespace                  The namespace name
 
-Usage:
-  list [options] [--] [<namespace>]
+    Options:
+      -h, --help                 Display help for the given command.
+                                 When no command is given display help
+                                 for the list command.
+      -q, --quiet                Do not output any message.
+      -V, --version              Display this application version.
+          --ansi                 Force ANSI output.
+          --no-ansi              Disable ANSI output.
+      -n, --no-interaction       Do not ask any interactive question.
+          --no-plugins           Disables plugins.
+          --no-cache             Disables Poetry source caches.
+      -C, --directory=DIRECTORY  The working directory for the Poetry
+                                 command (defaults to the current
+                                 working directory).
+      -v|vv|vvv, --verbose       Increase the verbosity of messages:
+                                 1 for normal output,
+                                 2 for more verbose output and
+                                 3 for debug.
 
-Arguments:
-  namespace                  The namespace name
+    Help:
+      The list command lists all commands:
 
-Options:
-  -h, --help                 Display help for the given command.
-                             When no command is given display help
-                             for the list command.
-  -q, --quiet                Do not output any message.
-  -V, --version              Display this application version.
-      --ansi                 Force ANSI output.
-      --no-ansi              Disable ANSI output.
-  -n, --no-interaction       Do not ask any interactive question.
-      --no-plugins           Disables plugins.
-      --no-cache             Disables Poetry source caches.
-  -C, --directory=DIRECTORY  The working directory for the Poetry
-                             command (defaults to the current
-                             working directory).
-  -v|vv|vvv, --verbose       Increase the verbosity of messages:
-                             1 for normal output,
-                             2 for more verbose output and
-                             3 for debug.
+        poetry list
 
-Help:
-  The list command lists all commands:
+      You can also display the commands for a specific namespace:
 
-    poetry list
+        poetry list test
 
-  You can also display the commands for a specific namespace:
+    ```
 
-    poetry list test
+=== "Markdown"
+    ````
+    ```
+    $ poetry --help
 
-```
+    ...
+    ```
+    ````
 
 ## Mkdocs integration
 
@@ -194,19 +209,21 @@ plugins:
 
 This config allows you to use another prompt:
 
-````markdown
-```
-> command with >
-Ok!
-```
-````
+=== "HTML"
+    <!-- termynal -->
 
-<!-- termynal -->
+    ```
+    > command with >
+    Ok!
+    ```
 
-```
-> command with >
-Ok!
-```
+=== "Markdown"
+    ````markdown
+    ```
+    > command with >
+    Ok!
+    ```
+    ````
 
 ## Credits
 

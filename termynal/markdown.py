@@ -68,6 +68,26 @@ def escape(txt: str) -> str:
     return txt  # noqa:RET504
 
 
+def remove_spaces(code: str, spaces: str) -> str:
+    result = []
+    for line in code.split("\n"):
+        new_line = line
+        if new_line.startswith(spaces):
+            new_line = line[len(spaces) :]
+
+        result.append(f"{new_line}")
+
+    return "\n".join(result)
+
+
+def add_spaces(code: str, spaces: str) -> str:
+    result = []
+    for line in code.split("\n"):
+        result.append(f"{spaces}{line}")
+
+    return "\n".join(result)
+
+
 def parse_config(raw: str) -> Optional[Config]:
     try:
         config = yaml.full_load(raw)
@@ -178,22 +198,20 @@ class Termynal:
 class TermynalPreprocessor(Preprocessor):
     """Converts fenced code blocks to termynal HTML."""
 
-    ty_comment = re.compile(r"<!--\s*termynal:?(.*)-->")
-    marker = "9HDrdgVBNLga"
     FENCED_BLOCK_RE = re.compile(
         dedent(
-            ty_comment.pattern
-            + r"""
-            \n+
-            (?P<terminal>                      # termynal group
-            (?P<fence>^(?:~{3,}|`{3,}))[ ]*    # opening fence
-            ((\{(?P<attrs>[^\}\n]*)\})|        # (optional {attrs} or
-            (\.?(?P<lang>[\w#.+-]*)[ ]*)?      # optional (.)lang
-            (hl_lines=(?P<quot>"|')            # optional hl_lines)
+            r"""
+            (?P<termynal>
+            (?P<comment>(?P<spaces>^[ ]*?)<!--[ ]*termynal:?(?P<config>.*?)-->)
+            ([ ]|\n)*
+            (?P<fence>(?P=spaces)(?:~{3,}|`{3,}))[ ]*
+            ((\{(?P<attrs>[^\}\n]*)\})|
+            (\.?(?P<lang>[\w#.+-]*)[ ]*)?
+            (hl_lines=(?P<quot>"|')
             (?P<hl_lines>.*?)(?P=quot)[ ]*)?)
-            \n                                 # newline (end of opening fence)
-            (?P<code>.*?)(?<=\n)               # the code block
-            (?P=fence)[ ]*                     # closing fence
+            \n
+            (?P<code>.*?)(?<=\n)
+            (?P=fence)[ ]*
             )$
             """,
         ),
@@ -205,48 +223,33 @@ class TermynalPreprocessor(Preprocessor):
         self.config = config
 
     def run(self, lines: List[str]) -> List[str]:
-        placeholder_i = 0
         text = "\n".join(lines)
-        store = {}
-        while True:
-            m = self.FENCED_BLOCK_RE.search(text)
-            if m:
-                code = m.group("code")
-                placeholder = f"{self.marker}-{placeholder_i}"
-                placeholder_i += 1
-                store[placeholder] = (code, text[m.start("terminal") : m.end()])
-                text = f"{text[:m.start('terminal')]}\n{placeholder}\n{text[m.end():]}"
-            else:
-                break
 
         default_termynal = Termynal(self.config)
         termynal = default_termynal
-
-        new_lines: List[str] = []
-        is_ty_code = False
-        for line in text.split("\n"):
-            ty_match = self.ty_comment.match(line)
-            if ty_match:
-                configs_raw = ty_match.group(1)
-                if configs_raw and configs_raw.strip():
-                    config = parse_config(configs_raw)
+        while True:
+            m = self.FENCED_BLOCK_RE.search(text)
+            if m:
+                start = m.start("termynal")
+                end = m.end()
+                code = m.group("code")
+                spaces = m.group("spaces") or ""
+                config_raw = (m.group("config") or "").strip()
+                if config_raw:
+                    config = parse_config(config_raw)
                     if config:
                         termynal = Termynal(config)
-                is_ty_code = True
-                continue
 
-            if is_ty_code and line in store:
-                code = store[line][0]
-                new_lines.append(termynal.convert(escape(code)))
+                converted_code = add_spaces(
+                    termynal.convert(escape(remove_spaces(code, spaces))),
+                    spaces,
+                )
+                text = f"{text[:start]}\n{converted_code}\n{text[end:]}"
                 termynal = default_termynal
-                is_ty_code = False
-            elif line in store:
-                raw_code = store[line][1]
-                new_lines.append(raw_code)
             else:
-                new_lines.append(line)
+                break
 
-        return new_lines
+        return text.split("\n")
 
 
 class TermynalExtension(Extension):
