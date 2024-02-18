@@ -1,12 +1,12 @@
 # Termynal
 
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/mkdocs-plugins/termynal/check.yml)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/termynal/termynal.py/check.yml)
 [![PyPI](https://img.shields.io/pypi/v/termynal)](https://pypi.org/project/termynal/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/termynal)](https://www.python.org/downloads/)
-[![Docs](https://img.shields.io/badge/docs-latest-blue)](https://mkdocs-plugins.github.io/termynal/)
-![GitHub](https://img.shields.io/github/license/mkdocs-plugins/termynal)
+[![Docs](https://img.shields.io/badge/docs-latest-blue)](https://termynal.github.io/termynal.py/)
+![GitHub](https://img.shields.io/github/license/termynal/termynal.py)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/termynal)
-![GitHub last commit](https://img.shields.io/github/last-commit/mkdocs-plugins/termynal)
+![GitHub last commit](https://img.shields.io/github/last-commit/termynal/termynal.py)
 
 A lightweight and modern animated terminal window.
 Built for [mkdocs](https://www.mkdocs.org/).
@@ -15,7 +15,7 @@ Built for [mkdocs](https://www.mkdocs.org/).
 
 ![termynal](termynal.gif)
 
-[Examples](https://mkdocs-plugins.github.io/termynal/)
+[Examples](https://termynal.github.io/termynal.py/)
 
 ## Usage
 

@@ -1,12 +1,12 @@
 site_name: "Termynal"
-site_url: "https://mkdocs-plugins.github.io/termynal/"
+site_url: "https://termynal.github.io/termynal.py/"
 site_description: "A lightweight and modern animated terminal window for mkdocs"
 
-repo_name: "mkdocs-plugins/termynal"
-repo_url: "https://github.com/mkdocs-plugins/termynal"
+repo_name: "termynal/termynal.py"
+repo_url: "https://github.com/termynal/termynal.py"
 edit_uri: "edit/main/docs/"
 
-copyright: "Copyright &copy; 2023 Danil Akhtarov"
+copyright: "Copyright &copy; 2024 Danil Akhtarov"
 
 nav:
   - "Home": README.md
