@@ -80,7 +80,6 @@ skip_covered = true
 fail_under = 94
 
 [tool.pytest.ini_options]
-asyncio_mode = "strict"
 addopts = "--strict-markers --showlocals --verbosity 2"
 log_level = "DEBUG"
 
