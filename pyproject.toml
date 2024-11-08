@@ -30,7 +30,7 @@ Changelog = "https://termynal.github.io/termynal.py/changelog/"
 "termynal" = "termynal.markdown:TermynalExtension"
 
 [tool.poetry.dependencies]
-python = "^3.8.1"
+python = "^3.9"
 markdown = "*"
 mkdocs = {version = "^1.4", optional = true}
 
