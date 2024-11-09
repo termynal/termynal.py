@@ -1,65 +1,63 @@
+[project]
+name = "termynal"
+version = "0.12.1"
+requires-python = ">=3.9"
+description = "A lightweight and modern animated terminal window"
+authors = [{ email = "daxartio@gmail.com" }, { name = "Danil Akhtarov" }]
+license = {file = "LICENSE"}
+readme = "README.md"
+keywords = ["mkdocs", "markdown", "plugin", "termynal"]
+dependencies = ["markdown >= 3"]
+
+[project.urls]
+Homepage = "https://termynal.github.io/termynal.py/"
+Changelog = "https://termynal.github.io/termynal.py/changelog/"
+Repository = "https://github.com/termynal/termynal.py"
+Documentation = "https://termynal.github.io/termynal.py/"
+
+[project.entry-points."mkdocs.plugins"]
+"termynal" = "termynal.plugin:TermynalPlugin"
+
+[project.entry-points."markdown.extensions"]
+"termynal" = "termynal.markdown:TermynalExtension"
+
+[project.optional-dependencies]
+mkdocs = ["mkdocs >= 1.4"]
+
+[dependency-groups]
+dev = [
+    "black >= 24.10",
+    "mypy >= 1.13.0",
+    "pytest >= 7.4",
+    "pytest-cov >= 4.1",
+    "pytest-deadfixtures >= 2.2",
+    "pytest-mock >= 3.14",
+    "pyyaml >= 6.0",
+    "ruff >= 0.1",
+    "types-markdown >= 3.7",
+    "types-pyyaml >= 6.0",
+]
+docs = [
+    "markdown-include >= 0.8",
+    "mkdocs >= 1.6",
+    "mkdocs-material >= 9.5",
+]
+git = ["commitizen >= 3.30"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+no-build-package = ["tests"]
+
 [tool.commitizen]
 name = "cz_conventional_commits"
 version = "0.12.1"
 tag_format = "v$version"
-version_files = [
-    "pyproject.toml:version"
-]
+version_files = ["pyproject.toml:version"]
 bump_message = "chore(release): version $current_version → $new_version"
 update_changelog_on_bump = true
-
-[tool.poetry]
-name = "termynal"
-version = "0.12.1"
-description = "A lightweight and modern animated terminal window"
-authors = ["Danil Akhtarov <daxartio@gmail.com>"]
-license = "MIT"
-readme = "README.md"
-repository = "https://github.com/termynal/termynal.py"
-homepage = "https://termynal.github.io/termynal.py/"
-documentation = "https://termynal.github.io/termynal.py/"
-keywords = ["mkdocs", "markdown", "plugin", "termynal"]
-
-[tool.poetry.urls]
-Changelog = "https://termynal.github.io/termynal.py/changelog/"
-
-[tool.poetry.plugins."mkdocs.plugins"]
-"termynal" = "termynal.plugin:TermynalPlugin"
-
-[tool.poetry.plugins."markdown.extensions"]
-"termynal" = "termynal.markdown:TermynalExtension"
-
-[tool.poetry.dependencies]
-python = "^3.8.1"
-markdown = "*"
-mkdocs = {version = "^1.4", optional = true}
-
-[tool.poetry.group.dev.dependencies]
-black = ">=23.7.0"
-mypy = "^1.7.1"
-pytest = "^7.4.0"
-pytest-cov = "^4.1.0"
-pytest-deadfixtures = "^2.2.1"
-pytest-mock = "^3.11.1"
-pyyaml = "^6.0.1"
-ruff = "^0.1.6"
-types-Markdown = "^3.4.2.10"
-types-pyyaml = "^6.0.12.11"
-
-[tool.poetry.group.docs.dependencies]
-markdown-include = "^0.8.1"
-mkdocs = "^1.5.3"
-mkdocs-material = "^9.4.12"
-
-[tool.poetry.group.git.dependencies]
-commitizen = "^3.12.0"
-
-[tool.poetry.extras]
-mkdocs = ["mkdocs"]
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
 
 [tool.mypy]
 ignore_missing_imports = true

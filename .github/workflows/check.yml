@@ -5,13 +5,13 @@ on:
     paths:
       - "termynal/**"
       - "tests/**"
-      - "poetry.lock"
+      - "uv.lock"
     branches: [ main ]
   pull_request:
     paths:
       - "termynal/**"
       - "tests/**"
-      - "poetry.lock"
+      - "uv.lock"
     branches: [ main ]
   workflow_dispatch:
 
@@ -19,13 +19,13 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.8'
+          python-version: '3.9'
 
       - name: Install python dependencies
-        run: make install-poetry install
+        run: make install-uv install
 
       - name: Run linters
         run: make lint
@@ -34,15 +34,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+        version: ['3.9', '3.10', '3.11', '3.12', '3.13']
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.version }}
 
       - name: Install python dependencies
-        run: make install-poetry install
+        run: make install-uv install
 
       - name: Run test
         run: make test
