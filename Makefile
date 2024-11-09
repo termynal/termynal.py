@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := help
 CODE = termynal tests
-POETRY_RUN = poetry run
-TEST = $(POETRY_RUN) pytest $(args)
+RUNNER = uv run
+TEST = $(RUNNER) pytest $(args)
 
 .PHONY: help
 help: ## Show help
@@ -10,25 +10,29 @@ help: ## Show help
 .PHONY: all
 all: format lint test  ## Run format lint test
 
-.PHONY: install-poetry
-install-poetry:  ## Install poetry
-	pip install poetry
+.PHONY: install-uv
+install-uv:  ## Install uv
+	pip install uv
 
 .PHONY: install
 install:  ## Install dependencies
-	poetry install
+	uv install
 
 .PHONY: install-docs
 install-docs:  ## Install docs dependencies
-	poetry install --only docs
+	uv install --only docs
 
 .PHONY: install-git
 install-git:  ## Install git dependencies
-	poetry install --only git
+	uv install --only git
+
+.PHONY: build
+build:  ## Build package
+	@uv build
 
 .PHONY: publish
-publish:  ## Publish package
-	@poetry publish --build --no-interaction --username=$(pypi_username) --password=$(pypi_password)
+publish: build  ## Publish package
+	@uv publish --build --no-interaction --username=$(pypi_username) --password=$(pypi_password)
 
 .PHONY: test
 test:  ## Test with coverage
@@ -45,31 +49,31 @@ test-failed:  ## Test failed
 .PHONY: test-report
 test-report:  ## Report testing
 	$(TEST) --cov --cov-report html
-	$(POETRY_RUN) python -m webbrowser 'htmlcov/index.html'
+	$(RUNNER) python -m webbrowser 'htmlcov/index.html'
 
 .PHONY: lint
 lint:  ## Check code
-	$(POETRY_RUN) ruff $(CODE)
-	$(POETRY_RUN) black --check $(CODE)
-	$(POETRY_RUN) pytest --dead-fixtures --dup-fixtures
-	$(POETRY_RUN) mypy $(CODE)
+	$(RUNNER) ruff $(CODE)
+	$(RUNNER) black --check $(CODE)
+	$(RUNNER) pytest --dead-fixtures --dup-fixtures
+	$(RUNNER) mypy $(CODE)
 
 .PHONY: format
 format:  ## Formating code
-	$(POETRY_RUN) ruff --fix-only $(CODE)
-	$(POETRY_RUN) black $(CODE)
+	$(RUNNER) ruff --fix-only $(CODE)
+	$(RUNNER) black $(CODE)
 
 .PHONY: docs
 docs:  ## Build docs
-	$(POETRY_RUN) mkdocs build -s -v
+	$(RUNNER) mkdocs build -s -v
 
 .PHONY: docs-serve
 docs-serve:  ## Serve docs
-	$(POETRY_RUN) mkdocs serve
+	$(RUNNER) mkdocs serve
 
 .PHONY: bump
 bump:  ## Bump version (commit and tag)
-	$(POETRY_RUN) cz bump --major-version-zero
+	$(RUNNER) cz bump --major-version-zero
 
 .PHONY: clean
 clean:  ## Clean

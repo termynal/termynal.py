@@ -85,7 +85,7 @@ command, start with `$`. You can change it with `prompt_literal_start` option.
 
 === "HTML"
     <!-- termynal -->
-    
+
     ```
     > some longish command with \
       many \
@@ -134,51 +134,63 @@ tool's help looks like this:
     <!-- termynal -->
 
     ```
-    $ poetry --help
+    $ uv -h
 
-    Description:
-      Lists commands.
+    An extremely fast Python package manager.
 
-    Usage:
-      list [options] [--] [<namespace>]
+    Usage: uv [OPTIONS] <COMMAND>
 
-    Arguments:
-      namespace                  The namespace name
+    Commands:
+      run      Run a command or script
+      init     Create a new project
+      add      Add dependencies to the project
+      remove   Remove dependencies from the project
+      sync     Update the project's environment
+      lock     Update the project's lockfile
+      export   Export the project's lockfile to an alternate format
+      tree     Display the project's dependency tree
+      tool     Run and install commands provided by Python packages
+      python   Manage Python versions and installations
+      pip      Manage Python packages with a pip-compatible interface
+      venv     Create a virtual environment
+      build    Build Python packages into source distributions and wheels
+      publish  Upload distributions to an index
+      cache    Manage uv's cache
+      self     Manage the uv executable
+      version  Display uv's version
+      help     Display documentation for a command
 
-    Options:
-      -h, --help                 Display help for the given command.
-                                 When no command is given display help
-                                 for the list command.
-      -q, --quiet                Do not output any message.
-      -V, --version              Display this application version.
-          --ansi                 Force ANSI output.
-          --no-ansi              Disable ANSI output.
-      -n, --no-interaction       Do not ask any interactive question.
-          --no-plugins           Disables plugins.
-          --no-cache             Disables Poetry source caches.
-      -C, --directory=DIRECTORY  The working directory for the Poetry
-                                 command (defaults to the current
-                                 working directory).
-      -v|vv|vvv, --verbose       Increase the verbosity of messages:
-                                 1 for normal output,
-                                 2 for more verbose output and
-                                 3 for debug.
+    Cache options:
+      -n, --no-cache               Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
+          --cache-dir <CACHE_DIR>  Path to the cache directory [env: UV_CACHE_DIR=]
 
-    Help:
-      The list command lists all commands:
+    Python options:
+          --python-preference <PYTHON_PREFERENCE>  Whether to prefer uv-managed or system Python installations [env: UV_PYTHON_PREFERENCE=] [possible values: only-managed, managed, system, only-system]
+          --no-python-downloads                    Disable automatic downloads of Python. [env: "UV_PYTHON_DOWNLOADS=never"]
 
-        poetry list
+    Global options:
+      -q, --quiet                                      Do not print any output
+      -v, --verbose...                                 Use verbose output
+          --color <COLOR_CHOICE>                       Control colors in output [default: auto] [possible values: auto, always, never]
+          --native-tls                                 Whether to load TLS certificates from the platform's native certificate store [env: UV_NATIVE_TLS=]
+          --offline                                    Disable network access
+          --allow-insecure-host <ALLOW_INSECURE_HOST>  Allow insecure connections to a host [env: UV_INSECURE_HOST=]
+          --no-progress                                Hide all progress outputs [env: UV_NO_PROGRESS=]
+          --directory <DIRECTORY>                      Change to the given directory prior to running the command
+          --project <PROJECT>                          Run the command within the given project directory
+          --config-file <CONFIG_FILE>                  The path to a `uv.toml` file to use for configuration [env: UV_CONFIG_FILE=]
+          --no-config                                  Avoid discovering configuration files (`pyproject.toml`, `uv.toml`) [env: UV_NO_CONFIG=]
+      -h, --help                                       Display the concise help for this command
+      -V, --version                                    Display the uv version
 
-      You can also display the commands for a specific namespace:
-
-        poetry list test
+    Use `uv help` for more details.
 
     ```
 
 === "Markdown"
     ````
     ```
-    $ poetry --help
+    $ uv -h
 
     ...
     ```

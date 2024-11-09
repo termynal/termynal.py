@@ -8,17 +8,15 @@ Welcome! Happy to see you willing to make the project better.
 
 ### Install
 
-**Install poetry**
+**Install uv**
 
 ```
-make install-poetry
-# pip install poetry
+make install-uv
+# pip install uv
 ```
 
-- don't forget to use the last version of poetry
-- don't forget to write a code for python 3.8+
-- don't forget to use virtualenv
-  - For using venv in the project directory, run `poetry config virtualenvs.in-project true`
+- don't forget to use the last version of uv
+- don't forget to write a code for python 3.9+
 
 **Install dependencies**
 
