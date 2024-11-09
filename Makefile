@@ -32,7 +32,7 @@ build:  ## Build package
 
 .PHONY: publish
 publish: build  ## Publish package
-	@uv publish --build --no-interaction --username=$(pypi_username) --password=$(pypi_password)
+	@uv publish --username=$(pypi_username) --password=$(pypi_password)
 
 .PHONY: test
 test:  ## Test with coverage
