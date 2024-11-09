@@ -16,15 +16,15 @@ install-uv:  ## Install uv
 
 .PHONY: install
 install:  ## Install dependencies
-	uv install
+	uv sync --all-extras
 
 .PHONY: install-docs
 install-docs:  ## Install docs dependencies
-	uv install --only docs
+	uv sync --group docs
 
 .PHONY: install-git
 install-git:  ## Install git dependencies
-	uv install --only git
+	uv sync --group git
 
 .PHONY: build
 build:  ## Build package
