@@ -28,7 +28,7 @@ install-git:  ## Install git dependencies
 
 .PHONY: build
 build:  ## Build package
-	@uv build
+	@uv build --no-progress --no-sources
 
 .PHONY: publish
 publish: build  ## Publish package
@@ -59,7 +59,7 @@ lint:  ## Check code
 	$(RUNNER) mypy $(CODE)
 
 .PHONY: format
-format:  ## Formating code
+format:  ## Formatting code
 	$(RUNNER) ruff --fix-only $(CODE)
 	$(RUNNER) black $(CODE)
 

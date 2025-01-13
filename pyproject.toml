@@ -50,6 +50,10 @@ build-backend = "hatchling.build"
 
 [tool.uv]
 no-build-package = ["tests"]
+default-groups = ["dev", "docs", "git"]
+
+[tool.uv.pip]
+generate-hashes = true
 
 [tool.commitizen]
 name = "cz_conventional_commits"
