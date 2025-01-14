@@ -26,14 +26,13 @@ mkdocs = ["mkdocs >= 1.4"]
 
 [dependency-groups]
 dev = [
-    "black >= 24.10",
     "mypy >= 1.13.0",
     "pytest >= 7.4",
     "pytest-cov >= 4.1",
     "pytest-deadfixtures >= 2.2",
     "pytest-mock >= 3.14",
     "pyyaml >= 6.0",
-    "ruff >= 0.1",
+    "ruff < 1",
     "types-markdown >= 3.7",
     "types-pyyaml >= 6.0",
 ]
@@ -85,63 +84,10 @@ fail_under = 94
 addopts = "--strict-markers --showlocals --verbosity 2"
 log_level = "DEBUG"
 
-[tool.ruff]
-select = [
-    "F",
-    "E",
-    "W",
-    "C90",
-    "I",
-    "N",
-    "D",
-    # "UP",
-    "YTT",
-    # "ANN",
-    "S",
-    "BLE",
-    # "FBT",
-    "B",
-    "A",
-    "COM",
-    "C4",
-    "DTZ",
-    "T10",
-    "EM",
-    "EXE",
-    "ISC",
-    "ICN",
-    "G",
-    "INP",
-    "PIE",
-    "T20",
-    "PT",
-    "Q",
-    "RET",
-    "SIM",
-    "TID",
-    "TCH",
-    "ARG",
-    "PTH",
-    "ERA",
-    "PD",
-    # "PGH",
-    "PL",
-    "TRY",
-    "RSE",
-    "RUF",
-]
-ignore = [
-    "D100",
-    "D101",
-    "D102",
-    "D103",
-    "D104",
-    "D105",
-    "D106",
-    "D107",
-    "D203",
-    "D213",
-    "D401",
-    "S101",
-]
+[tool.ruff.lint]
+select = []
+ignore = []
 exclude = []
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]

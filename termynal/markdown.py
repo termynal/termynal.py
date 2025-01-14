@@ -2,7 +2,16 @@ import os
 import re
 from enum import Enum
 from textwrap import dedent
-from typing import TYPE_CHECKING, Any, Dict, Iterable, List, NamedTuple, Optional, Union
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Dict,
+    List,
+    NamedTuple,
+    Optional,
+    Sequence,
+    Union,
+)
 
 import yaml
 import yaml.parser
@@ -22,7 +31,7 @@ class Buttons(str, Enum):
 
 class Config(NamedTuple):
     title: str
-    prompt_literal_start: Iterable[str]
+    prompt_literal_start: Sequence[str]
     buttons: Buttons
 
 
@@ -47,7 +56,7 @@ class Progress:
 ParsedBlock = Union[Command, Comment, Output, Progress]
 
 
-def make_regex_prompts(prompt_literal_start: Iterable[str]) -> "re.Pattern[str]":
+def make_regex_prompts(prompt_literal_start: Sequence[str]) -> "re.Pattern[str]":
     prompt_literal_start = [re.escape(p).strip() for p in prompt_literal_start]
     prompt_to_replace = {
         ">": "&gt;",
@@ -88,7 +97,7 @@ def add_spaces(code: str, spaces: str) -> str:
     return "\n".join(result)
 
 
-def parse_config(raw: str) -> Optional[Config]:
+def parse_config(raw: str, default: Optional[Config]) -> Optional[Config]:
     try:
         config = yaml.full_load(raw)
     except yaml.parser.ParserError:  # pragma:no cover
@@ -97,14 +106,22 @@ def parse_config(raw: str) -> Optional[Config]:
     if not isinstance(config, dict):
         return None
 
-    return parse_config_from_dict(config)
+    return parse_config_from_dict(config, default)
 
 
-def parse_config_from_dict(config: Dict[str, Any]) -> Config:
+def parse_config_from_dict(
+    config: Dict[str, Any],
+    default: Optional[Config] = None,
+) -> Config:
     return Config(
-        title=str(config.get("title", "bash")),
-        prompt_literal_start=list(config.get("prompt_literal_start", ("$",))),
-        buttons=Buttons(config.get("buttons", "macos")),
+        title=str(config.get("title", default.title if default else "bash")),
+        prompt_literal_start=list(
+            config.get(
+                "prompt_literal_start",
+                default.prompt_literal_start if default else ("$",),
+            ),
+        ),
+        buttons=Buttons(config.get("buttons", default.buttons if default else "macos")),
     )
 
 
@@ -236,7 +253,7 @@ class TermynalPreprocessor(Preprocessor):
                 spaces = m.group("spaces") or ""
                 config_raw = (m.group("config") or "").strip()
                 if config_raw:
-                    config = parse_config(config_raw)
+                    config = parse_config(config_raw, self.config)
                     if config:
                         termynal = Termynal(config)
 

@@ -35,6 +35,6 @@ def test_cases_yml(
             TermynalExtension(**config),
         ],
     )
-    assert (
-        html == expected_html
-    ), "The expected html is different, see tests/test_cases.yml"
+    assert html == expected_html, (
+        "The expected html is different, see tests/test_cases.yml"
+    )

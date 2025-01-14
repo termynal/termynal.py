@@ -15,7 +15,7 @@ plugins:
         - "$"
 ```
 
-You can override configurations for each block. If you set a part of the settings, the other part will be set to the default value.
+You can override configurations for each block. If you set a part of the settings, the other part will be set to the default value from `mkdocs.yml`.
 
 `<!-- termynal: {"prompt_literal_start": ["$", ">>>", "PS >"], title: powershell, buttons: windows} -->`
 

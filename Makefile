@@ -53,15 +53,13 @@ test-report:  ## Report testing
 
 .PHONY: lint
 lint:  ## Check code
-	$(RUNNER) ruff $(CODE)
-	$(RUNNER) black --check $(CODE)
+	$(RUNNER) ruff check $(CODE)
 	$(RUNNER) pytest --dead-fixtures --dup-fixtures
 	$(RUNNER) mypy $(CODE)
 
 .PHONY: format
 format:  ## Formatting code
-	$(RUNNER) ruff --fix-only $(CODE)
-	$(RUNNER) black $(CODE)
+	$(RUNNER) ruff format $(CODE)
 
 .PHONY: docs
 docs:  ## Build docs
