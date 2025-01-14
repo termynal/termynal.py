@@ -1,4 +1,4 @@
-name: CI Tests/Lints
+name: CI check deps
 
 on:
   schedule:
