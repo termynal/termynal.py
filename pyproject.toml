@@ -1,6 +1,6 @@
 [project]
 name = "termynal"
-version = "0.12.3"
+version = "0.13.0"
 requires-python = ">=3.9"
 description = "A lightweight and modern animated terminal window"
 authors = [{ email = "daxartio@gmail.com" }, { name = "Danil Akhtarov" }]
@@ -56,7 +56,7 @@ generate-hashes = true
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.12.3"
+version = "0.13.0"
 tag_format = "v$version"
 version_files = ["pyproject.toml:version"]
 bump_message = "chore(release): version $current_version → $new_version"
