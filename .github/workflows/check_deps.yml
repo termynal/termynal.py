@@ -1,0 +1,24 @@
+name: CI Tests/Lints
+
+on:
+  schedule:
+    - cron: 0 11 * * MON
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: ['3.9', '3.10', '3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.version }}
+
+      - name: Install python dependencies
+        run: make install-uv update-deps
+
+      - name: Run test
+        run: make lint test

@@ -18,6 +18,10 @@ install-uv:  ## Install uv
 install:  ## Install dependencies
 	uv sync --all-extras
 
+.PHONY: install
+update-deps:  ## Update dependencies
+	uv sync --all-extras -U
+
 .PHONY: install-docs
 install-docs:  ## Install docs dependencies
 	uv sync --group docs
