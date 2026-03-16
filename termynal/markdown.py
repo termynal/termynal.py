@@ -1,6 +1,8 @@
 import os
 import re
 from enum import Enum
+from functools import lru_cache
+from pathlib import Path
 from textwrap import dedent
 from typing import (
     TYPE_CHECKING,
@@ -19,6 +21,7 @@ from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
 
 TERMYNAL_PREPROCESSOR_PRIORITY = int(os.getenv("TERMYNAL_PREPROCESSOR_PRIORITY", "35"))
+base_path = Path(__file__).parent
 
 if TYPE_CHECKING:  # pragma:no cover
     from markdown import core
@@ -33,6 +36,9 @@ class Config(NamedTuple):
     title: str
     prompt_literal_start: Sequence[str]
     buttons: Buttons
+    include_assets: bool
+    assets_override_css: Optional[str]
+    assets_override_js: Optional[str]
 
 
 class Command(NamedTuple):
@@ -113,6 +119,27 @@ def parse_config_from_dict(
     config: Dict[str, Any],
     default: Optional[Config] = None,
 ) -> Config:
+    include_assets_default = default.include_assets if default else False
+    include_assets = config.get("include_assets", include_assets_default)
+    if not isinstance(include_assets, bool):
+        include_assets = include_assets_default
+
+    assets_override_css_default = default.assets_override_css if default else None
+    assets_override_css = config.get(
+        "assets_override_css",
+        assets_override_css_default,
+    )
+    if assets_override_css is not None:
+        assets_override_css = str(assets_override_css).strip() or None
+
+    assets_override_js_default = default.assets_override_js if default else None
+    assets_override_js = config.get(
+        "assets_override_js",
+        assets_override_js_default,
+    )
+    if assets_override_js is not None:
+        assets_override_js = str(assets_override_js).strip() or None
+
     return Config(
         title=str(config.get("title", default.title if default else "bash")),
         prompt_literal_start=list(
@@ -122,6 +149,40 @@ def parse_config_from_dict(
             ),
         ),
         buttons=Buttons(config.get("buttons", default.buttons if default else "macos")),
+        include_assets=include_assets,
+        assets_override_css=assets_override_css,
+        assets_override_js=assets_override_js,
+    )
+
+
+@lru_cache(maxsize=None)
+def get_default_css() -> str:
+    return (base_path / "assets" / "termynal.css").read_text(encoding="utf-8")
+
+
+@lru_cache(maxsize=None)
+def get_default_js() -> str:
+    return (base_path / "assets" / "termynal.js").read_text(encoding="utf-8")
+
+
+def get_inline_assets(config: Config) -> str:
+    css = (
+        Path(config.assets_override_css).read_text(encoding="utf-8")
+        if config.assets_override_css
+        else get_default_css()
+    )
+    js = (
+        Path(config.assets_override_js).read_text(encoding="utf-8")
+        if config.assets_override_js
+        else get_default_js()
+    )
+    return (
+        '<style data-termynal-inline="true">\n'
+        f"{css}\n"
+        "</style>\n"
+        '<script data-termynal-inline="true">\n'
+        f"{js}\n"
+        "</script>"
     )
 
 
@@ -241,12 +302,14 @@ class TermynalPreprocessor(Preprocessor):
 
     def run(self, lines: List[str]) -> List[str]:
         text = "\n".join(lines)
+        converted_termynal_blocks = False
 
         default_termynal = Termynal(self.config)
         termynal = default_termynal
         while True:
             m = self.FENCED_BLOCK_RE.search(text)
             if m:
+                converted_termynal_blocks = True
                 start = m.start("termynal")
                 end = m.end()
                 code = m.group("code")
@@ -265,6 +328,9 @@ class TermynalPreprocessor(Preprocessor):
                 termynal = default_termynal
             else:
                 break
+
+        if converted_termynal_blocks and self.config.include_assets:
+            text = f"{text}\n{get_inline_assets(self.config)}"
 
         return text.split("\n")
 
@@ -286,6 +352,21 @@ class TermynalExtension(Extension):
                 ],
                 "A list of prompt characters start to consider as console - "
                 "Default: ['$']",
+            ],
+            "include_assets": [
+                False,
+                "Embed termynal.css and termynal.js into page output. "
+                "Useful for static generators that do not support mkdocs plugins.",
+            ],
+            "assets_override_css": [
+                "",
+                "Path to a custom CSS file to inline instead of the built-in "
+                "termynal.css when include_assets is true.",
+            ],
+            "assets_override_js": [
+                "",
+                "Path to a custom JS file to inline instead of the built-in "
+                "termynal.js when include_assets is true.",
             ],
         }
 

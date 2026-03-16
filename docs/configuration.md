@@ -5,6 +5,9 @@
 | title                | `"bash"`    |                        |
 | buttons              | `"macos"`   | `"macos"`, `"windows"` |
 | prompt_literal_start | `["$"]`     |                        |
+| include_assets       | `false`     |                        |
+| assets_override_css  | `null`      | path to custom css file |
+| assets_override_js   | `null`      | path to custom js file  |
 
 ```yaml
 plugins:
@@ -13,6 +16,9 @@ plugins:
       buttons: macos
       prompt_literal_start:
         - "$"
+      include_assets: false
+      assets_override_css: null
+      assets_override_js: null
 ```
 
 You can override configurations for each block. If you set a part of the settings, the other part will be set to the default value from `mkdocs.yml`.

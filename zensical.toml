@@ -1,0 +1,43 @@
+[project]
+site_name = "Termynal"
+site_description = "A lightweight and modern animated terminal window for zensical"
+site_url = "https://termynal.github.io/termynal.py/"
+repo_name = "termynal/termynal.py"
+repo_url = "https://github.com/termynal/termynal.py"
+edit_uri = "edit/main/docs/"
+dev_addr = "localhost:8000"
+nav = [
+  { Home = "README.md" },
+  { Configuration = "configuration.md" },
+  { Contributing = "contributing.md" },
+  { Changelog = "changelog.md" },
+  { "Code of Conduct" = "code-of-conduct.md" },
+]
+
+[project.markdown_extensions.admonition]
+
+[project.markdown_extensions.codehilite]
+
+[project.markdown_extensions."markdown_include.include"]
+base_path = "."
+
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+use_pygments = true
+
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
+]
+
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+
+[project.markdown_extensions.termynal]
+title = "shell"
+buttons = "macos"
+prompt_literal_start = ["$", ">", ">>>"]
+include_assets = true
