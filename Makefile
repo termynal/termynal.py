@@ -65,13 +65,24 @@ lint:  ## Check code
 format:  ## Formatting code
 	$(RUNNER) ruff format $(CODE)
 
-.PHONY: docs
-docs:  ## Build docs
+.PHONY: docs-mkdocs
+docs-mkdocs:  ## Build docs with mkdocs
 	$(RUNNER) mkdocs build -s -v
 
+.PHONY: docs-zensical
+docs-zensical:  ## Build docs with zensical
+	$(RUNNER) zensical build
+
+.PHONY: docs
+docs: docs-mkdocs  ## Build docs
+
 .PHONY: docs-serve
-docs-serve:  ## Serve docs
+docs-serve:  ## Serve docs with mkdocs
 	$(RUNNER) mkdocs serve
+
+.PHONY: docs-serve-zensical
+docs-serve-zensical:  ## Serve docs with zensical
+	$(RUNNER) zensical serve
 
 .PHONY: bump
 bump:  ## Bump version (commit and tag)

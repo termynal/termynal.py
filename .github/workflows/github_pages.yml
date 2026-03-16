@@ -15,7 +15,7 @@ jobs:
         run: make install-uv install-docs
 
       - name: Generate docs
-        run: make docs
+        run: make docs-zensical
 
       - name: Deploy pages
         uses: peaceiris/actions-gh-pages@v4
