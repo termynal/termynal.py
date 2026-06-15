@@ -8,6 +8,7 @@
 | include_assets       | `false`     |                        |
 | assets_override_css  | `null`      | path to custom css file |
 | assets_override_js   | `null`      | path to custom js file  |
+| animate              | `true`      | `false` renders instantly, without animation |
 
 ```yaml
 plugins:
@@ -19,6 +20,7 @@ plugins:
       include_assets: false
       assets_override_css: null
       assets_override_js: null
+      animate: true
 ```
 
 You can override configurations for each block. If you set a part of the settings, the other part will be set to the default value from `mkdocs.yml`.
@@ -37,4 +39,24 @@ PS > python
 ```
 PS > python
 >>> import json
+```
+
+Set `animate: false` to render a block instantly, without the typing animation:
+
+`<!-- termynal: animate: false -->`
+
+````
+```
+$ pip install termynal
+---> 100%
+Installed
+```
+````
+
+<!-- termynal: animate: false -->
+
+```
+$ pip install termynal
+---> 100%
+Installed
 ```
