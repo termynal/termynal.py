@@ -120,3 +120,20 @@ block or pre-commit hook to keep the output fresh. Useful flags:
 | `--cwd` | Working directory for the command. |
 | `--no-color` / `--no-ansi` | Capture without color / omit `ansi: true`. |
 | `--pty` / `--no-pty` | Force / disable the pseudo-terminal (auto: on with color on POSIX). |
+
+!!! tip "Recommended workflow: generate, then commit"
+    termynal never runs anything at render time, and `termynal.exec` is a
+    separate authoring step — so generate the block once and commit it, keeping
+    your page source short:
+
+    ```
+    python -m termynal.exec "uv -h" >> docs/cli.md
+    ```
+
+    Re-run it when the tool changes. To keep many `--help` blocks fresh
+    automatically, drive the helper from a
+    [cog](https://nedbatchelder.com/code/cog/) block or a pre-commit hook and add
+    `cog --check` in CI. Avoid wiring the execution into the site build itself:
+    committing the generated block keeps the rendered output identical across
+    `mkdocs serve` and the published site, and keeps the build a pure, safe
+    text-to-HTML step.
