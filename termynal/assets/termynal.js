@@ -33,9 +33,6 @@ class Termynal {
             || parseFloat(this.container.getAttribute(`${this.pfx}-progressPercent`)) || 100;
         this.cursor = options.cursor
             || this.container.getAttribute(`${this.pfx}-cursor`) || '▋';
-        // `animate: false` (or data-ty-animate="false") renders instantly.
-        // Note: we can't reuse the *Delay attributes for this because the
-        // `|| default` fallbacks above treat a "0" value as falsy.
         this.animate = options.animate != null
             ? options.animate
             : this.container.getAttribute(`${this.pfx}-animate`) !== 'false';
