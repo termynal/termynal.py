@@ -126,6 +126,24 @@ def test_ansi_disabled_keeps_escape_codes_literal():
     assert "color: #aa0000" not in html
 
 
+@pytest.mark.parametrize(
+    "line",
+    [
+        "\x1b[31mno reset",
+        "\x1b[ broken \x1b[0m",
+        "\x1b[2J\x1b[1;1Hcursor codes",
+        "carriage\rreturn",
+        "\x1b[7mreverse\x1b[0m",
+        "abc\x08\x08\x1b[32mxy\x1b[0m",
+    ],
+    ids=["no-reset", "broken", "cursor-codes", "carriage-return", "reverse", "backspace"],
+)
+def test_ansi_handles_malformed_input_without_raising(line: str):
+    md = "<!-- termynal: ansi: true -->\n```\n" + line + "\n```\n"
+    html = markdown(md, extensions=["fenced_code", TermynalExtension(ansi=True)])
+    assert html.count("<span") == html.count("</span>")
+
+
 def test_ansi_does_not_alter_ansi_free_output():
     md = "<!-- termynal -->\n```\n$ echo hi\nplain \"quoted\" & <stuff>\n```\n"
     off = markdown(md, extensions=["fenced_code", TermynalExtension(ansi=False)])

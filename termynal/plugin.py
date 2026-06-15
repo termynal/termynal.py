@@ -6,6 +6,8 @@ from mkdocs.config import base
 from mkdocs.config import config_options as c
 from mkdocs.plugins import BasePlugin
 
+from termynal.markdown import ANSI_SCHEMES, DEFAULT_ANSI_SCHEME
+
 if TYPE_CHECKING:  # pragma:no cover
     from mkdocs.config.defaults import MkDocsConfig
 
@@ -20,19 +22,7 @@ class TermynalPluginConfig(base.Config):
     assets_override_css = c.Optional(c.Type(str))
     assets_override_js = c.Optional(c.Type(str))
     ansi = c.Type(bool, default=False)
-    ansi_scheme = c.Choice(
-        (
-            "ansi2html",
-            "dracula",
-            "mint-terminal",
-            "osx",
-            "osx-basic",
-            "osx-solid-colors",
-            "solarized",
-            "xterm",
-        ),
-        default="xterm",
-    )
+    ansi_scheme = c.Choice(ANSI_SCHEMES, default=DEFAULT_ANSI_SCHEME)
     ansi_dark_bg = c.Type(bool, default=True)
 
 
