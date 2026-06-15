@@ -87,6 +87,7 @@ include_assets = true
 title = "bash"
 buttons = "macos"
 prompt_literal_start = ["$"]
+ansi = false
 ```
 
 You can override default assets with your own files:

@@ -1,5 +1,7 @@
 # Configuration
 
+## Options
+
 | **name**             | **default** |                        |
 |----------------------|-------------|------------------------|
 | title                | `"bash"`    |                        |
@@ -11,6 +13,10 @@
 | ansi                 | `false`     | render ANSI colors as HTML |
 | ansi_scheme          | `"xterm"`   | `ansi2html`, `dracula`, `mint-terminal`, `osx`, `osx-basic`, `osx-solid-colors`, `solarized`, `xterm` |
 | ansi_dark_bg         | `true`      | dark-background palette variant |
+
+## Global configuration
+
+Set defaults for every block in `mkdocs.yml`:
 
 ```yaml
 plugins:
@@ -27,7 +33,11 @@ plugins:
       ansi_dark_bg: true
 ```
 
+## Per-block overrides
+
 You can override configurations for each block. If you set a part of the settings, the other part will be set to the default value from `mkdocs.yml`.
+
+### Custom prompt and buttons
 
 `<!-- termynal: {"prompt_literal_start": ["$", ">>>", "PS >"], title: powershell, buttons: windows} -->`
 
@@ -45,7 +55,7 @@ PS > python
 >>> import json
 ```
 
-## Colored output
+### Colored output
 
 With `ansi: true` (requires `pip install 'termynal[ansi]'`), ANSI color
 sequences from tools like [rich](https://github.com/Textualize/rich) and
