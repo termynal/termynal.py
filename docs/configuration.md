@@ -43,16 +43,6 @@ PS > python
 
 Set `animate: false` to render a block instantly, without the typing animation:
 
-`<!-- termynal: animate: false -->`
-
-````
-```
-$ pip install termynal
----> 100%
-Installed
-```
-````
-
 <!-- termynal: animate: false -->
 
 ```
