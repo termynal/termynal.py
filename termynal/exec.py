@@ -37,16 +37,25 @@ def run_command(
     env: Optional[Dict[str, str]] = None,
     color: bool = True,
     merge_stderr: bool = True,
-    use_pty: bool = False,
+    use_pty: Optional[bool] = None,
 ) -> str:
     """Run ``command`` and return its captured output as text.
 
     ``columns`` pins terminal width so output wrapping is reproducible.
     ``color`` sets ``FORCE_COLOR``/``NO_COLOR`` so ANSI is kept (or dropped)
-    even though stdout is captured rather than a TTY. ``use_pty`` runs the
-    command under a pseudo-terminal (POSIX only) for CLIs that ignore
-    ``FORCE_COLOR`` and check ``isatty`` directly.
+    even though stdout is captured rather than a TTY.
+
+    ``use_pty`` runs the command under a pseudo-terminal so even CLIs that
+    ignore ``FORCE_COLOR`` and check ``isatty`` directly (e.g. ``uv``) emit
+    color. It defaults to ``None`` = auto: enabled when ``color`` is requested
+    and the platform is POSIX, off otherwise. Pass ``True``/``False`` to force
+    it. A pty interleaves stdout and stderr, so ``merge_stderr`` only applies to
+    the non-pty path; force ``use_pty=False`` when you need the streams kept
+    apart.
     """
+    if use_pty is None:
+        use_pty = color and os.name == "posix"
+
     run_env = dict(os.environ if env is None else env)
     run_env["COLUMNS"] = str(columns)
     if color:
@@ -231,9 +240,20 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     parser.add_argument(
         "--pty",
         action="store_true",
-        help="Run under a pseudo-terminal (POSIX) for CLIs that check isatty.",
+        help="Force a pseudo-terminal (POSIX). On by default when color is on.",
+    )
+    parser.add_argument(
+        "--no-pty",
+        action="store_true",
+        help="Force the plain pipe path even when capturing color.",
     )
     args = parser.parse_args(argv)
+
+    use_pty: Optional[bool] = None
+    if args.no_pty:
+        use_pty = False
+    elif args.pty:
+        use_pty = True
 
     # A single quoted argument like "mytool --help" is split into argv.
     command = shlex.split(args.command[0]) if len(args.command) == 1 else args.command
@@ -248,7 +268,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         timeout=args.timeout,
         cwd=args.cwd,
         color=not args.no_color,
-        use_pty=args.pty,
+        use_pty=use_pty,
     )
     sys.stdout.write(block)
     return 0

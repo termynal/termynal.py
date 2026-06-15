@@ -91,10 +91,18 @@ $ python -m termynal.exec "mytool --help" --title mytool
 <!-- termynal: {ansi: true, title: mytool} -->
 ```
 
-It runs the command with `FORCE_COLOR=1` and a fixed `COLUMNS` width (so wrapping
-is reproducible), captures stdout and stderr, and emits the block. Colors come
-through for tools that honor `FORCE_COLOR` such as rich, typer, and click; add
-`--pty` for CLIs that check `isatty` directly (POSIX only).
+It runs the command with a fixed `COLUMNS` width (so wrapping is reproducible),
+captures the output, and emits the block. To make color survive being captured,
+on POSIX it runs the command under a pseudo-terminal by default, so even tools
+that check `isatty` directly (such as `uv`) come through colored — no flag
+needed:
+
+```
+$ python -m termynal.exec "uv -h"
+```
+
+On Windows it falls back to `FORCE_COLOR=1` (honored by rich, typer, click).
+Use `--no-pty` if you need stdout and stderr kept apart instead of interleaved.
 
 The helper adds **no dependencies** of its own (standard library only), and the
 command it runs is your own tool, already installed in your docs environment.
@@ -111,4 +119,4 @@ block or pre-commit hook to keep the output fresh. Useful flags:
 | `--timeout` | Seconds before the command is killed (default `30`). |
 | `--cwd` | Working directory for the command. |
 | `--no-color` / `--no-ansi` | Capture without color / omit `ansi: true`. |
-| `--pty` | Run under a pseudo-terminal for stubborn CLIs. |
+| `--pty` / `--no-pty` | Force / disable the pseudo-terminal (auto: on with color on POSIX). |

@@ -1,4 +1,5 @@
 # pylint:disable=invalid-name
+import os
 import sys
 
 import pytest
@@ -12,6 +13,12 @@ from termynal.markdown import TermynalExtension
 ANSI_SNIPPET = (
     "import sys; "
     r"sys.stdout.write('\x1b[31mred\x1b[0m and \x1b[32mgreen\x1b[0m\n')"
+)
+
+# Emits ANSI only when stdout is a real terminal, so it tells pty from pipe.
+ISATTY_SNIPPET = (
+    "import sys; "
+    r"sys.stdout.write('\x1b[31mred\x1b[0m\n' if sys.stdout.isatty() else 'plain\n')"
 )
 
 
@@ -29,12 +36,26 @@ def test_run_command_merges_stderr_by_default():
 
 
 def test_run_command_can_drop_stderr():
+    # merge_stderr only applies to the pipe path; a pty interleaves streams.
     out = run_command(
         [sys.executable, "-c", "import sys; print('out'); print('err', file=sys.stderr)"],
         merge_stderr=False,
+        use_pty=False,
     )
     assert "out" in out
     assert "err" not in out
+
+
+@pytest.mark.skipif(os.name != "posix", reason="pty is POSIX-only")
+def test_color_uses_pty_by_default_on_posix():
+    # No use_pty argument: color capture should auto-enable the pty.
+    out = run_command([sys.executable, "-c", ISATTY_SNIPPET])
+    assert "\x1b[31m" in out
+
+
+def test_no_pty_falls_back_to_pipe():
+    out = run_command([sys.executable, "-c", ISATTY_SNIPPET], use_pty=False)
+    assert out.strip() == "plain"
 
 
 def test_run_command_times_out():
