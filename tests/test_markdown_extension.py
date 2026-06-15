@@ -113,7 +113,7 @@ def test_animate_is_enabled_by_default():
         md,
         extensions=["fenced_code", TermynalExtension()],
     )
-    assert 'data-ty-lineDelay="0"' not in html
+    assert "data-ty-animate" not in html
 
 
 def test_animate_disabled_globally():
@@ -122,9 +122,7 @@ def test_animate_disabled_globally():
         md,
         extensions=["fenced_code", TermynalExtension(animate=False)],
     )
-    assert 'data-ty-startDelay="0"' in html
-    assert 'data-ty-typeDelay="0"' in html
-    assert 'data-ty-lineDelay="0"' in html
+    assert 'data-ty-animate="false"' in html
 
 
 def test_animate_per_block_override_disables():
@@ -133,7 +131,7 @@ def test_animate_per_block_override_disables():
         md,
         extensions=["fenced_code", TermynalExtension()],
     )
-    assert 'data-ty-lineDelay="0"' in html
+    assert 'data-ty-animate="false"' in html
 
 
 def test_animate_per_block_override_enables():
@@ -142,4 +140,4 @@ def test_animate_per_block_override_enables():
         md,
         extensions=["fenced_code", TermynalExtension(animate=False)],
     )
-    assert 'data-ty-lineDelay="0"' not in html
+    assert "data-ty-animate" not in html

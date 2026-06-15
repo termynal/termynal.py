@@ -217,11 +217,7 @@ class Termynal:
         - If a line starts with anything else, it is an output.
         """
         code_lines: List[str] = []
-        animate_attrs = (
-            ""
-            if self.config.animate
-            else ' data-ty-startDelay="0" data-ty-typeDelay="0" data-ty-lineDelay="0"'
-        )
+        animate_attrs = "" if self.config.animate else ' data-ty-animate="false"'
         code_lines.append(
             f'<div class="termy" data-termynal data-ty-{self.config.buttons.value} '
             f'data-ty-title="{self.config.title}"{animate_attrs}>',
