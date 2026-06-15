@@ -29,6 +29,23 @@ $ python script.py
 ```
 ````
 
+### Animation
+
+Animation is enabled by default. To render a block instantly (no typing or
+line delays), set `animate: false` on that block:
+
+````markdown
+<!-- termynal: animate: false -->
+
+```
+$ python script.py
+```
+````
+
+You can also disable animation for every block by default and re-enable it on
+individual blocks with `<!-- termynal: animate: true -->`. The default is set
+in the plugin/extension config (see below).
+
 ### Mkdocs integration
 
 Declare the plugin:
@@ -49,6 +66,17 @@ plugins:
       prompt_literal_start:
         - "$"
         - ">"
+[...]
+```
+
+To turn off animation globally (each block can still opt back in with
+`<!-- termynal: animate: true -->`):
+
+```yaml
+[...]
+plugins:
+  - termynal:
+      animate: false
 [...]
 ```
 
@@ -87,6 +115,7 @@ include_assets = true
 title = "bash"
 buttons = "macos"
 prompt_literal_start = ["$"]
+animate = true
 ```
 
 You can override default assets with your own files:
