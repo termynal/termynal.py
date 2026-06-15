@@ -39,6 +39,7 @@ class Config(NamedTuple):
     include_assets: bool
     assets_override_css: Optional[str]
     assets_override_js: Optional[str]
+    animate: bool
 
 
 class Command(NamedTuple):
@@ -140,6 +141,11 @@ def parse_config_from_dict(
     if assets_override_js is not None:
         assets_override_js = str(assets_override_js).strip() or None
 
+    animate_default = default.animate if default else True
+    animate = config.get("animate", animate_default)
+    if not isinstance(animate, bool):
+        animate = animate_default
+
     return Config(
         title=str(config.get("title", default.title if default else "bash")),
         prompt_literal_start=list(
@@ -152,6 +158,7 @@ def parse_config_from_dict(
         include_assets=include_assets,
         assets_override_css=assets_override_css,
         assets_override_js=assets_override_js,
+        animate=animate,
     )
 
 
@@ -210,9 +217,14 @@ class Termynal:
         - If a line starts with anything else, it is an output.
         """
         code_lines: List[str] = []
+        animate_attrs = (
+            ""
+            if self.config.animate
+            else ' data-ty-startDelay="0" data-ty-typeDelay="0" data-ty-lineDelay="0"'
+        )
         code_lines.append(
             f'<div class="termy" data-termynal data-ty-{self.config.buttons.value} '
-            f'data-ty-title="{self.config.title}">',
+            f'data-ty-title="{self.config.title}"{animate_attrs}>',
         )
 
         for block in self._parse(code.split("\n")):
@@ -367,6 +379,12 @@ class TermynalExtension(Extension):
                 "",
                 "Path to a custom JS file to inline instead of the built-in "
                 "termynal.js when include_assets is true.",
+            ],
+            "animate": [
+                True,
+                "Animate the terminal output. Set to false to render instantly "
+                "without typing/line delays. Can be overridden per block. "
+                "Default: True",
             ],
         }
 

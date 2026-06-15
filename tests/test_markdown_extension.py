@@ -105,3 +105,41 @@ $ echo termynal
     assert ".termy { border: 1px solid red; }" in html
     assert "window.__termynal_override = true;" in html
     assert "data-terminal-control" not in html
+
+
+def test_animate_is_enabled_by_default():
+    md = "<!-- termynal -->\n```\n$ echo hi\n```\n"
+    html = markdown(
+        md,
+        extensions=["fenced_code", TermynalExtension()],
+    )
+    assert 'data-ty-lineDelay="0"' not in html
+
+
+def test_animate_disabled_globally():
+    md = "<!-- termynal -->\n```\n$ echo hi\n```\n"
+    html = markdown(
+        md,
+        extensions=["fenced_code", TermynalExtension(animate=False)],
+    )
+    assert 'data-ty-startDelay="0"' in html
+    assert 'data-ty-typeDelay="0"' in html
+    assert 'data-ty-lineDelay="0"' in html
+
+
+def test_animate_per_block_override_disables():
+    md = "<!-- termynal: animate: false -->\n```\n$ echo hi\n```\n"
+    html = markdown(
+        md,
+        extensions=["fenced_code", TermynalExtension()],
+    )
+    assert 'data-ty-lineDelay="0"' in html
+
+
+def test_animate_per_block_override_enables():
+    md = "<!-- termynal: animate: true -->\n```\n$ echo hi\n```\n"
+    html = markdown(
+        md,
+        extensions=["fenced_code", TermynalExtension(animate=False)],
+    )
+    assert 'data-ty-lineDelay="0"' not in html
