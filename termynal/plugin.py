@@ -19,6 +19,7 @@ class TermynalPluginConfig(base.Config):
     include_assets = c.Type(bool, default=False)
     assets_override_css = c.Optional(c.Type(str))
     assets_override_js = c.Optional(c.Type(str))
+    ansi = c.Type(bool, default=False)
 
 
 class TermynalPlugin(BasePlugin[TermynalPluginConfig]):

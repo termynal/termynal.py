@@ -23,9 +23,11 @@ Documentation = "https://termynal.github.io/termynal.py/"
 
 [project.optional-dependencies]
 mkdocs = ["mkdocs >= 1.4"]
+ansi = ["ansi2html >= 1.8"]
 
 [dependency-groups]
 dev = [
+    "ansi2html >= 1.8",
     "mypy >= 1.13.0",
     "pytest >= 7.4",
     "pytest-cov >= 4.1",

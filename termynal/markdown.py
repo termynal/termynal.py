@@ -39,6 +39,7 @@ class Config(NamedTuple):
     include_assets: bool
     assets_override_css: Optional[str]
     assets_override_js: Optional[str]
+    ansi: bool
 
 
 class Command(NamedTuple):
@@ -81,6 +82,28 @@ def escape(txt: str) -> str:
     txt = txt.replace(">", "&gt;")
     txt = txt.replace('"', "&quot;")
     return txt  # noqa:RET504
+
+
+def ansi_escape(code: str) -> str:
+    """Escape ``code`` while turning ANSI color sequences into HTML spans.
+
+    Each line is converted independently so color spans are always balanced
+    within a line (termynal renders every output line as its own element).
+    Literal text is HTML-escaped by ``ansi2html`` itself, so the result is a
+    drop-in replacement for :func:`escape` when ANSI support is enabled.
+    """
+    try:
+        from ansi2html import Ansi2HTMLConverter
+    except ImportError as exc:  # pragma:no cover
+        raise ImportError(
+            "ANSI support requires the 'ansi2html' package. "
+            "Install it with: pip install 'termynal[ansi]'",
+        ) from exc
+
+    converter = Ansi2HTMLConverter(inline=True)
+    return "\n".join(
+        converter.convert(line, full=False) for line in code.split("\n")
+    )
 
 
 def remove_spaces(code: str, spaces: str) -> str:
@@ -140,6 +163,11 @@ def parse_config_from_dict(
     if assets_override_js is not None:
         assets_override_js = str(assets_override_js).strip() or None
 
+    ansi_default = default.ansi if default else False
+    ansi = config.get("ansi", ansi_default)
+    if not isinstance(ansi, bool):
+        ansi = ansi_default
+
     return Config(
         title=str(config.get("title", default.title if default else "bash")),
         prompt_literal_start=list(
@@ -152,6 +180,7 @@ def parse_config_from_dict(
         include_assets=include_assets,
         assets_override_css=assets_override_css,
         assets_override_js=assets_override_js,
+        ansi=ansi,
     )
 
 
@@ -320,8 +349,9 @@ class TermynalPreprocessor(Preprocessor):
                     if config:
                         termynal = Termynal(config)
 
+                escaper = ansi_escape if termynal.config.ansi else escape
                 converted_code = add_spaces(
-                    termynal.convert(escape(remove_spaces(code, spaces))),
+                    termynal.convert(escaper(remove_spaces(code, spaces))),
                     spaces,
                 )
                 text = f"{text[:start]}\n{converted_code}\n{text[end:]}"
@@ -367,6 +397,12 @@ class TermynalExtension(Extension):
                 "",
                 "Path to a custom JS file to inline instead of the built-in "
                 "termynal.js when include_assets is true.",
+            ],
+            "ansi": [
+                False,
+                "Convert ANSI color sequences (e.g. from rich/typer output) into "
+                "HTML spans instead of escaping them. Requires the 'ansi2html' "
+                "package. Default: False",
             ],
         }
 

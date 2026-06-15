@@ -105,3 +105,35 @@ $ echo termynal
     assert ".termy { border: 1px solid red; }" in html
     assert "window.__termynal_override = true;" in html
     assert "data-terminal-control" not in html
+
+
+def test_ansi_output_is_converted_to_spans():
+    md = "<!-- termynal -->\n```\n$ run\n\x1b[31mred\x1b[0m line\n```\n"
+    html = markdown(
+        md,
+        extensions=["fenced_code", TermynalExtension(ansi=True)],
+    )
+    assert '<span style="color: #aa0000">red</span> line' in html
+    # The command line stays a normal termynal input.
+    assert '<span data-ty="input" data-ty-prompt="$">run</span>' in html
+
+
+def test_ansi_disabled_keeps_escape_codes_literal():
+    md = "<!-- termynal -->\n```\n\x1b[31mred\x1b[0m line\n```\n"
+    html = markdown(
+        md,
+        extensions=["fenced_code", TermynalExtension()],
+    )
+    assert "color: #aa0000" not in html
+
+
+def test_ansi_per_block_override():
+    md = (
+        "<!-- termynal: ansi: true -->\n"
+        "```\n$ run\n\x1b[32mgreen\x1b[0m\n```\n"
+    )
+    html = markdown(
+        md,
+        extensions=["fenced_code", TermynalExtension()],
+    )
+    assert "color: #00aa00" in html
