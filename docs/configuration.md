@@ -79,3 +79,36 @@ An extremely fast Python package manager.
   [1m[36mlock[0m     Update the project's lockfile
 ```
 
+#### Generating blocks from a command
+
+Pasting `--help` output by hand goes stale. The `termynal.exec` helper runs a
+command for you and prints a ready-to-paste, colored termynal block. It is a
+standalone authoring step — termynal itself never executes anything, so pages
+stay a pure text-to-HTML transform.
+
+```
+$ python -m termynal.exec "mytool --help" --title mytool
+<!-- termynal: {ansi: true, title: mytool} -->
+```
+
+It runs the command with `FORCE_COLOR=1` and a fixed `COLUMNS` width (so wrapping
+is reproducible), captures stdout and stderr, and emits the block. Colors come
+through for tools that honor `FORCE_COLOR` such as rich, typer, and click; add
+`--pty` for CLIs that check `isatty` directly (POSIX only).
+
+The helper adds **no dependencies** of its own (standard library only), and the
+command it runs is your own tool, already installed in your docs environment.
+Rendering the captured ANSI still needs `pip install 'termynal[ansi]'`.
+
+Pipe it into a page, or wire it into a [cog](https://nedbatchelder.com/code/cog/)
+block or pre-commit hook to keep the output fresh. Useful flags:
+
+| Flag | Purpose |
+| --- | --- |
+| `--title` | Terminal title for the block. |
+| `--prompt` | Prompt shown before the command (default `$`). |
+| `--columns` | Width passed to the command (default `80`). |
+| `--timeout` | Seconds before the command is killed (default `30`). |
+| `--cwd` | Working directory for the command. |
+| `--no-color` / `--no-ansi` | Capture without color / omit `ansi: true`. |
+| `--pty` | Run under a pseudo-terminal for stubborn CLIs. |
