@@ -126,6 +126,13 @@ def test_ansi_disabled_keeps_escape_codes_literal():
     assert "color: #aa0000" not in html
 
 
+def test_ansi_does_not_alter_ansi_free_output():
+    md = "<!-- termynal -->\n```\n$ echo hi\nplain \"quoted\" & <stuff>\n```\n"
+    off = markdown(md, extensions=["fenced_code", TermynalExtension(ansi=False)])
+    on = markdown(md, extensions=["fenced_code", TermynalExtension(ansi=True)])
+    assert off == on
+
+
 def test_ansi_default_scheme_is_xterm():
     md = "<!-- termynal -->\n```\n\x1b[31mred\x1b[0m\n```\n"
     html = markdown(md, extensions=["fenced_code", TermynalExtension(ansi=True)])

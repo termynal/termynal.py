@@ -106,20 +106,27 @@ def ansi_escape(
 ) -> str:
     """Escape ``code``, turning ANSI color sequences into HTML spans.
 
-    Converted per line so spans stay balanced within each terminal line.
+    Lines without an escape sequence are passed through :func:`escape`
+    unchanged, so enabling ``ansi`` does not alter ANSI-free output. Lines that
+    do contain ANSI are converted individually, keeping spans balanced per line.
     """
-    try:
-        from ansi2html import Ansi2HTMLConverter
-    except ImportError as exc:  # pragma:no cover
-        raise ImportError(
-            "ANSI support requires the 'ansi2html' package. "
-            "Install it with: pip install 'termynal[ansi]'",
-        ) from exc
-
-    converter = Ansi2HTMLConverter(inline=True, scheme=scheme, dark_bg=dark_bg)
-    return "\n".join(
-        converter.convert(line, full=False) for line in code.split("\n")
-    )
+    converter = None
+    result = []
+    for line in code.split("\n"):
+        if "\x1b" not in line:
+            result.append(escape(line))
+            continue
+        if converter is None:
+            try:
+                from ansi2html import Ansi2HTMLConverter
+            except ImportError as exc:  # pragma:no cover
+                raise ImportError(
+                    "ANSI support requires the 'ansi2html' package. "
+                    "Install it with: pip install 'termynal[ansi]'",
+                ) from exc
+            converter = Ansi2HTMLConverter(inline=True, scheme=scheme, dark_bg=dark_bg)
+        result.append(converter.convert(line, full=False))
+    return "\n".join(result)
 
 
 def remove_spaces(code: str, spaces: str) -> str:
@@ -257,6 +264,12 @@ class Termynal:
         self.progress_literal_start = progress_literal_start
         self.comment_literal_start = comment_literal_start
 
+    def escape(self, code: str) -> str:
+        """Escape code, converting ANSI to spans when ``ansi`` is enabled."""
+        if self.config.ansi:
+            return ansi_escape(code, self.config.ansi_scheme, self.config.ansi_dark_bg)
+        return escape(code)
+
     def convert(self, code: str) -> str:
         """Converts bash code to termynal HTML.
 
@@ -377,16 +390,7 @@ class TermynalPreprocessor(Preprocessor):
                     if config:
                         termynal = Termynal(config)
 
-                cleaned = remove_spaces(code, spaces)
-                escaped = (
-                    ansi_escape(
-                        cleaned,
-                        termynal.config.ansi_scheme,
-                        termynal.config.ansi_dark_bg,
-                    )
-                    if termynal.config.ansi
-                    else escape(cleaned)
-                )
+                escaped = termynal.escape(remove_spaces(code, spaces))
                 converted_code = add_spaces(termynal.convert(escaped), spaces)
                 text = f"{text[:start]}\n{converted_code}\n{text[end:]}"
                 termynal = default_termynal
