@@ -32,6 +32,19 @@ class Buttons(str, Enum):
     WINDOWS = "windows"
 
 
+ANSI_SCHEMES = (
+    "ansi2html",
+    "dracula",
+    "mint-terminal",
+    "osx",
+    "osx-basic",
+    "osx-solid-colors",
+    "solarized",
+    "xterm",
+)
+DEFAULT_ANSI_SCHEME = "xterm"
+
+
 class Config(NamedTuple):
     title: str
     prompt_literal_start: Sequence[str]
@@ -40,6 +53,8 @@ class Config(NamedTuple):
     assets_override_css: Optional[str]
     assets_override_js: Optional[str]
     ansi: bool
+    ansi_scheme: str
+    ansi_dark_bg: bool
 
 
 class Command(NamedTuple):
@@ -84,13 +99,14 @@ def escape(txt: str) -> str:
     return txt  # noqa:RET504
 
 
-def ansi_escape(code: str) -> str:
-    """Escape ``code`` while turning ANSI color sequences into HTML spans.
+def ansi_escape(
+    code: str,
+    scheme: str = DEFAULT_ANSI_SCHEME,
+    dark_bg: bool = True,
+) -> str:
+    """Escape ``code``, turning ANSI color sequences into HTML spans.
 
-    Each line is converted independently so color spans are always balanced
-    within a line (termynal renders every output line as its own element).
-    Literal text is HTML-escaped by ``ansi2html`` itself, so the result is a
-    drop-in replacement for :func:`escape` when ANSI support is enabled.
+    Converted per line so spans stay balanced within each terminal line.
     """
     try:
         from ansi2html import Ansi2HTMLConverter
@@ -100,7 +116,7 @@ def ansi_escape(code: str) -> str:
             "Install it with: pip install 'termynal[ansi]'",
         ) from exc
 
-    converter = Ansi2HTMLConverter(inline=True)
+    converter = Ansi2HTMLConverter(inline=True, scheme=scheme, dark_bg=dark_bg)
     return "\n".join(
         converter.convert(line, full=False) for line in code.split("\n")
     )
@@ -168,6 +184,16 @@ def parse_config_from_dict(
     if not isinstance(ansi, bool):
         ansi = ansi_default
 
+    ansi_scheme_default = default.ansi_scheme if default else DEFAULT_ANSI_SCHEME
+    ansi_scheme = config.get("ansi_scheme", ansi_scheme_default)
+    if ansi_scheme not in ANSI_SCHEMES:
+        ansi_scheme = ansi_scheme_default
+
+    ansi_dark_bg_default = default.ansi_dark_bg if default else True
+    ansi_dark_bg = config.get("ansi_dark_bg", ansi_dark_bg_default)
+    if not isinstance(ansi_dark_bg, bool):
+        ansi_dark_bg = ansi_dark_bg_default
+
     return Config(
         title=str(config.get("title", default.title if default else "bash")),
         prompt_literal_start=list(
@@ -181,6 +207,8 @@ def parse_config_from_dict(
         assets_override_css=assets_override_css,
         assets_override_js=assets_override_js,
         ansi=ansi,
+        ansi_scheme=ansi_scheme,
+        ansi_dark_bg=ansi_dark_bg,
     )
 
 
@@ -349,11 +377,17 @@ class TermynalPreprocessor(Preprocessor):
                     if config:
                         termynal = Termynal(config)
 
-                escaper = ansi_escape if termynal.config.ansi else escape
-                converted_code = add_spaces(
-                    termynal.convert(escaper(remove_spaces(code, spaces))),
-                    spaces,
+                cleaned = remove_spaces(code, spaces)
+                escaped = (
+                    ansi_escape(
+                        cleaned,
+                        termynal.config.ansi_scheme,
+                        termynal.config.ansi_dark_bg,
+                    )
+                    if termynal.config.ansi
+                    else escape(cleaned)
                 )
+                converted_code = add_spaces(termynal.convert(escaped), spaces)
                 text = f"{text[:start]}\n{converted_code}\n{text[end:]}"
                 termynal = default_termynal
             else:
@@ -403,6 +437,16 @@ class TermynalExtension(Extension):
                 "Convert ANSI color sequences (e.g. from rich/typer output) into "
                 "HTML spans instead of escaping them. Requires the 'ansi2html' "
                 "package. Default: False",
+            ],
+            "ansi_scheme": [
+                DEFAULT_ANSI_SCHEME,
+                "Palette for the 16 base ANSI colors when ansi is enabled. One of: "
+                f"{', '.join(ANSI_SCHEMES)}. Default: '{DEFAULT_ANSI_SCHEME}'",
+            ],
+            "ansi_dark_bg": [
+                True,
+                "Use the dark-background palette variant when ansi is enabled. "
+                "Default: True",
             ],
         }
 

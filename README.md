@@ -147,6 +147,26 @@ Paste the raw ANSI output into the code block (e.g. capture it with
 no extra CSS is needed. Colors render on output lines; typed command lines are
 shown as plain text by the animation.
 
+The 16 base ANSI colors are mapped through a palette. The default is `xterm`
+(the canonical reference terminal palette); other options are `ansi2html`,
+`osx`, `osx-basic`, `osx-solid-colors`, `dracula`, `solarized`, and
+`mint-terminal`. 256-color and 24-bit truecolor sequences are always mapped
+faithfully, regardless of the scheme.
+
+```yaml
+[...]
+plugins:
+  - termynal:
+      ansi: true
+      ansi_scheme: xterm
+      ansi_dark_bg: true
+[...]
+```
+
+> Tip: for pixel-exact colors, tell the tool to emit 24-bit color (e.g.
+> `rich.console.Console(color_system="truecolor")`) — the base-color palette is
+> then bypassed entirely.
+
 ## Credits
 
 Thanks [ines](https://github.com/ines/termynal)

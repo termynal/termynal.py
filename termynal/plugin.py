@@ -20,6 +20,20 @@ class TermynalPluginConfig(base.Config):
     assets_override_css = c.Optional(c.Type(str))
     assets_override_js = c.Optional(c.Type(str))
     ansi = c.Type(bool, default=False)
+    ansi_scheme = c.Choice(
+        (
+            "ansi2html",
+            "dracula",
+            "mint-terminal",
+            "osx",
+            "osx-basic",
+            "osx-solid-colors",
+            "solarized",
+            "xterm",
+        ),
+        default="xterm",
+    )
+    ansi_dark_bg = c.Type(bool, default=True)
 
 
 class TermynalPlugin(BasePlugin[TermynalPluginConfig]):

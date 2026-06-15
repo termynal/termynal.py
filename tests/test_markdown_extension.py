@@ -113,8 +113,7 @@ def test_ansi_output_is_converted_to_spans():
         md,
         extensions=["fenced_code", TermynalExtension(ansi=True)],
     )
-    assert '<span style="color: #aa0000">red</span> line' in html
-    # The command line stays a normal termynal input.
+    assert '<span style="color: #cd0000">red</span> line' in html
     assert '<span data-ty="input" data-ty-prompt="$">run</span>' in html
 
 
@@ -127,6 +126,33 @@ def test_ansi_disabled_keeps_escape_codes_literal():
     assert "color: #aa0000" not in html
 
 
+def test_ansi_default_scheme_is_xterm():
+    md = "<!-- termynal -->\n```\n\x1b[31mred\x1b[0m\n```\n"
+    html = markdown(md, extensions=["fenced_code", TermynalExtension(ansi=True)])
+    assert "color: #cd0000" in html
+
+
+def test_ansi_scheme_override():
+    md = "<!-- termynal -->\n```\n\x1b[31mred\x1b[0m\n```\n"
+    html = markdown(
+        md,
+        extensions=["fenced_code", TermynalExtension(ansi=True, ansi_scheme="osx")],
+    )
+    assert "color: #c23621" in html
+
+
+def test_ansi_invalid_scheme_falls_back_to_default():
+    md = "<!-- termynal -->\n```\n\x1b[31mred\x1b[0m\n```\n"
+    html = markdown(
+        md,
+        extensions=[
+            "fenced_code",
+            TermynalExtension(ansi=True, ansi_scheme="not-a-scheme"),
+        ],
+    )
+    assert "color: #cd0000" in html
+
+
 def test_ansi_per_block_override():
     md = (
         "<!-- termynal: ansi: true -->\n"
@@ -136,4 +162,4 @@ def test_ansi_per_block_override():
         md,
         extensions=["fenced_code", TermynalExtension()],
     )
-    assert "color: #00aa00" in html
+    assert "color: #00cd00" in html
