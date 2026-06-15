@@ -934,6 +934,7 @@ dev = [
     { name = "types-pyyaml" },
 ]
 docs = [
+    { name = "ansi2html" },
     { name = "markdown-include" },
     { name = "mkdocs" },
     { name = "mkdocs-material" },
@@ -966,6 +967,7 @@ dev = [
     { name = "types-pyyaml", specifier = ">=6.0" },
 ]
 docs = [
+    { name = "ansi2html", specifier = ">=1.8" },
     { name = "markdown-include", specifier = ">=0.8" },
     { name = "mkdocs", specifier = ">=1.6" },
     { name = "mkdocs-material", specifier = ">=9.5" },

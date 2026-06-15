@@ -39,6 +39,7 @@ dev = [
     "types-pyyaml >= 6.0",
 ]
 docs = [
+    "ansi2html >= 1.8",
     "markdown-include >= 0.8",
     "mkdocs >= 1.6",
     "mkdocs-material >= 9.5",
