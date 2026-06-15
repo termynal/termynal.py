@@ -41,29 +41,22 @@ PS > python
 >>> import json
 ```
 
-Set `animate: false` to render a block instantly, without the typing animation.
-Compare the two blocks below (the "Instant" tab skips the animation entirely):
+Set `animate: false` to render a block instantly, without the typing animation:
 
-=== "Instant"
+`<!-- termynal: animate: false -->`
 
-    `<!-- termynal: animate: false -->`
+````
+```
+$ pip install termynal
+---> 100%
+Installed
+```
+````
 
-    <!-- termynal: animate: false -->
+<!-- termynal: animate: false -->
 
-    ```
-    $ pip install termynal
-    ---> 100%
-    Installed
-    ```
-
-=== "Animated (default)"
-
-    `<!-- termynal -->`
-
-    <!-- termynal -->
-
-    ```
-    $ pip install termynal
-    ---> 100%
-    Installed
-    ```
+```
+$ pip install termynal
+---> 100%
+Installed
+```
