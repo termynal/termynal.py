@@ -33,6 +33,14 @@ class Termynal {
             || parseFloat(this.container.getAttribute(`${this.pfx}-progressPercent`)) || 100;
         this.cursor = options.cursor
             || this.container.getAttribute(`${this.pfx}-cursor`) || '▋';
+        this.animate = options.animate != null
+            ? options.animate
+            : this.container.getAttribute(`${this.pfx}-animate`) !== 'false';
+        if (!this.animate) {
+            this.originalStartDelay = this.startDelay = 0;
+            this.originalTypeDelay = this.typeDelay = 0;
+            this.originalLineDelay = this.lineDelay = 0;
+        }
         this.lineData = this.lineDataToElements(options.lineData || []);
         this.loadLines()
         if (!options.noInit) this.init()
@@ -83,7 +91,7 @@ class Termynal {
      * Start the animation and rener the lines depending on their data attributes.
      */
     async start() {
-        this.addFinish()
+        if (this.animate) this.addFinish()
         await this._wait(this.startDelay);
 
         for (let line of this.lines) {
@@ -108,8 +116,10 @@ class Termynal {
 
             line.removeAttribute(`${this.pfx}-cursor`);
         }
-        this.addRestart()
-        this.finishElement.style.visibility = 'hidden'
+        if (this.animate) {
+            this.addRestart()
+            this.finishElement.style.visibility = 'hidden'
+        }
         this.lineDelay = this.originalLineDelay
         this.typeDelay = this.originalTypeDelay
         this.startDelay = this.originalStartDelay
@@ -160,6 +170,11 @@ class Termynal {
         line.textContent = '';
         this.container.appendChild(line);
 
+        if (!this.animate) {
+            line.textContent = chars.join('');
+            return;
+        }
+
         for (let char of chars) {
             const delay = line.getAttribute(`${this.pfx}-typeDelay`) || this.typeDelay;
             await this._wait(delay);
@@ -181,6 +196,11 @@ class Termynal {
             || this.progressPercent;
         line.textContent = '';
         this.container.appendChild(line);
+
+        if (!this.animate) {
+            line.textContent = `${chars} ${progressPercent}%`;
+            return;
+        }
 
         for (let i = 1; i < chars.length + 1; i++) {
             await this._wait(this.typeDelay);
